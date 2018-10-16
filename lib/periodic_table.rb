@@ -1,5 +1,4 @@
-require "periodic_table/version"
+require_relative "../config/environment.rb"
 
 module PeriodicTable
-  # Your code goes here...
 end
