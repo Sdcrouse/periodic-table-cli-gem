@@ -14,13 +14,36 @@ class PeriodicTable::CLI
   end
   
   def main_menu
-    options = {1: "Quit"}
+    options = {1 => "Help", 2 => "List Elements", 3 => "Quit"}
     yes_or_no = "no"
     user_choice = nil
     
-    puts "Welcome to the Main Menu! Here are your options:"
-    puts "Option 1, Option 2, Option 3"
-    
-    puts "What would you like to do?"
+    until yes_or_no == "y" || yes_or_no == "yes"
+      puts "\nWelcome to the Main Menu! Here are your options:"
+      options.each {|key, value| puts "#{key}. #{value}"}
+      
+      puts "\nWhat would you like to do? Choose from 1-3:"
+      user_choice = gets.strip.to_i
+      
+      case user_choice
+      when 1 
+        help 
+      when 2 
+        list_elements 
+      when 3 
+        puts "Are you sure you want to quit? (N/y):"
+        yes_or_no = gets.strip.downcase
+      else 
+        puts "I don't understand. Please try again."
+      end
+    end
+  end
+  
+  def help 
+    puts "The user was helped."
+  end
+  
+  def list_elements 
+    puts "The elements have been listed"
   end
 end
