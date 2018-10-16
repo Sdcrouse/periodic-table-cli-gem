@@ -1,5 +1,13 @@
 # PeriodicTable
 
+Welcome to the PeriodicTable CLI! If you're here to study chemistry and need some information to reference, or if you just want to get your feet wet with chemistry, then you've come to the right place. (Though be careful not to get your feet wet with the wrong chemicals!)
+
+This gem will allow you to view a list of all 118 known chemical elements. If you'd rather not get overwhelmed by all of those elements, there are also options for displaying shorter lists of elements that fall into specific categories. Additionally, you are able to sort these lists by a chemical element's name, symbol, atomic number, relative atomic mass, and other categories.
+
+Finally, within each list, there is an option to examine an individual element for more information. All of this information has been scraped from https://en.wikipedia.org/wiki/List_of_chemical_elements.
+
+TODO: Delete this and everything before the Installation section. Do NOT delete anything above this sentence!
+
 Welcome to your new gem! In this directory, you'll find the files you need to be able to package up your Ruby library into a gem. Put your Ruby code in the file `lib/periodic_table`. To experiment with that code, run `bin/console` for an interactive prompt.
 
 TODO: Delete this and the text above, and describe your gem
