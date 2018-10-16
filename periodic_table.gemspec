@@ -9,9 +9,9 @@ Gem::Specification.new do |spec|
   spec.authors       = ["'Steven Crouse'"]
   spec.email         = ["'sdcrouse91@gmail.com'"]
 
-  spec.summary       = %q{TODO: Write a short summary, because RubyGems requires one.}
-  spec.description   = %q{TODO: Write a longer description or delete this line.}
-  spec.homepage      = "TODO: Put your gem's website or public repo URL here."
+  spec.summary       = %q{An interactive Periodic Table for the chemist in all of us.}
+  spec.description   = %q{The Periodic Table CLI acts as a reference for people who are interested in and/or studying chemistry. It allows them to see a list of all known chemical elements and examine each element for additional information.}
+  spec.homepage      = "https://github.com/Sdcrouse/periodic-table-cli-gem"
   spec.license       = "MIT"
 
   # Prevent pushing this gem to RubyGems.org. To allow pushes either set the 'allowed_push_host'
