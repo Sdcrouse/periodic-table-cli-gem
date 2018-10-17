@@ -40,7 +40,21 @@ class PeriodicTable::CLI
   end
   
   def help 
-    puts "The user was helped."
+    introduction 
+    describe_main_menu_options
+  end
+  
+  def introduction 
+    puts "\nThe Interactive Periodic Table is designed to mimic a real periodic table by providing information about each of the currently known chemical elements."
+    puts "\nIn this program, you are able to view a list of all the chemical elements, sort the list by a category of your choosing, and examine an individual element for more information." 
+    puts "\nPlease note that you are unable to sort the list or view an individual element unless you choose option 2 from the Main Menu."
+  end 
+  
+  def describe_main_menu_options 
+    puts "\nHere are the Main Menu options:"
+    puts "Press 1 to view this description of the Main Menu options."
+    puts "Press 2 to list all of the chemical elements in the Periodic Table."
+    puts "Press 3 to quit the Interactive Periodic Table."
   end
   
   def list_elements 
