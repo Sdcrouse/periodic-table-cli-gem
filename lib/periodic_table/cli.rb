@@ -58,6 +58,9 @@ class PeriodicTable::CLI
   end
   
   def list_elements 
+    elements = ["hydrogen", "helium", "carbon", "oxygen", "nitrogen", "sulfur", "astatine", "phosphorus", "neon", "xenon", "iron", "lead", "silver", "gold", "sodium"]
+    i = 0
+    elements.each {|element| puts "#{i}. #{element}"; i += 1}
     puts "The elements have been listed"
   end
 end
