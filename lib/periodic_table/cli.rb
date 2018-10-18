@@ -16,22 +16,20 @@ class PeriodicTable::CLI
     puts "Welcome to the Interactive Periodic Table!"
     puts "Ready to start learning some chemistry? (Y/n)"
     start_program = gets.strip.downcase
+    puts "\n"
     
     main_menu unless start_program == "n" || start_program == "no"
   end
   
   def main_menu
-    options = ["List Elements", "Help", "Quit"]
+    menu_options = ["List Elements", "Help", "Quit"]
     yes_or_no = "no"
     user_choice = nil
     
     #call PeriodicTable::Table here. That should then scrape Wikipedia.
     until yes_or_no == "y" || yes_or_no == "yes"
-      puts "\nWelcome to the Main Menu! Here are your options:"
-      options.each.with_index(1) {|option, i| puts "#{i}. #{option}"}
-      
-      puts "\nWhat would you like to do? Choose from the numbered list above:"
-      user_choice = gets.strip.to_i
+      puts "Welcome to the Main Menu!"
+      user_choice = self.choose_from(menu_options)
       
       case user_choice
       when 1 
@@ -39,12 +37,18 @@ class PeriodicTable::CLI
       when 2 
         help 
       when 3 
-        puts "Are you sure you want to quit? (N/y):"
+        puts "\nAre you sure you want to quit? (N/y):"
         yes_or_no = gets.strip.downcase
       else 
         puts "I don't understand. Please try again."
       end
     end
+  end
+  
+  def choose_from(option_list) 
+    puts "What would you like to do? Choose from the numbered list below:"
+    option_list.each.with_index(1) {|option, i| puts "#{i}. #{option}"}
+    gets.strip.to_i
   end
   
   def help # Note: I slowed these methods down to give the user more time to read.
@@ -81,12 +85,10 @@ class PeriodicTable::CLI
       "Return to Main Menu"
     ]
     
+    puts "\nHere's where the REAL fun begins!"
     until user_choice == 7
-      puts "\nHere are your choices for listing the elements:"
-      list_choices.each.with_index(1) {|choice, i| puts "#{i}. #{choice}"}
-      
-      puts "\nWhat would you like to do? Choose from the numbered list above:"
-      user_choice = gets.strip.to_i
+      user_choice = self.choose_from(list_choices)
+      puts "\n" 
       
       case user_choice 
       when 1 
@@ -113,14 +115,13 @@ class PeriodicTable::CLI
     user_choice = nil
     
     until user_choice == 5
-      puts "\nHere are your options:"
-      options.each.with_index(1) {|option, i| puts "#{i}. #{option}"}
-      puts "\nWhat would you like to do? Choose a number from the list above:"
-      user_choice = gets.strip.to_i
+      user_choice = choose_from(options)
       puts "\n"
       
-      case user_choice # Refactor part of this into a method that works like a book (i.e. includes the choices First, Previous, Next, and Last)
-      # Also, displaying ten elements instead of five is doable.
+      case user_choice 
+      # Refactor part of this into a method that works like a book (i.e. includes the choices First, Previous, Next, and Last)
+      # Also, displaying ten elements instead of five is doable. 
+      # Be sure to puts "\n" after displaying them.
       when 1
         self.elements[0..4].each.with_index(1) {|element, i| puts "#{i}. #{element}"}
       when 2 
