@@ -1,4 +1,10 @@
-class PeriodicTable::CLI 
+class PeriodicTable::CLI
+  attr_reader :elements 
+  
+  def initialize # Remember to update this with a list of Elements
+    @elements = {1 => "hydrogen", 2 => "helium", 3 => "carbon", 4 => "oxygen", 5 => "nitrogen", 6 => "sulfur", 7 => "astatine", 8 => "phosphorus", 9 => "neon", 10 => "xenon", 11 => "iron", 12 => "lead", 13 => "silver", 14 => "gold", 15 => "sodium"}
+  end 
+  
   def call 
     # call the scraper here
     start
@@ -58,9 +64,6 @@ class PeriodicTable::CLI
   end
   
   def list_elements 
-    elements = ["hydrogen", "helium", "carbon", "oxygen", "nitrogen", "sulfur", "astatine", "phosphorus", "neon", "xenon", "iron", "lead", "silver", "gold", "sodium"]
-    i = 0
-    elements.each {|element| puts "#{i}. #{element}"; i += 1}
-    puts "The elements have been listed"
+    elements.each {|key, value| puts "#{key}. #{value}"}
   end
 end
