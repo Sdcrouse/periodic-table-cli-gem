@@ -6,7 +6,6 @@ class PeriodicTable::CLI
   end 
   
   def call 
-    # call the scraper here
     start
     puts "\nUntil next time, future chemist!"
   end
@@ -24,6 +23,7 @@ class PeriodicTable::CLI
     yes_or_no = "no"
     user_choice = nil
     
+    #call PeriodicTable::Table here. That should then scrape Wikipedia.
     until yes_or_no == "y" || yes_or_no == "yes"
       puts "\nWelcome to the Main Menu! Here are your options:"
       options.each {|key, value| puts "#{key}. #{value}"}
