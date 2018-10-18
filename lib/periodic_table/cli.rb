@@ -52,8 +52,11 @@ class PeriodicTable::CLI
   
   def introduction 
     puts "\nThe Interactive Periodic Table is designed to mimic a real periodic table by providing information about each of the currently known chemical elements."
+    sleep 1
     puts "\nIn this program, you are able to view a list of all the chemical elements, sort the list by a category of your choosing, and examine an individual element for more information." 
+    sleep 1
     puts "\nPlease note that you are unable to sort the list or view an individual element unless you choose option 2 from the Main Menu."
+    sleep 1
   end 
   
   def describe_main_menu_options 
@@ -61,6 +64,7 @@ class PeriodicTable::CLI
     puts "Press 1 to view this description of the Main Menu options."
     puts "Press 2 to list all of the chemical elements in the Periodic Table."
     puts "Press 3 to quit the Interactive Periodic Table."
+    sleep 1
   end
   
   def list_elements 
@@ -105,5 +109,6 @@ class PeriodicTable::CLI
   def list_elements_without_properties # Refactor this! Have the option to list only a few elements.
     puts "\n"
     self.elements.each {|key, value| puts "#{key}. #{value}"}
+    sleep 1
   end
 end
