@@ -21,23 +21,23 @@ class PeriodicTable::CLI
   end
   
   def main_menu
-    options = {1 => "Help", 2 => "List Elements", 3 => "Quit"}
+    options = ["List Elements", "Help", "Quit"]
     yes_or_no = "no"
     user_choice = nil
     
     #call PeriodicTable::Table here. That should then scrape Wikipedia.
     until yes_or_no == "y" || yes_or_no == "yes"
       puts "\nWelcome to the Main Menu! Here are your options:"
-      options.each {|key, value| puts "#{key}. #{value}"}
+      options.each.with_index(1) {|option, i| puts "#{i}. #{option}"}
       
-      puts "\nWhat would you like to do? Choose from 1-3:"
+      puts "\nWhat would you like to do? Choose from the numbered list above:"
       user_choice = gets.strip.to_i
       
       case user_choice
       when 1 
-        help 
+        list_elements
       when 2 
-        list_elements 
+        help 
       when 3 
         puts "Are you sure you want to quit? (N/y):"
         yes_or_no = gets.strip.downcase
@@ -47,43 +47,43 @@ class PeriodicTable::CLI
     end
   end
   
-  def help 
+  def help # Note: I slowed these methods down to give the user more time to read.
     introduction 
     describe_main_menu_options
   end
   
   def introduction 
     puts "\nThe Interactive Periodic Table is designed to mimic a real periodic table by providing information about each of the currently known chemical elements."
-    sleep 1
-    puts "\nIn this program, you are able to view a list of all the chemical elements, sort the list by a category of your choosing, and examine an individual element for more information." 
-    sleep 1
-    puts "\nPlease note that you are unable to sort the list or view an individual element unless you choose option 2 from the Main Menu."
-    sleep 1
+    sleep 5
+    puts "\nIn this program, you are able to view a list of all or some of the chemical elements, sort that list by a category of your choice, and examine an individual chemical element for more information." 
+    sleep 5
+    puts "\nPlease note that you are unable to sort the list or view an individual element unless you choose option 1 from the Main Menu."
+    sleep 5
   end 
   
   def describe_main_menu_options 
     puts "\nHere are the Main Menu options:"
-    puts "Press 1 to view this description of the Main Menu options."
-    puts "Press 2 to list all of the chemical elements in the Periodic Table."
+    puts "Press 1 to view a list of chemical elements from the Periodic Table."
+    puts "Press 2 to view this description of the Main Menu options."
     puts "Press 3 to quit the Interactive Periodic Table."
-    sleep 1
+    sleep 5
   end
   
   def list_elements 
     user_choice = nil
-    list_choices = {
-      1 => "List elements without their properties",
-      2 => "List elements with their properties",
-      3 => "List element periods",
-      4 => "List element groups",
-      5 => "List element categories",
-      6 => "Help",
-      7 => "Return to Main Menu"
-    }
+    list_choices = [
+      "List elements without their properties", 
+      "List elements with their properties", 
+      "List element periods", 
+      "List element groups",
+      "List element categories",
+      "Help",
+      "Return to Main Menu"
+    ]
     
     until user_choice == 7
       puts "\nHere are your choices for listing the elements:"
-      list_choices.each {|key, value| puts "#{key}. #{value}"}
+      list_choices.each.with_index(1) {|choice, i| puts "#{i}. #{choice}"}
       
       puts "\nWhat would you like to do? Choose from the numbered list above:"
       user_choice = gets.strip.to_i
@@ -109,14 +109,15 @@ class PeriodicTable::CLI
   end
   
   def list_elements_without_properties # Refactor this! Have the option to list only a few elements. Also, update this when I get all 118 elements.
-    options = {1 => "Elements 1-5", 2 => "Elements 6-10", 3 => "Elements 11-15", 4 =>"All Elements", 5 => "Go Back"}
+    options = ["Elements 1-5", "Elements 6-10", "Elements 11-15", "All Elements", "Go Back"]
     user_choice = nil
     
     until user_choice == 5
       puts "\nHere are your options:"
-      options.each {|key, value| puts "#{key}. #{value}"}
+      options.each.with_index(1) {|option, i| puts "#{i}. #{option}"}
       puts "\nWhat would you like to do? Choose a number from the list above:"
       user_choice = gets.strip.to_i
+      puts "\n"
       
       case user_choice # Refactor part of this into a method that works like a book (i.e. includes the choices First, Previous, Next, and Last)
       # Also, displaying ten elements instead of five is doable.
