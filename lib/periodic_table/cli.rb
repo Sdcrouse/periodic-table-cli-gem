@@ -64,6 +64,46 @@ class PeriodicTable::CLI
   end
   
   def list_elements 
-    elements.each {|key, value| puts "#{key}. #{value}"}
+    user_choice = nil
+    list_choices = {
+      1 => "List elements without their properties",
+      2 => "List elements with their properties",
+      3 => "List element periods",
+      4 => "List element groups",
+      5 => "List element categories",
+      6 => "Help",
+      7 => "Return to Main Menu"
+    }
+    
+    until user_choice == 7
+      puts "\nHere are your choices for listing the elements:"
+      list_choices.each {|key, value| puts "#{key}. #{value}"}
+      
+      puts "\nWhat would you like to do? Choose from 1-7:"
+      user_choice = gets.strip.to_i
+      
+      case user_choice 
+      when 1 
+        list_elements_without_properties
+      when 2 
+        #list_elements_with_properties 
+      when 3 
+        #list_periods 
+      when 4 
+        #list_groups
+      when 5 
+        #list_categories 
+      when 6 
+        #list_elements_help 
+      when 7 # Return to Main Menu 
+      else 
+        puts "I don't understand. Please try again."
+      end
+    end
+  end
+  
+  def list_elements_without_properties # Refactor this! Have the option to list only a few elements.
+    puts "\n"
+    self.elements.each {|key, value| puts "#{key}. #{value}"}
   end
 end
