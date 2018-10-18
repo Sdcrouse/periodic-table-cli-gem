@@ -1,8 +1,10 @@
+require "pry"
+
 class PeriodicTable::CLI
   attr_reader :elements 
   
   def initialize # Remember to update this with a list of Elements
-    @elements = {1 => "hydrogen", 2 => "helium", 3 => "carbon", 4 => "oxygen", 5 => "nitrogen", 6 => "sulfur", 7 => "astatine", 8 => "phosphorus", 9 => "neon", 10 => "xenon", 11 => "iron", 12 => "lead", 13 => "silver", 14 => "gold", 15 => "sodium"}
+    @elements = ["hydrogen", "helium", "carbon", "oxygen", "nitrogen", "sulfur", "astatine", "phosphorus", "neon", "xenon", "iron", "lead", "silver", "gold", "sodium"]
   end 
   
   def call 
@@ -83,7 +85,7 @@ class PeriodicTable::CLI
       puts "\nHere are your choices for listing the elements:"
       list_choices.each {|key, value| puts "#{key}. #{value}"}
       
-      puts "\nWhat would you like to do? Choose from 1-7:"
+      puts "\nWhat would you like to do? Choose from the numbered list above:"
       user_choice = gets.strip.to_i
       
       case user_choice 
@@ -106,9 +108,31 @@ class PeriodicTable::CLI
     end
   end
   
-  def list_elements_without_properties # Refactor this! Have the option to list only a few elements.
-    puts "\n"
-    self.elements.each {|key, value| puts "#{key}. #{value}"}
-    sleep 1
+  def list_elements_without_properties # Refactor this! Have the option to list only a few elements. Also, update this when I get all 118 elements.
+    options = {1 => "Elements 1-5", 2 => "Elements 6-10", 3 => "Elements 11-15", 4 =>"All Elements", 5 => "Go Back"}
+    user_choice = nil
+    
+    until user_choice == 5
+      puts "\nHere are your options:"
+      options.each {|key, value| puts "#{key}. #{value}"}
+      puts "\nWhat would you like to do? Choose a number from the list above:"
+      user_choice = gets.strip.to_i
+      
+      case user_choice # Refactor part of this into a method that works like a book (i.e. includes the choices First, Previous, Next, and Last)
+      # Also, displaying ten elements instead of five is doable.
+      when 1
+        self.elements[0..4].each.with_index(1) {|element, i| puts "#{i}. #{element}"}
+      when 2 
+        self.elements[5..9].each.with_index(1) {|element, i| puts "#{i}. #{element}"}
+      when 3 
+        self.elements[10..14].each.with_index(1) {|element, i| puts "#{i}. #{element}"}
+      when 4 
+        self.elements.each.with_index(1) {|element, i| puts "#{i}. #{element}"}
+      when 5 # Go back to #list_elements
+      else 
+        puts "I don't understand. Please try again."
+      end
+      sleep 1
+    end
   end
 end
