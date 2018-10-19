@@ -1,5 +1,5 @@
 class PeriodicTable::Element 
-  attr_accessor :name, :symbol, :atomic_number, :atomic_weight, :element_url, :name_origin, :group, :period, :density, :melting_point, :boiling_point, :heat_capacity, :electronegativity, :abundance 
+  attr_accessor :name, :name_origin, :symbol, :atomic_number, :atomic_weight, :group, :period, :density, :melting_point, :boiling_point, :heat_capacity, :electronegativity, :abundance, :element_url 
   
   @@all = [] 
   
