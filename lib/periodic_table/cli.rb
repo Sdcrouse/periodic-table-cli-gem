@@ -21,7 +21,7 @@ class PeriodicTable::CLI
     main_menu unless start_program == "n" || start_program == "no"
   end
   
-  def main_menu
+  def main_menu # Refactor the program so that most of it is run from here, including the options to examine an element and sort elements.
     menu_options = ["List Elements", "Help", "Quit"]
     yes_or_no = "no"
     user_choice = nil
@@ -95,7 +95,7 @@ class PeriodicTable::CLI
       when 1 
         list_elements_without_properties
       when 2 
-        #list_elements_with_properties 
+        list_elements_with_properties 
       when 3 
         #list_periods 
       when 4 
@@ -140,5 +140,30 @@ class PeriodicTable::CLI
       end
       sleep 1
     end
+  end
+  
+  def list_elements_with_properties 
+    # Maybe split this into #basic_properties and #more_properties...
+    # :name, :symbol, :atomic_number, :atomic_weight, :element_url, :name_origin, :group, :period, :density, :melting_point, :boiling_point, :heat_capacity, :electronegativity, :abundance 
+    PeriodicTable::Element.all.each.with_index(1) do |element, i|
+      puts "--------------------------------------"
+      puts "Element #{i}\n\n" # When scraped, each of these should have a value or 'n/a'
+      puts "Name: #{element.name}"
+      puts "Origin of Name: #{element.name_origin}"
+      puts "Symbol: #{element.symbol}"
+      puts "Atomic Number: #{element.atomic_number}"
+      puts "Atomic Weight: #{element.atomic_weight}"
+      puts "Group: #{element.group}"
+      puts "Period: #{element.period}"
+      puts "Density: #{element.density} g/cm^3"
+      puts "Melting Point: #{element.melting_point} K"
+      puts "Boiling Point: #{element.boiling_point} K"
+      puts "Heat Capacity: #{element.heat_capacity} J/(g * K)"
+      puts "Electronegativity (Pauline Scale): #{element.electronegativity}"
+      puts "Abundance in Earth's Crust: #{element.abundance} mg/kg"
+      puts "URL: #{element.element_url}"
+      puts "--------------------------------------"
+    end
+    puts "\n"
   end
 end
