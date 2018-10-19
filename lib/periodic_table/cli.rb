@@ -1,13 +1,13 @@
-require "pry"
-
 class PeriodicTable::CLI
   attr_reader :elements 
   
-  def initialize # Remember to update this with a list of Elements
-    @elements = ["hydrogen", "helium", "carbon", "oxygen", "nitrogen", "sulfur", "astatine", "phosphorus", "neon", "xenon", "iron", "lead", "silver", "gold", "sodium"]
+  def initialize # Remember to update this with a list of Elements (or delete it)
+    @elements = ["helium", "carbon", "oxygen", "nitrogen", "sulfur", "astatine", "phosphorus", "neon", "xenon", "iron", "lead", "silver", "gold", "sodium"]
   end 
   
-  def call 
+  def call
+    # Delete the following line once I make the Scraper:
+    PeriodicTable::Element.new_from_table
     start
     puts "\nUntil next time, future chemist!"
   end
@@ -28,7 +28,7 @@ class PeriodicTable::CLI
     
     #call PeriodicTable::Table here. That should then scrape Wikipedia.
     until yes_or_no == "y" || yes_or_no == "yes"
-      puts "Welcome to the Main Menu!"
+      puts "Welcome to the Main Menu! What would you like to do?"
       user_choice = self.choose_from(menu_options)
       
       case user_choice
@@ -46,7 +46,7 @@ class PeriodicTable::CLI
   end
   
   def choose_from(option_list) 
-    puts "What would you like to do? Choose from the numbered list below:"
+    puts "Choose from the numbered list below:\n\n"
     option_list.each.with_index(1) {|option, i| puts "#{i}. #{option}"}
     gets.strip.to_i
   end
@@ -87,6 +87,7 @@ class PeriodicTable::CLI
     
     puts "\nHere's where the REAL fun begins!"
     until user_choice == 7
+      puts "How do you want to list the elements?"
       user_choice = self.choose_from(list_choices)
       puts "\n" 
       
@@ -115,6 +116,7 @@ class PeriodicTable::CLI
     user_choice = nil
     
     until user_choice == 5
+      puts "Which elements would you like to see?"
       user_choice = choose_from(options)
       puts "\n"
       
@@ -123,11 +125,13 @@ class PeriodicTable::CLI
       # Also, displaying ten elements instead of five is doable. 
       # Be sure to puts "\n" after displaying them.
       when 1
+        # Delete and refactor this stuff after I make the scraper
+        self.elements.unshift(PeriodicTable::Element.all[0].name)
         self.elements[0..4].each.with_index(1) {|element, i| puts "#{i}. #{element}"}
       when 2 
-        self.elements[5..9].each.with_index(1) {|element, i| puts "#{i}. #{element}"}
+        self.elements[5..9].each.with_index(6) {|element, i| puts "#{i}. #{element}"}
       when 3 
-        self.elements[10..14].each.with_index(1) {|element, i| puts "#{i}. #{element}"}
+        self.elements[10..14].each.with_index(11) {|element, i| puts "#{i}. #{element}"}
       when 4 
         self.elements.each.with_index(1) {|element, i| puts "#{i}. #{element}"}
       when 5 # Go back to #list_elements
