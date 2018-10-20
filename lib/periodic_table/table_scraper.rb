@@ -4,9 +4,9 @@ class PeriodicTable::TableScraper
     page = self.get_page("https://en.wikipedia.org/wiki/List_of_chemical_elements")
     scraped_elements = self.scrape_elements_from(page)
     scraped_elements.delete(scraped_elements.last) #Remove the last node, which contains notes and no chemical elements.
-    elements_with_properties = self.get_properties_of(scraped_elements)
+    elements_with_properties = scraped_elements.collect {|element| self.get_properties_of(element)}
     #Create new Element instances here!
-    binding.pry
+    #binding.pry
   end
 
   def get_page(page)
@@ -18,8 +18,11 @@ class PeriodicTable::TableScraper
     #.select{|element| element.attribute("class") == nil}
   end
 
-  def get_properties_of(scraped_elements) #This used to be #make_elements_from. Note that in the next commit!
-    puts "I made the elements!"
+  def make_properties_hash_from(scraped_element)
+    element_properties_hash = {}
+
+    binding.pry
+
   end
 end
 
