@@ -1,4 +1,4 @@
-class PeriodicTable::TableScraper.rb
+class PeriodicTable::TableScraper
 
 
 end
