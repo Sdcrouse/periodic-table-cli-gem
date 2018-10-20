@@ -18,10 +18,9 @@ class PeriodicTable::TableScraper
     #.select{|element| element.attribute("class") == nil}
   end
 
-  def get_properties_of(scraped_elements)
+  def get_properties_of(scraped_elements) #This used to be #make_elements_from. Note that in the next commit!
     puts "I made the elements!"
   end
-
 end
 
 PeriodicTable::TableScraper.new.scrape_and_create_elements
