@@ -3,12 +3,12 @@ class PeriodicTable::Element
 
   @@all = []
 
-  def initialize(attributes)
-    attributes.each{|key, value| self.send("#{key}=", value)}
+  def initialize(attributes_hash)
+    attributes_hash.each{|key, value| self.send("#{key}=", value)}
     @@all << self
   end
 
-  def self.new_from_table(table = nil) # Create a new Element from the scraped periodic table.
+  def self.new_from_periodic_table(table = {}) # Create a new Element from the scraped periodic table.
     # Note: unless I want to explain uncertainty, I may need to gsub the @atomic_weight values' parentheses with ""
     attributes = {
       name: "Hydrogen",
