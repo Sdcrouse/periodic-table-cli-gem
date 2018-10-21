@@ -27,9 +27,12 @@ class PeriodicTable::TableScraper
 
   def make_properties_hash_from(scraped_element)
     element_properties_hash = {}
-    #Why does scraped_element.css("td") keep returning [] ?
+    element_properties = scraped_element.css("td")
     binding.pry
-
+    # Atomic Number: element_properties[0].text.to_i
+    # Symbol: element_properties[1].text
+    # Element category: 
+      # 
   end
 end
 
