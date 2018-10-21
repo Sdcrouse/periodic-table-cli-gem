@@ -3,9 +3,14 @@ class PeriodicTable::TableScraper
   def scrape_and_create_elements
     page = self.get_page("https://en.wikipedia.org/wiki/List_of_chemical_elements")
     scraped_elements = self.scrape_elements_from(page)
-    scraped_elements.delete(scraped_elements.first) #Somehow, Nokogiri made the first node of scraped_elements a tr node from thead instead of tbody.
-    scraped_elements.delete(scraped_elements.last) #Remove the last node, which contains notes and no chemical elements.
-    self.make_properties_hash_from(scraped_elements[0]) #Delete this line and uncomment the line below.
+
+    2.times do
+      scraped_elements.delete(scraped_elements.first) 
+      # Somehow, Nokogiri included the tr nodes from thead!
+    end 
+    scraped_elements.delete(scraped_elements.last) # Remove the last node, which contains notes and no chemical elements.
+    
+    self.make_properties_hash_from(scraped_elements[0]) # Delete this line and uncomment the line below.
     #elements_with_properties = scraped_elements.collect {|element| self.make_properties_hash_from(element)}
     #Create new Element instances here!
     #binding.pry
