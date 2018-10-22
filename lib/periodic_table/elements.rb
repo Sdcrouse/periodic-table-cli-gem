@@ -13,7 +13,7 @@ class PeriodicTable::Element
     attributes = {
       name: "Hydrogen",
       symbol: "H",
-      element_category: "Reactive nonmetal"
+      element_category: "Reactive nonmetal",
       atomic_number: 1,
       atomic_weight: 1.008,
       element_url: "https://en.wikipedia.org/wiki/Hydrogen",
