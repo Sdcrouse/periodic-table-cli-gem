@@ -5,12 +5,11 @@ class PeriodicTable::TableScraper
     scraped_elements = self.scrape_elements_from(page)
 
     2.times do
-      scraped_elements.delete(scraped_elements.first) 
+      scraped_elements.delete(scraped_elements.first)
       # Somehow, Nokogiri included the tr nodes from thead!
-    end 
+    end
     scraped_elements.delete(scraped_elements.last) # Remove the last node, which contains notes and no chemical elements.
-    binding.pry
-    
+
     self.make_properties_hash_from(scraped_elements[0]) # Delete this line and uncomment the line below.
     #elements_with_properties = scraped_elements.collect {|element| self.make_properties_hash_from(element)}
     #Create new Element instances here!
@@ -33,7 +32,7 @@ class PeriodicTable::TableScraper
     # Atomic Number: element_properties[0].text.to_i
     # Symbol: element_properties[1].text
     # background_color = element_properties[1].attr("style").gsub("background:", "")
-    # Element Category: 
+    # Element Category:
       #"Reactive nonmetal" if background_color == "#f0ff8f"
       #"Noble gas" if background_color == "#c0ffff"
       #"Alkaline earth metal" if background_color == "#ffdead"
@@ -43,7 +42,9 @@ class PeriodicTable::TableScraper
       #"Lanthanide" if background_color == "#ffbfff"
       #"Actinide" if background_color == "#ff99cc"
       #"Unknown chemical properties" if background_color == "#e8e8e8"
-      
+
+      #Atomic Weight (with parentheses; requires explanation): element_properties[6].css("span").text.to_i
+      #Atomic Weight (without parentheses):
   end
 end
 
