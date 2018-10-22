@@ -144,6 +144,7 @@ class PeriodicTable::CLI
   def list_elements_with_properties
     # Maybe split this into #basic_properties and #more_properties...
     # :name, :symbol, :atomic_number, :atomic_weight, :element_url, :name_origin, :group, :period, :density, :melting_point, :boiling_point, :heat_capacity, :electronegativity, :abundance
+    # Since there's a lot of properties, I may use #sleep between each property for easier viewing.
     PeriodicTable::Element.all.each.with_index(1) do |element, i|
       puts "--------------------------------------"
       puts "Element #{i}\n\n" # When scraped, each of these should have a value or 'n/a'
