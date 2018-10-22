@@ -7,7 +7,7 @@ class PeriodicTable::CLI
 
   def call
     # Delete the following line once I make the Scraper:
-    PeriodicTable::Element.new_from_table
+    PeriodicTable::Element.new_from_periodic_table
     start
     puts "\nUntil next time, future chemist!"
   end
