@@ -148,6 +148,7 @@ class PeriodicTable::CLI
       puts "--------------------------------------"
       puts "Element #{i}\n\n" # When scraped, each of these should have a value or 'n/a'
       puts "Name: #{element.name}"
+      puts "Element Category: #{element.element_category}"
       puts "Origin of Name: #{element.name_origin}"
       puts "Symbol: #{element.symbol}"
       puts "Atomic Number: #{element.atomic_number}"
