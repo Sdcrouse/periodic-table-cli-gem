@@ -28,7 +28,7 @@ class PeriodicTable::TableScraper
   def make_properties_hash_from(scraped_element)
     element_properties_hash = {}
     element_properties = scraped_element.css("td")
-    #binding.pry
+    binding.pry
     # Atomic Number: element_properties[0].text.to_i
     # Symbol: element_properties[1].text
     # background_color = element_properties[1].attr("style").gsub("background:", "")
@@ -42,9 +42,11 @@ class PeriodicTable::TableScraper
       #"Lanthanide" if background_color == "#ffbfff"
       #"Actinide" if background_color == "#ff99cc"
       #"Unknown chemical properties" if background_color == "#e8e8e8"
-
-      #Atomic Weight (with parentheses; requires explanation): element_properties[6].css("span").text.to_i
-      #Atomic Weight (without parentheses):
+    # Name: element_properties[2].text
+    # Element URL: 
+    # Origin of Name: element_properties[3].text
+    # Atomic Weight (with parentheses; requires explanation): element_properties[6].css("span").text.to_i
+    # Atomic Weight (without parentheses):
   end
 end
 
