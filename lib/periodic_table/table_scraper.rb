@@ -9,7 +9,7 @@ class PeriodicTable::TableScraper
       # Somehow, Nokogiri included the tr nodes from thead!
     end
     scraped_elements.delete(scraped_elements.last) # Remove the last node, which contains notes and no chemical elements.
-    binding.pry
+    #binding.pry
     self.make_properties_hash_from(scraped_elements[0]) # Delete this line and uncomment the line below.
     #elements_with_properties = scraped_elements.collect {|element| self.make_properties_hash_from(element)}
     #Create new Element instances here!
@@ -29,7 +29,7 @@ class PeriodicTable::TableScraper
     element_properties_hash = {}
     element_properties = scraped_element.css("td")
     binding.pry
-    # Atomic Number: element_properties[0].text.to_i
+    # Atomic Number: element_properties[0].text
     # Symbol: element_properties[1].text
     # background_color = element_properties[1].attr("style").gsub("background:", "")
     # Element Type: #change this attribute name in the other files
@@ -45,8 +45,8 @@ class PeriodicTable::TableScraper
     # Name: element_properties[2].text
     # Element URL: "https://en.wikipedia.org" + element_properties[2].css("a").attr("href").value
     # Origin of Name: element_properties[3].text #capitalize this sentence
-    # Group: element_properties[4].text.to_i (n/a or nil if that returns 0)
-    # Period: element_properties[5].text.to_i
+    # Group: element_properties[4].text #n/a or nil if that returns "" --> check this!
+    # Period: element_properties[5].text
     
     # Atomic Weight (with parentheses; requires explanation): element_properties[6].css("span").text
     
@@ -55,14 +55,14 @@ class PeriodicTable::TableScraper
     # atomic_weight = element_properties[6].css("span").text
     # case atomic_weight
     # when /\[\d+\]/ # Remove brackets (if any) from the atomic weight
-        #atomic_weight = atomic_weight.gsub(/(\[|\])/, "").to_i
+        #atomic_weight = atomic_weight.gsub(/(\[|\])/, "")
     # else # Remove parentheses (if any) from the atomic weight) 
         #atomic_weight = atomic_weight.to_f
     # end
-    # Atomic Weight (without parentheses): element_properties[6].css("span").text.to_f
-    # Atomic Weight (without brackets): element_properties[6].css("span").text.gsub(/(\[|\])/, "").to_i
+    # Atomic Weight (without parentheses): element_properties[6].css("span").text
+    # Atomic Weight (without brackets): element_properties[6].css("span").text.gsub(/(\[|\])/, "")
     
-    
+    # Density: element_properties[7].text
   end
 end
 
