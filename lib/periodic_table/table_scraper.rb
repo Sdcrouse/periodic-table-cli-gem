@@ -27,25 +27,18 @@ class PeriodicTable::TableScraper
 
   def make_properties_hash_from(scraped_element)
     # Attributes:
-    #:atomic_number, :symbol, :element_category, :name, :element_url, :name_origin, :group, :period, :atomic_weight, :density, :melting_point, :boiling_point, :heat_capacity, :electronegativity, :abundance
+    #:atomic_number, :symbol, :element_type, :name, :element_url, :name_origin, :group, :period, :atomic_weight, :density, :melting_point, :boiling_point, :heat_capacity, :electronegativity, :abundance
     element_properties_hash = {}
     element_properties = scraped_element.css("td")
     
     element_properties_hash[:atomic_number] = element_properties[0].text
     element_properties_hash[:symbol] = element_properties[1].text
     
-    #binding.pry
-    # background_color = element_properties[1].attr("style").gsub("background:", "")
-    # Element Type: #change this attribute name in the other files
-      #"Reactive nonmetal" if background_color == "#f0ff8f"
-      #"Noble gas" if background_color == "#c0ffff"
-      #"Alkaline earth metal" if background_color == "#ffdead"
-      #"Metalloid" if background_color == "#cccc99"
-      #"Post-transition metal" if background_color == "#cccccc"
-      #"Transition metal" if background_color == "#ffc0c0"
-      #"Lanthanide" if background_color == "#ffbfff"
-      #"Actinide" if background_color == "#ff99cc"
-      #"Unknown chemical properties" if background_color == "#e8e8e8"
+    # background_color = "Invalid color" #Put this in NOTES.md. Add this to rspec later.
+    background_color = element_properties[1].attr("style").gsub("background:", "")
+    element_properties_hash[:element_type] = self.element_type_from(background_color)
+    
+    binding.pry
     # Name: element_properties[2].text
     # Element URL: "https://en.wikipedia.org" + element_properties[2].css("a").attr("href").value
     # Origin of Name: element_properties[3].text #capitalize this sentence
@@ -72,6 +65,46 @@ class PeriodicTable::TableScraper
     # Heat Capacity: element_properties[10].text (See note for Melting Point)
     # Electronegativity: element_properties[11].text (See note for Melting Point)
     # Abundance in earth's crust: element_properties[12].text.strip #The scientific notation looks a bit strange; if there're too many properties, discard this one.
+  end
+  
+  def element_type_from(background_color)
+    colors = ["#f0ff8f", "#c0ffff", "#ffdead", "#cccc99", "#cccccc", "#ffc0c0", "#ffbfff", "#ff99cc", "#e8e8e8"]
+    
+    if colors.include?(background_color) 
+      "Reactive nonmetal" if background_color == "#f0ff8f"
+      "Noble gas" if background_color == "#c0ffff"
+      "Alkaline earth metal" if background_color == "#ffdead"
+      "Metalloid" if background_color == "#cccc99"
+      "Post-transition metal" if background_color == "#cccccc"
+      "Transition metal" if background_color == "#ffc0c0"
+      "Lanthanide" if background_color == "#ffbfff"
+      "Actinide" if background_color == "#ff99cc"
+      "Unknown chemical properties" if background_color == "#e8e8e8"
+    else 
+      "Error. Cannot determine the element type from the background color."
+    end
+    case background_color
+    when "#f0ff8f"
+      "Reactive nonmetal"
+    when "#c0ffff"
+      "Noble gas"
+    when "#ffdead"
+      "Alkaline earth metal"
+    when "#cccc99"
+      "Metalloid"
+    when "#cccccc"
+      "Post-transition metal"
+    when "#ffc0c0"
+      "Transition metal"
+    when "#ffbfff"
+      "Lanthanide"
+    when "#ff99cc"
+      "Actinide"
+    when "#e8e8e8"
+      "Unknown chemical properties"
+    else 
+      "Error. Cannot determine the element type from the background color."
+    end
   end
 end
 
