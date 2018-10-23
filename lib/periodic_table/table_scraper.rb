@@ -44,11 +44,25 @@ class PeriodicTable::TableScraper
       #"Unknown chemical properties" if background_color == "#e8e8e8"
     # Name: element_properties[2].text
     # Element URL: "https://en.wikipedia.org" + element_properties[2].css("a").attr("href").value
-    # Origin of Name: element_properties[3].text
+    # Origin of Name: element_properties[3].text #capitalize this sentence
     # Group: element_properties[4].text.to_i (n/a or nil if that returns 0)
     # Period: element_properties[5].text.to_i
+    
     # Atomic Weight (with parentheses; requires explanation): element_properties[6].css("span").text
-    # Atomic Weight (without parentheses):
+    
+    # Put the next set of code in a separate method.
+    # Use separate #gsub statements below! Use a case statement.
+    # atomic_weight = element_properties[6].css("span").text
+    # case atomic_weight
+    # when /\[\d+\]/ # Remove brackets (if any) from the atomic weight
+        #atomic_weight = atomic_weight.gsub(/(\[|\])/, "").to_i
+    # else # Remove parentheses (if any) from the atomic weight) 
+        #atomic_weight = atomic_weight.to_f
+    # end
+    # Atomic Weight (without parentheses): element_properties[6].css("span").text.to_f
+    # Atomic Weight (without brackets): element_properties[6].css("span").text.gsub(/(\[|\])/, "").to_i
+    
+    
   end
 end
 
