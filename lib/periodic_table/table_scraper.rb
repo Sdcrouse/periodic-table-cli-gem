@@ -63,7 +63,11 @@ class PeriodicTable::TableScraper
     # Atomic Weight (without brackets): element_properties[6].css("span").text.gsub(/(\[|\])/, "")
     
     # Density: element_properties[7].text.gsub(/(\(|\))/, "")
-    
+    # Melting Point: element_properties[8].css("span").text (Note: some of these nodes return "-", so be sure to account for that.)
+    # Boiling Point: element_properties[9].text (See note for Melting Point)
+    # Heat Capacity: element_properties[10].text (See note for Melting Point)
+    # Electronegativity: element_properties[11].text (See note for Melting Point)
+    # Abundance in earth's crust: 
   end
 end
 
