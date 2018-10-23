@@ -1,5 +1,5 @@
 class PeriodicTable::Element
-  attr_accessor :name, :name_origin, :symbol, :atomic_number, :atomic_weight, :group, :period, :density, :melting_point, :boiling_point, :heat_capacity, :electronegativity, :abundance, :element_url, :element_category
+  attr_accessor :atomic_number, :symbol, :element_category, :name, :element_url, :name_origin, :group, :period, :atomic_weight, :density, :melting_point, :boiling_point, :heat_capacity, :electronegativity, :abundance
 
   @@all = []
 
@@ -11,15 +11,15 @@ class PeriodicTable::Element
   def self.new_from_periodic_table(table = {}) # Create a new Element from the scraped periodic table.
     # Note: unless I want to explain uncertainty, I may need to gsub the @atomic_weight values' parentheses with ""
     attributes = {
-      name: "Hydrogen",
+      atomic_number: 1,
       symbol: "H",
       element_category: "Reactive nonmetal",
-      atomic_number: 1,
-      atomic_weight: 1.008,
+      name: "Hydrogen",
       element_url: "https://en.wikipedia.org/wiki/Hydrogen",
       name_origin: "composed of the Greek elements hydro- and -gen meaning 'water-forming'",
       group: 1,
       period: 1,
+      atomic_weight: 1.008,
       density: 0.00008988,
       melting_point: 14.01,
       boiling_point: 20.28,
