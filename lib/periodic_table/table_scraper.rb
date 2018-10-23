@@ -26,11 +26,15 @@ class PeriodicTable::TableScraper
   end
 
   def make_properties_hash_from(scraped_element)
+    # Attributes:
+    #:atomic_number, :symbol, :element_category, :name, :element_url, :name_origin, :group, :period, :atomic_weight, :density, :melting_point, :boiling_point, :heat_capacity, :electronegativity, :abundance
     element_properties_hash = {}
     element_properties = scraped_element.css("td")
+    
+    element_properties_hash[:atomic_number] = element_properties[0].text
+    element_properties_hash[:symbol] = element_properties[1].text
+    
     binding.pry
-    # Atomic Number: element_properties[0].text
-    # Symbol: element_properties[1].text
     # background_color = element_properties[1].attr("style").gsub("background:", "")
     # Element Type: #change this attribute name in the other files
       #"Reactive nonmetal" if background_color == "#f0ff8f"
