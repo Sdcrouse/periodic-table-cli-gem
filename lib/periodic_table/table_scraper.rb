@@ -62,7 +62,8 @@ class PeriodicTable::TableScraper
     # Atomic Weight (without parentheses): element_properties[6].css("span").text
     # Atomic Weight (without brackets): element_properties[6].css("span").text.gsub(/(\[|\])/, "")
     
-    # Density: element_properties[7].text
+    # Density: element_properties[7].text.gsub(/(\(|\))/, "")
+    
   end
 end
 
