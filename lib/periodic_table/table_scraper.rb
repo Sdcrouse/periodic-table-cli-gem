@@ -67,7 +67,7 @@ class PeriodicTable::TableScraper
     # Boiling Point: element_properties[9].text (See note for Melting Point)
     # Heat Capacity: element_properties[10].text (See note for Melting Point)
     # Electronegativity: element_properties[11].text (See note for Melting Point)
-    # Abundance in earth's crust: 
+    # Abundance in earth's crust: element_properties[12].text.strip #The scientific notation looks a bit strange; if there're too many properties, discard this one.
   end
 end
 
