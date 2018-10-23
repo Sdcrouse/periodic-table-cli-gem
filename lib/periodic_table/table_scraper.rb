@@ -34,7 +34,7 @@ class PeriodicTable::TableScraper
     element_properties_hash[:atomic_number] = element_properties[0].text
     element_properties_hash[:symbol] = element_properties[1].text
     
-    binding.pry
+    #binding.pry
     # background_color = element_properties[1].attr("style").gsub("background:", "")
     # Element Type: #change this attribute name in the other files
       #"Reactive nonmetal" if background_color == "#f0ff8f"

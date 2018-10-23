@@ -1,5 +1,5 @@
 class PeriodicTable::Element
-  attr_accessor :atomic_number, :symbol, :element_category, :name, :element_url, :name_origin, :group, :period, :atomic_weight, :density, :melting_point, :boiling_point, :heat_capacity, :electronegativity, :abundance
+  attr_accessor :atomic_number, :symbol, :element_type, :name, :element_url, :name_origin, :group, :period, :atomic_weight, :density, :melting_point, :boiling_point, :heat_capacity, :electronegativity, :abundance
 
   @@all = []
 
@@ -13,7 +13,7 @@ class PeriodicTable::Element
     attributes = {
       atomic_number: 1,
       symbol: "H",
-      element_category: "Reactive nonmetal",
+      element_type: "Reactive nonmetal",
       name: "Hydrogen",
       element_url: "https://en.wikipedia.org/wiki/Hydrogen",
       name_origin: "composed of the Greek elements hydro- and -gen meaning 'water-forming'",

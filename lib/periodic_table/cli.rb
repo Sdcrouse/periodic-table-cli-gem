@@ -58,7 +58,7 @@ class PeriodicTable::CLI
   def introduction
     puts "\nThe Interactive Periodic Table is designed to mimic a real periodic table by providing information about each of the currently known chemical elements."
     sleep 5
-    puts "\nIn this program, you are able to view a list of all or some of the chemical elements, sort that list by a category of your choice, and examine an individual chemical element for more information."
+    puts "\nIn this program, you are able to view a list of all or some of the chemical elements, sort that list, and examine an individual chemical element for more information."
     sleep 5
     puts "\nPlease note that you are unable to sort the list or view an individual element unless you choose option 1 from the Main Menu."
     sleep 5
@@ -149,7 +149,7 @@ class PeriodicTable::CLI
       puts "--------------------------------------"
       puts "Element #{i}\n\n" # When scraped, each of these should have a value or 'n/a'
       puts "Name: #{element.name}"
-      puts "Element Category: #{element.element_category}"
+      puts "Element Type: #{element.element_type}"
       puts "Origin of Name: #{element.name_origin}"
       puts "Symbol: #{element.symbol}"
       puts "Atomic Number: #{element.atomic_number}"
