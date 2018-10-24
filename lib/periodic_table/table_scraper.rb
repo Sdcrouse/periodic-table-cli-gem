@@ -67,18 +67,25 @@ class PeriodicTable::TableScraper
   end
   
   def determine_element_type_from(background_color)
-    colors = ["#f0ff8f", "#c0ffff", "#ffdead", "#cccc99", "#cccccc", "#ffc0c0", "#ffbfff", "#ff99cc", "#e8e8e8"]
-    
-    if colors.include?(background_color) 
-      "Reactive nonmetal" if background_color == "#f0ff8f"
-      "Noble gas" if background_color == "#c0ffff"
-      "Alkaline earth metal" if background_color == "#ffdead"
-      "Metalloid" if background_color == "#cccc99"
-      "Post-transition metal" if background_color == "#cccccc"
-      "Transition metal" if background_color == "#ffc0c0"
-      "Lanthanide" if background_color == "#ffbfff"
-      "Actinide" if background_color == "#ff99cc"
-      "Unknown chemical properties" if background_color == "#e8e8e8"
+    case background_color
+    when "#f0ff8f"
+      "Reactive nonmetal"
+    when "#c0ffff"
+      "Noble gas"
+    when "#ffdead"
+      "Alkaline earth metal"
+    when "#cccc99"
+      "Metalloid"
+    when "#cccccc"
+      "Post-transition metal"
+    when "#ffc0c0"
+      "Transition metal"
+    when "#ffbfff"
+      "Lanthanide"
+    when "#ff99cc"
+      "Actinide"
+    when "#e8e8e8"
+      "Unknown chemical properties"
     else 
       "Error. Cannot determine the element type from the background color."
     end
