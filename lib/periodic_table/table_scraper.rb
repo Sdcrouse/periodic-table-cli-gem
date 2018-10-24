@@ -60,11 +60,8 @@ class PeriodicTable::TableScraper
     element_properties_hash[:element_url] = "https://en.wikipedia.org" + element_properties[2].css("a").attr("href").value
     element_properties_hash[:name_origin] = element_properties[3].text.capitalize
     element_properties_hash[:group] = self.determine_group_from(element_properties[4].text)
-   
+    element_properties_hash[:period] = element_properties[5].text
     binding.pry
-    
-   # Group: element_properties[4].text #n/a or nil if that returns "" --> check this!
-    # Period: element_properties[5].text
     
     # Atomic Weight (with parentheses; requires explanation): element_properties[6].css("span").text
     
