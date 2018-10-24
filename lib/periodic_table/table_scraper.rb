@@ -59,15 +59,18 @@ class PeriodicTable::TableScraper
     element_properties_hash[:name] = element_properties[2].text
     element_properties_hash[:element_url] = "https://en.wikipedia.org" + element_properties[2].css("a").attr("href").value
     element_properties_hash[:name_origin] = element_properties[3].text.capitalize
-    element_properties_hash[:group] = self.determine_group_from(element_properties[4].text)
+    element_properties_hash[:group] = self.determine_value_from(element_properties[4].text)
     element_properties_hash[:period] = element_properties[5].text
     
     atomic_weight = element_properties[6].css("span").text
     element_properties_hash[:atomic_weight] = self.remove_brackets_or_parentheses_from(atomic_weight)
     
+    # Here, I am removing parentheses from the density value, but in a different way than the method #remove_brackets_or_parentheses_from
+    element_properties_hash[:density] = element_properties[7].text.gsub(/(\(|\))/, "")
+    
+    
     binding.pry
     
-    # Density: element_properties[7].text.gsub(/(\(|\))/, "")
     # Melting Point: element_properties[8].css("span").text (Note: some of these nodes return "-", so be sure to account for that.)
     # Boiling Point: element_properties[9].text (See note for Melting Point)
     # Heat Capacity: element_properties[10].text (See note for Melting Point)
@@ -100,8 +103,8 @@ class PeriodicTable::TableScraper
     end
   end
   
-  def determine_group_from(group_node_text)
-    group_node_text == "" ? "N/A" : group_node_text
+  def determine_value_from(node_text)
+    node_text.match(/\d+/) ? node_text : "N/A"
   end
   
   def remove_brackets_or_parentheses_from(value)
