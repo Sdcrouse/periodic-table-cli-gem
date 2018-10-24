@@ -34,9 +34,8 @@ class PeriodicTable::TableScraper
     element_properties_hash[:atomic_number] = element_properties[0].text
     element_properties_hash[:symbol] = element_properties[1].text
     
-    # background_color = "Invalid color" #Put this in NOTES.md. Add this to rspec later.
     background_color = element_properties[1].attr("style").gsub("background:", "")
-    element_properties_hash[:element_type] = self.element_type_from(background_color)
+    element_properties_hash[:element_type] = self.determine_element_type_from(background_color)
     
     binding.pry
     # Name: element_properties[2].text
@@ -67,7 +66,7 @@ class PeriodicTable::TableScraper
     # Abundance in earth's crust: element_properties[12].text.strip #The scientific notation looks a bit strange; if there're too many properties, discard this one.
   end
   
-  def element_type_from(background_color)
+  def determine_element_type_from(background_color)
     colors = ["#f0ff8f", "#c0ffff", "#ffdead", "#cccc99", "#cccccc", "#ffc0c0", "#ffbfff", "#ff99cc", "#e8e8e8"]
     
     if colors.include?(background_color) 
