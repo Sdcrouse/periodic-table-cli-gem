@@ -58,7 +58,7 @@ class PeriodicTable::TableScraper
     
     element_properties_hash[:name] = element_properties[2].text
     element_properties_hash[:element_url] = "https://en.wikipedia.org" + element_properties[2].css("a").attr("href").value
-    element_properties_hash[:name_origin] = element_properties[3].text.capitalize
+    element_properties_hash[:name_origin] = element_properties[3].text
     element_properties_hash[:group] = self.determine_value_from(element_properties[4].text)
     element_properties_hash[:period] = element_properties[5].text
     
@@ -67,14 +67,18 @@ class PeriodicTable::TableScraper
     
     element_properties_hash[:density] = self.remove_parentheses_from(element_properties[7].text)
     
-    
-    binding.pry
     # Note: I need to call #remove_parentheses_from on the melting and boiling points
-    #element_properties_hash[:melting_point] = self.determine_value_from(element_properties[8].css("span").text) 
-    #element_properties_hash[:boiling_point] = self.determine_value_from(element_properties[9].text)
+    melting_point = self.determine_value_from(element_properties[8].css("span").text) 
+    element_properties_hash[:melting_point] = self.remove_parentheses_from(melting_point)
+    
+    boiling_point = self.determine_value_from(element_properties[9].text)
+    element_properties_hash[:boiling_point] = self.remove_parentheses_from(boiling_point)
+    
     element_properties_hash[:heat_capacity] = self.determine_value_from(element_properties[10].text)
     element_properties_hash[:electronegativity] = self.determine_value_from(element_properties[11].text)
-    # element_properties_hash[:] = Abundance in earth's crust: element_properties[12].text.strip #The scientific notation looks a bit strange; if there're too many properties, discard this one.
+    element_properties_hash[:abundance] = element_properties[12].text.strip #The scientific notation looks a bit strange; if there're too many properties, discard this one.
+    binding.pry
+    element_properties_hash
   end
   
   def determine_element_type_from(background_color)
