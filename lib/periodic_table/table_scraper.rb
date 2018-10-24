@@ -69,12 +69,12 @@ class PeriodicTable::TableScraper
     
     
     binding.pry
-    
-    # Melting Point: element_properties[8].css("span").text (Note: some of these nodes return "-", so be sure to account for that.)
-    # Boiling Point: element_properties[9].text (See note for Melting Point)
-    # Heat Capacity: element_properties[10].text (See note for Melting Point)
-    # Electronegativity: element_properties[11].text (See note for Melting Point)
-    # Abundance in earth's crust: element_properties[12].text.strip #The scientific notation looks a bit strange; if there're too many properties, discard this one.
+    # Note: I need to call #remove_parentheses_from on the melting and boiling points
+    #element_properties_hash[:melting_point] = self.determine_value_from(element_properties[8].css("span").text) 
+    #element_properties_hash[:boiling_point] = self.determine_value_from(element_properties[9].text)
+    element_properties_hash[:heat_capacity] = self.determine_value_from(element_properties[10].text)
+    element_properties_hash[:electronegativity] = self.determine_value_from(element_properties[11].text)
+    # element_properties_hash[:] = Abundance in earth's crust: element_properties[12].text.strip #The scientific notation looks a bit strange; if there're too many properties, discard this one.
   end
   
   def determine_element_type_from(background_color)
