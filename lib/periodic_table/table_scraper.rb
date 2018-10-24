@@ -9,7 +9,7 @@ class PeriodicTable::TableScraper
       # Somehow, Nokogiri included the tr nodes from thead!
     end
     scraped_elements.delete(scraped_elements.last) # Remove the last node, which contains notes and no chemical elements.
-    #binding.pry
+    binding.pry
     self.make_properties_hash_from(scraped_elements[0]) # Delete this line and uncomment the line below.
     #elements_with_properties = scraped_elements.collect {|element| self.make_properties_hash_from(element)}
     #Create new Element instances here!
@@ -26,6 +26,25 @@ class PeriodicTable::TableScraper
   end
 
   def make_properties_hash_from(scraped_element)
+    # Make sure the element_properties_hash matches this: 
+    #attributes = {
+    #  atomic_number: 1,
+    #  symbol: "H",
+    #  element_type: "Reactive nonmetal",
+    #  name: "Hydrogen",
+    #  element_url: "https://en.wikipedia.org/wiki/Hydrogen",
+    #  name_origin: "Composed of the Greek elements hydro- and -gen meaning 'water#-forming'",
+    #  group: 1,
+    #  period: 1,
+    #  atomic_weight: 1.008,
+    #  density: 0.00008988,
+    #  melting_point: 14.01,
+    #  boiling_point: 20.28,
+    #  heat_capacity: 14.304,
+    #  electronegativity: 2.20,
+    #  abundance: 1400
+    #}
+    
     # Attributes:
     #:atomic_number, :symbol, :element_type, :name, :element_url, :name_origin, :group, :period, :atomic_weight, :density, :melting_point, :boiling_point, :heat_capacity, :electronegativity, :abundance
     element_properties_hash = {}
@@ -37,11 +56,14 @@ class PeriodicTable::TableScraper
     background_color = element_properties[1].attr("style").gsub("background:", "")
     element_properties_hash[:element_type] = self.determine_element_type_from(background_color)
     
+    element_properties_hash[:name] = element_properties[2].text
+    element_properties_hash[:element_url] = "https://en.wikipedia.org" + element_properties[2].css("a").attr("href").value
+    element_properties_hash[:name_origin] = element_properties[3].text.capitalize
+    element_properties_hash[:group] = self.determine_group_from(element_properties[4].text)
+   
     binding.pry
-    # Name: element_properties[2].text
-    # Element URL: "https://en.wikipedia.org" + element_properties[2].css("a").attr("href").value
-    # Origin of Name: element_properties[3].text #capitalize this sentence
-    # Group: element_properties[4].text #n/a or nil if that returns "" --> check this!
+    
+   # Group: element_properties[4].text #n/a or nil if that returns "" --> check this!
     # Period: element_properties[5].text
     
     # Atomic Weight (with parentheses; requires explanation): element_properties[6].css("span").text
@@ -89,6 +111,10 @@ class PeriodicTable::TableScraper
     else 
       "Error. Cannot determine the element type from the background color."
     end
+  end
+  
+  def determine_group_from(group_node_text)
+    group_node_text == "" ? "N/A" : group_node_text
   end
 end
 
