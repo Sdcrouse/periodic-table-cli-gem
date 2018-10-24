@@ -63,21 +63,9 @@ class PeriodicTable::TableScraper
     element_properties_hash[:period] = element_properties[5].text
     
     atomic_weight = element_properties[6].css("span").text
-    element_properties_hash[:atomic_weight] = self.remove_brackets_and_parentheses_from(atomic_weight)
+    element_properties_hash[:atomic_weight] = self.remove_brackets_or_parentheses_from(atomic_weight)
     
     binding.pry
-    
-    # Put the next set of code in a separate method.
-    # Use separate #gsub statements below! Use a case statement.
-    # atomic_weight = element_properties[6].css("span").text
-    # case atomic_weight
-    # when /\[\d+\]/ # Remove brackets (if any) from the atomic weight
-        #atomic_weight = atomic_weight.gsub(/(\[|\])/, "")
-    # else # Remove parentheses (if any) from the atomic weight) 
-        #atomic_weight = atomic_weight.to_f
-    # end
-    # Atomic Weight (without parentheses): element_properties[6].css("span").text
-    # Atomic Weight (without brackets): element_properties[6].css("span").text.gsub(/(\[|\])/, "")
     
     # Density: element_properties[7].text.gsub(/(\(|\))/, "")
     # Melting Point: element_properties[8].css("span").text (Note: some of these nodes return "-", so be sure to account for that.)
@@ -116,7 +104,7 @@ class PeriodicTable::TableScraper
     group_node_text == "" ? "N/A" : group_node_text
   end
   
-  def remove_brackets_and_parentheses_from(value)
+  def remove_brackets_or_parentheses_from(value)
     if value.match(/\[\d+\]/) # Remove brackets (if any) from the value
       value.gsub(/(\[|\])/, "")
     else # Remove parentheses/uncertainty (if any) from the value
