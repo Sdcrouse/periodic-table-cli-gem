@@ -117,10 +117,10 @@ class PeriodicTable::TableScraper
   end
   
   def remove_brackets_and_parentheses_from(value)
-    if value.match(/\[\d+\]/) # Remove brackets (if any) from the atomic weight
-      atomic_weight.gsub(/(\[|\])/, "")
-    else # Remove parentheses/uncertainty (if any) from the atomic weight 
-      atomic_weight.to_f
+    if value.match(/\[\d+\]/) # Remove brackets (if any) from the value
+      value.gsub(/(\[|\])/, "")
+    else # Remove parentheses/uncertainty (if any) from the value
+      value.to_f
     end
   end
 end
