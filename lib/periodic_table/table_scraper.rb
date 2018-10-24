@@ -65,8 +65,7 @@ class PeriodicTable::TableScraper
     atomic_weight = element_properties[6].css("span").text
     element_properties_hash[:atomic_weight] = self.remove_brackets_or_uncertainty_from(atomic_weight)
     
-    # Here, I am removing parentheses from the density value, but in a different way than the method #remove_brackets_or_parentheses_from
-    element_properties_hash[:density] = element_properties[7].text.gsub(/(\(|\))/, "")
+    element_properties_hash[:density] = self.remove_parentheses_from(element_properties[7].text)
     
     
     binding.pry
@@ -113,6 +112,10 @@ class PeriodicTable::TableScraper
     else # Remove uncertainty (if any) from the value
       value.to_f
     end
+  end
+  
+  def remove_parentheses_from(value)
+    value.gsub(/(\(|\))/, "")
   end
 end
 
