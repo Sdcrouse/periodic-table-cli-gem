@@ -67,7 +67,10 @@ class PeriodicTable::TableScraper
     #element_properties_hash[:atomic_weight] = self.remove_brackets_or_uncertainty_from(atomic_weight)
 
     element_properties_hash[:density] = self.remove_parentheses_from(element_properties[7].children[0].text)
-    element_properties_hash[:melting_point] = self.find_value_in(element_properties[8])
+    
+    binding.pry
+    #call #modify_value_of below.
+    #element_properties_hash[:melting_point] = self.find_value_in(element_properties[8])
     
     boiling_point = self.number_or_na(element_properties[9].children[0].text)
     element_properties_hash[:boiling_point] = self.remove_parentheses_from(boiling_point)
@@ -126,15 +129,13 @@ class PeriodicTable::TableScraper
     # Expect node to equal element_properties[some_number]
     
     span_node = node.css("span")
-    value = nil 
+    
     binding.pry
     if span_node == "[]"
-      value = self.number_or_na(node.children[0].text.strip)
+      node.children[0]
     else
-      value = self.number_or_na(span_node.children[0].text.strip)
+      span_node.children[0]
     end
-    binding.pry
-   self.remove_parentheses_from(value)
   end
   
   def modify_value_of(property_node)
