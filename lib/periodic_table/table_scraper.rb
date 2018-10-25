@@ -137,8 +137,9 @@ class PeriodicTable::TableScraper
    self.remove_parentheses_from(value)
   end
   
-  def modify_value_of(property)
-    
+  def modify_value_of(property_node)
+    property = self.number_or_na(property_node.text.strip)
+    self.remove_parentheses_from(property)
   end
 end
 
