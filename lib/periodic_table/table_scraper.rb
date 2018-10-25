@@ -59,21 +59,21 @@ class PeriodicTable::TableScraper
     element_properties_hash[:name] = element_properties[2].text
     element_properties_hash[:element_url] = "https://en.wikipedia.org" + element_properties[2].css("a").attr("href").value
     element_properties_hash[:name_origin] = element_properties[3].text
-    element_properties_hash[:group] = self.determine_value_from(element_properties[4].text)
+    element_properties_hash[:group] = self.number_or_na(element_properties[4].text)
     element_properties_hash[:period] = element_properties[5].text
     
-    binding.pry #call #find_value_in here.
+    binding.pry
     #atomic_weight = element_properties[6].css("span").children[0].text
     #element_properties_hash[:atomic_weight] = self.remove_brackets_or_uncertainty_from(atomic_weight)
 
     element_properties_hash[:density] = self.remove_parentheses_from(element_properties[7].children[0].text)
     element_properties_hash[:melting_point] = self.find_value_in(element_properties[8])
     
-    boiling_point = self.determine_value_from(element_properties[9].children[0].text)
+    boiling_point = self.number_or_na(element_properties[9].children[0].text)
     element_properties_hash[:boiling_point] = self.remove_parentheses_from(boiling_point)
     
-    element_properties_hash[:heat_capacity] = self.determine_value_from(element_properties[10].text)
-    element_properties_hash[:electronegativity] = self.determine_value_from(element_properties[11].text)
+    element_properties_hash[:heat_capacity] = self.number_or_na(element_properties[10].text)
+    element_properties_hash[:electronegativity] = self.number_or_na(element_properties[11].text)
     element_properties_hash[:abundance] = element_properties[12].text.strip 
     #...[12].children[0].text.strip ^^^
     #The scientific notation looks a bit strange; if there're too many properties, discard this one.
@@ -106,7 +106,7 @@ class PeriodicTable::TableScraper
     end
   end
   
-  def determine_value_from(node_text)
+  def number_or_na(node_text)
     node_text.match(/\d+/) ? node_text : "N/A"
   end
   
@@ -129,12 +129,16 @@ class PeriodicTable::TableScraper
     value = nil 
     binding.pry
     if span_node == "[]"
-      value = self.determine_value_from(node.children[0].text.strip)
+      value = self.number_or_na(node.children[0].text.strip)
     else
-      value = self.determine_value_from(span_node.children[0].text.strip)
+      value = self.number_or_na(span_node.children[0].text.strip)
     end
     binding.pry
    self.remove_parentheses_from(value)
+  end
+  
+  def modify_value_of(property)
+    
   end
 end
 
