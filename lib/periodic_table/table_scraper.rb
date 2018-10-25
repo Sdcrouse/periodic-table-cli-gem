@@ -62,12 +62,11 @@ class PeriodicTable::TableScraper
     element_properties_hash[:group] = self.determine_value_from(element_properties[4].text)
     element_properties_hash[:period] = element_properties[5].text
     
-    atomic_weight = element_properties[6].css("span").text #...css("span").children[0].text
+    atomic_weight = element_properties[6].css("span").children[0].text
     element_properties_hash[:atomic_weight] = self.remove_brackets_or_uncertainty_from(atomic_weight)
 
-    element_properties_hash[:density] = self.remove_parentheses_from(element_properties[7].text) #element_properties[7].children[0].text
+    element_properties_hash[:density] = self.remove_parentheses_from(element_properties[7].children[0].text)
     
-    # Note: I need to call #remove_parentheses_from on the melting and boiling points
     melting_point = self.determine_value_from(element_properties[8].css("span").text) 
     # element_properties[8].css("span").children[0].text.strip ^^^
     # If element_properties[8].css("span") == "[]", then element_properties[8].children[0].text.strip ^^^
