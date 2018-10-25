@@ -62,14 +62,17 @@ class PeriodicTable::TableScraper
     element_properties_hash[:group] = self.number_or_na(element_properties[4].text)
     element_properties_hash[:period] = element_properties[5].text
     
-    binding.pry
+    #binding.pry
     #atomic_weight = element_properties[6].css("span").children[0].text
     #element_properties_hash[:atomic_weight] = self.remove_brackets_or_uncertainty_from(atomic_weight)
 
     element_properties_hash[:density] = self.remove_parentheses_from(element_properties[7].children[0].text)
     
-    melting_point = self.find_value_in(element_properties[8])
-    element_properties_hash[:melting_point] = self.modify_value_of(melting_point)
+    # Delete the line of code below once the nil problem is fixed.
+    element_properties_hash[:melting_point] = self.find_value_in(element_properties[8])
+   #melting_point = self.find_value_in(element_properties[8])
+   #element_properties_hash[:melting_point] = self.modify_value_of(melting_point)
+    # One of the melting_point values is nil somehow... ^^^
     
     boiling_point = self.number_or_na(element_properties[9].children[0].text)
     element_properties_hash[:boiling_point] = self.remove_parentheses_from(boiling_point)
@@ -79,7 +82,7 @@ class PeriodicTable::TableScraper
     element_properties_hash[:abundance] = element_properties[12].text.strip 
     #...[12].children[0].text.strip ^^^
     #The scientific notation looks a bit strange; if there're too many properties, discard this one.
-    binding.pry
+    #binding.pry
     element_properties_hash
   end
   
@@ -134,7 +137,7 @@ class PeriodicTable::TableScraper
     end
   end
   
-  def modify_value_of(property_node)
+  def modify_value_of(property_node) # I'm getting a nil property_node somewhere...
     property = self.number_or_na(property_node.text.strip)
     self.remove_parentheses_from(property)
   end
