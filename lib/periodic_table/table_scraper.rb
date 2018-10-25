@@ -62,21 +62,26 @@ class PeriodicTable::TableScraper
     element_properties_hash[:group] = self.determine_value_from(element_properties[4].text)
     element_properties_hash[:period] = element_properties[5].text
     
-    atomic_weight = element_properties[6].css("span").text
+    atomic_weight = element_properties[6].css("span").text #...css("span").children[0].text
     element_properties_hash[:atomic_weight] = self.remove_brackets_or_uncertainty_from(atomic_weight)
-    
-    element_properties_hash[:density] = self.remove_parentheses_from(element_properties[7].text)
+
+    element_properties_hash[:density] = self.remove_parentheses_from(element_properties[7].text) #element_properties[7].children[0].text
     
     # Note: I need to call #remove_parentheses_from on the melting and boiling points
     melting_point = self.determine_value_from(element_properties[8].css("span").text) 
+    # element_properties[8].css("span").children[0].text.strip ^^^
+    # If element_properties[8].css("span") == "[]", then element_properties[8].children[0].text.strip ^^^
     element_properties_hash[:melting_point] = self.remove_parentheses_from(melting_point)
     
     boiling_point = self.determine_value_from(element_properties[9].text)
+    #element_properties[9].children[0].text ^^^^^
     element_properties_hash[:boiling_point] = self.remove_parentheses_from(boiling_point)
     
     element_properties_hash[:heat_capacity] = self.determine_value_from(element_properties[10].text)
     element_properties_hash[:electronegativity] = self.determine_value_from(element_properties[11].text)
-    element_properties_hash[:abundance] = element_properties[12].text.strip #The scientific notation looks a bit strange; if there're too many properties, discard this one.
+    element_properties_hash[:abundance] = element_properties[12].text.strip 
+    #...[12].children[0].text.strip ^^^
+    #The scientific notation looks a bit strange; if there're too many properties, discard this one.
     binding.pry
     element_properties_hash
   end
