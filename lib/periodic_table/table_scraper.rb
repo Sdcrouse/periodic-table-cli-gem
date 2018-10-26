@@ -68,12 +68,8 @@ class PeriodicTable::TableScraper
 
     element_properties_hash[:density] = self.remove_parentheses_from(element_properties[7].children[0].text)
     
-    # Delete the line of code below once the nil problem is fixed.
-    element_properties_hash[:melting_point] = self.find_value_in(element_properties[8])
-    #binding.pry
-    #melting_point = self.find_value_in(element_properties[8])
-    #element_properties_hash[:melting_point] = self.modify_value_of(melting_point)
-    # One of the melting_point values is nil somehow... ^^^
+    melting_point = self.find_value_in(element_properties[8])
+    element_properties_hash[:melting_point] = self.modify_value_of(melting_point)
     
     boiling_point = self.number_or_na(element_properties[9].children[0].text)
     element_properties_hash[:boiling_point] = self.remove_parentheses_from(boiling_point)
@@ -138,7 +134,7 @@ class PeriodicTable::TableScraper
     end
   end
   
-  def modify_value_of(property_node) # I'm getting a nil property_node somewhere...
+  def modify_value_of(property_node)
     property = self.number_or_na(property_node.text.strip)
     self.remove_parentheses_from(property)
   end
