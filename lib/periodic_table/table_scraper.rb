@@ -6,14 +6,16 @@ class PeriodicTable::TableScraper
 
     2.times do
       scraped_elements.delete(scraped_elements.first)
-      # Somehow, Nokogiri included the tr nodes from thead!
+      # Somehow, Nokogiri included the tr nodes from thead! These need to be deleted.
     end
     scraped_elements.delete(scraped_elements.last) # Remove the last node, which contains notes and no chemical elements.
-    binding.pry
-    self.make_properties_hash_from(scraped_elements[0]) # Delete this line and uncomment the line below.
-    #elements_with_properties = scraped_elements.collect {|element| self.make_properties_hash_from(element)}
+    
+    elements_with_properties_hash = scraped_elements.collect do |element| 
+      self.make_properties_hash_from(element)
+    end
+    
     #Create new Element instances here!
-    #binding.pry
+    binding.pry
   end
 
   def get_page(page)
@@ -48,7 +50,7 @@ class PeriodicTable::TableScraper
       electronegativity: self.number_or_na(element_properties[11].text),
       abundance: element_properties[12].children[0].text.strip 
     }
-    # The scientific notation looks a bit strange; if there're too many properties, discard the abundance property.
+    # The scientific notation looks a bit strange; if there are too many properties, discard the abundance property.
   end
   
   def determine_element_type_from(background_color)
@@ -83,10 +85,10 @@ class PeriodicTable::TableScraper
   end
   
   def remove_brackets_or_uncertainty_from(value)
-    if value.match(/\[\d+\]/) # Remove brackets (if any) from the value
-      value.gsub(/(\[|\])/, "")
-    else # Remove uncertainty (if any) from the value
-      value.to_f
+    if value.match(/\[\d+\]/) 
+      value.gsub(/(\[|\])/, "") # Remove brackets (if any) from the value
+    else
+      value.to_f # Remove uncertainty (if any) from the value
     end
   end
   
