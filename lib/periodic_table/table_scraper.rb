@@ -62,10 +62,9 @@ class PeriodicTable::TableScraper
     element_properties_hash[:group] = self.number_or_na(element_properties[4].text)
     element_properties_hash[:period] = element_properties[5].text
     
-    #binding.pry
-    #atomic_weight = element_properties[6].css("span").children[0].text
-    #element_properties_hash[:atomic_weight] = self.remove_brackets_or_uncertainty_from(atomic_weight)
-
+    atomic_weight_node = self.find_value_in(element_properties[6])
+    element_properties_hash[:atomic_weight] = self.remove_brackets_or_uncertainty_from(atomic_weight_node.text)
+   
     element_properties_hash[:density] = self.remove_parentheses_from(element_properties[7].children[0].text)
     
     melting_point = self.find_value_in(element_properties[8])
