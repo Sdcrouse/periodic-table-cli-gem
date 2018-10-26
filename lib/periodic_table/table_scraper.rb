@@ -75,10 +75,8 @@ class PeriodicTable::TableScraper
     
     element_properties_hash[:heat_capacity] = self.number_or_na(element_properties[10].text)
     element_properties_hash[:electronegativity] = self.number_or_na(element_properties[11].text)
-    element_properties_hash[:abundance] = element_properties[12].text.strip 
-    #...[12].children[0].text.strip ^^^
+    element_properties_hash[:abundance] = element_properties[12].children[0].text.strip 
     #The scientific notation looks a bit strange; if there're too many properties, discard this one.
-    #binding.pry
     element_properties_hash
   end
   
