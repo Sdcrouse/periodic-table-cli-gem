@@ -70,8 +70,9 @@ class PeriodicTable::TableScraper
     
     # Delete the line of code below once the nil problem is fixed.
     element_properties_hash[:melting_point] = self.find_value_in(element_properties[8])
-   #melting_point = self.find_value_in(element_properties[8])
-   #element_properties_hash[:melting_point] = self.modify_value_of(melting_point)
+    #binding.pry
+    #melting_point = self.find_value_in(element_properties[8])
+    #element_properties_hash[:melting_point] = self.modify_value_of(melting_point)
     # One of the melting_point values is nil somehow... ^^^
     
     boiling_point = self.number_or_na(element_properties[9].children[0].text)
@@ -130,7 +131,7 @@ class PeriodicTable::TableScraper
   def find_value_in(node) # Expect node to equal element_properties[some_number]
     span_node = node.css("span")
     
-    if span_node == []
+    if span_node.size == 0
       node.children[0]
     else
       span_node.children[0]
