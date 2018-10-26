@@ -10,7 +10,7 @@ class PeriodicTable::TableScraper
     end
     scraped_elements.delete(scraped_elements.last) # Remove the last node, which contains notes and no chemical elements.
     
-    elements_with_properties_hash = scraped_elements.collect do |element| 
+    elements_and_properties_array = scraped_elements.collect do |element| 
       self.make_properties_hash_from(element)
     end
     
