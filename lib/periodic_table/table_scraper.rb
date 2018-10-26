@@ -26,27 +26,6 @@ class PeriodicTable::TableScraper
   end
 
   def make_properties_hash_from(scraped_element)
-    # Make sure the element_properties_hash matches this: 
-    #attributes = {
-    #  atomic_number: 1,
-    #  symbol: "H",
-    #  element_type: "Reactive nonmetal",
-    #  name: "Hydrogen",
-    #  element_url: "https://en.wikipedia.org/wiki/Hydrogen",
-    #  name_origin: "Composed of the Greek elements hydro- and -gen meaning 'water#-forming'",
-    #  group: 1,
-    #  period: 1,
-    #  atomic_weight: 1.008,
-    #  density: 0.00008988,
-    #  melting_point: 14.01,
-    #  boiling_point: 20.28,
-    #  heat_capacity: 14.304,
-    #  electronegativity: 2.20,
-    #  abundance: 1400
-    #}
-    
-    # Attributes:
-    #:atomic_number, :symbol, :element_type, :name, :element_url, :name_origin, :group, :period, :atomic_weight, :density, :melting_point, :boiling_point, :heat_capacity, :electronegativity, :abundance
     element_properties_hash = {}
     element_properties = scraped_element.css("td")
     
@@ -77,6 +56,7 @@ class PeriodicTable::TableScraper
     element_properties_hash[:electronegativity] = self.number_or_na(element_properties[11].text)
     element_properties_hash[:abundance] = element_properties[12].children[0].text.strip 
     #The scientific notation looks a bit strange; if there're too many properties, discard this one.
+    
     element_properties_hash
   end
   
