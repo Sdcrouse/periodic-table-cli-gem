@@ -130,7 +130,7 @@ class PeriodicTable::TableScraper
   def find_value_in(node) # Expect node to equal element_properties[some_number]
     span_node = node.css("span")
     
-    if span_node == "[]"
+    if span_node == []
       node.children[0]
     else
       span_node.children[0]
