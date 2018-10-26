@@ -49,9 +49,7 @@ class PeriodicTable::TableScraper
     melting_point = self.find_value_in(element_properties[8])
     element_properties_hash[:melting_point] = self.modify_value_of(melting_point)
     
-    boiling_point = self.number_or_na(element_properties[9].children[0].text)
-    element_properties_hash[:boiling_point] = self.remove_parentheses_from(boiling_point)
-    
+    element_properties_hash[:boiling_point] = self.modify_value_of(element_properties[9].children[0])
     element_properties_hash[:heat_capacity] = self.number_or_na(element_properties[10].text)
     element_properties_hash[:electronegativity] = self.number_or_na(element_properties[11].text)
     element_properties_hash[:abundance] = element_properties[12].children[0].text.strip 
