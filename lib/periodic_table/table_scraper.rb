@@ -86,6 +86,8 @@ class PeriodicTable::TableScraper
       "Reactive nonmetal"
     when "#c0ffff"
       "Noble gas"
+    when "#ff6666"
+      "Alkali metal"
     when "#ffdead"
       "Alkaline earth metal"
     when "#cccc99"
