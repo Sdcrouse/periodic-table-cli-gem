@@ -100,7 +100,7 @@ class PeriodicTable::CLI
       when 1
         list_elements_without_properties
       when 2
-        list_elements_with_properties
+        #list_elements_with_properties
       when 3
         #list_periods
       when 4
@@ -116,40 +116,60 @@ class PeriodicTable::CLI
     end
   end
 
-  def list_elements_without_properties # Refactor this! Have the option to list only a few elements. Also, update this when I get all 118 elements.
-    options = ["Elements 1-5", "Elements 6-10", "Elements 11-15", "All Elements", "Go Back"]
+  def list_elements_without_properties
+    options = ["Elements 1-10", "Elements 11-20", "Elements 21-30", "Elements 31-40", "Elements 41-50", "Elements 51-60", "Elements 61-70", "Elements 71-80", "Elements 81-90", "Elements 91-100", "Elements 101-110", "Elements 111-118", "All Elements", "Go Back"]
     user_choice = nil
 
-    until user_choice == 5
+    until user_choice == 14
       puts "Which elements would you like to see?"
       user_choice = choose_from(options)
       puts "\n"
-
-      case user_choice
-      # Refactor part of this into a method that works like a book (i.e. includes the choices First, Previous, Next, and Last)
-      # Also, displaying ten elements instead of five is doable.
-      # Be sure to puts "\n" after displaying them.
-      when 1
-        # Delete and refactor this stuff after I make the scraper
-        self.elements.unshift(PeriodicTable::Element.all[0].name)
-        self.elements[0..4].each.with_index(1) {|element, i| puts "#{i}. #{element}"}
-      when 2
-        self.elements[5..9].each.with_index(6) {|element, i| puts "#{i}. #{element}"}
-      when 3
-        self.elements[10..14].each.with_index(11) {|element, i| puts "#{i}. #{element}"}
-      when 4
-        self.elements.each.with_index(1) {|element, i| puts "#{i}. #{element}"}
-      when 5 # Go back to #list_elements
+      
+      # Refactor part of this into a method that works like a book (i.e. includes the #choices First, Previous, Next, and Last)
+      # Be sure to puts "\n" after displaying them. 
+      
+      if user_choice.between?(1,12)
+        display_set_of_ten_elements(user_choice)
+      elsif user_choice == 13 
+        display_all_elements
+      elsif user_choice == 14 
+        # Go back to #list_elements 
       else
         puts "I don't understand. Please try again."
       end
       sleep 1
     end
   end
+  
+  def display_set_of_ten_elements(set_number) 
+    # Example: if set_number == 2, then do this:
+    # PeriodicTable::Element.all[10..19].each.with_index(11) {|element, i| puts "#{i}. #{element.name}"}
+    
+    first = (set_number - 1) * 10
+    index = first + 1
+    
+    last = nil 
+    if set_number == 12 
+      last = 117 # There are only 118 elements, so the last set contains 8, not 10
+    else 
+      last = first + 9
+    end
+    
+    PeriodicTable::Element.all[first..last].each.with_index(index) do |element, i| 
+      puts "#{i}. #{element.name}"
+    end
+  end
+  
+  def display_all_elements 
+    PeriodicTable::Element.all.each.with_index(1) do |element, i| 
+      puts "#{i}. #{element.name}"
+      sleep 0.5
+    end
+  end
 
   def list_elements_with_properties
     # Maybe split this into #basic_properties and #more_properties...
-    # Since there's a lot of properties, I may use #sleep between each property for easier viewing.
+    # Since there are a lot of properties, I may use #sleep between each property for easier viewing.
     PeriodicTable::Element.all.each.with_index(1) do |element, i|
       puts "--------------------------------------"
       puts "Element #{i}\n\n"
