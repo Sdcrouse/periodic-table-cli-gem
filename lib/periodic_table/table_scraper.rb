@@ -21,10 +21,10 @@ class PeriodicTable::TableScraper
   
   def delete_unnecessary_nodes_from(elements_array)
     2.times do
-      elements_array.delete(scraped_elements.first)
+      elements_array.delete(elements_array.first)
       # Somehow, Nokogiri included the tr nodes from thead! These need to be deleted.
     end
-    elements_array.delete(scraped_elements.last) # Remove the last node, which contains notes and no chemical elements.
+    elements_array.delete(elements_array.last) # Remove the last node, which contains notes and no chemical elements.
   end
 
   def make_properties_hash_from(scraped_element)
