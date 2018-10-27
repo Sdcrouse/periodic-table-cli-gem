@@ -1,8 +1,11 @@
-Later on, put this in an rspec test for the PeriodicTable::TableScraper's #determine_element_type_from method:
+Rspec test ideas -------------------------------------------------------------------------
+Put this in an rspec test for the PeriodicTable::TableScraper's #determine_element_type_from method:
+
 background_color = "Invalid color"
 background_color = element_properties[1].attr("style").gsub("background:", "")
 Write code that expects self.determine_element_type_from(background_color) to equal "Error. Cannot determine the element type from the background color."
 
+Ideas for modifying code -----------------------------------------------------------------
 Put this into the PeriodicTable::TableScraper's #make_properties_hash_from method, but ONLY if you want to explain measurement uncertainty and element stability to the user: 
 
 element_properties_hash[:atomic_weight] = self.find_value_in(element_properties[6])
@@ -10,3 +13,40 @@ element_properties_hash[:atomic_weight] = self.find_value_in(element_properties[
 If you do this, you will also need to delete the method #remove_brackets_or_uncertainty_from.
 
 Note about the TableScraper's method #make_properties_hash_from: Some of the abundance values have scientific notation, which looks a bit strange; if there are too many element properties, discard the abundance property.
+
+Ideas for more features ------------------------------------------------------------------
+Additional functionality that I would like to add to this program later on:
+•	Be able to return to the Main Menu from ANYWHERE in the program.
+•	List SOME chemical elements as opposed to all of them.
+•	List all of the chemical elements AND their properties. (Warn the user first!)
+•	Let the user choose between listing some chemical elements either with or without their properties.
+•	List the element categories, groups, periods, atomic numbers, etc.
+•	Sort the elements by group, period, atomic_number (the default way to show them), etc.
+•	Add more help/description options as the program gains new features.
+•	Have the option to choose an element and navigate to the next or previous element.
+•	Be able to view small groups of elements instead of just one big list of them. And be able to navigate to the next or previous 10 elements.
+•	Maybe add a Glossary option.
+•	Use the Colorize gem to distinguish elements by element_type (alkali, noble gas, etc).
+•	Add a "List" option that will allow the user to see the list of elements again.
+•	Scrape more information from each Element's url attribute.
+
+Ideas for a new version of the CLI ------------------------------------------------------
+•	Let the user create an atom/element by specifying the number of protons
+•	Return an error message if they specify too many or too few protons
+•	Tell the user the name and properties of the atom/element
+•	Get more information about the elements by using the PeriodicTableCLI
+•	Store each atom that the user creates in an array/inventory
+•	Display the names of the atoms in the inventory and the number of each one
+•	Display more information about a specific atom in the inventory
+•	Erase the inventory at the user’s request
+
+Ideas for a newer version after THAT -----------------------------------------------------
+•	Let the user create molecular compounds by specifying the type(s) of atom(s) to use and how many of each type of atom to use
+    o	It will also create molecular compounds by adding atoms to molecules
+•	Return an error message if the program doesn’t yet recognize that molecular compound
+•	Display the name, chemical formula, and other information about that molecular compound
+•	Store each compound that the user creates in an array/inventory
+•	Display the names of the compounds in the inventory and the number of each one
+•	Display more information about a specific molecular compound in the inventory
+•	Erase the inventory at the user’s request
+•	Be named ChemLabCLI or ChemLabAPI
