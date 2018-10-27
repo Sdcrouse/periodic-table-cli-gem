@@ -92,12 +92,13 @@ class PeriodicTable::CLI
       "List element periods",
       "List element groups",
       "List element categories",
+      "Sort elements",
       "Help",
       "Return to Main Menu"
     ]
 
     puts "\nHere's where the REAL fun begins!"
-    until user_choice == 7
+    until user_choice == 8
       puts "How do you want to list the elements?"
       user_choice = self.choose_from(list_choices)
       puts "\n"
@@ -113,9 +114,11 @@ class PeriodicTable::CLI
         #list_groups
       when 5
         #list_categories
-      when 6
+      when 6 
+        sort_elements
+      when 7
         #list_elements_help
-      when 7 # Return to Main Menu
+      when 8 # Return to Main Menu
       else
         puts "I don't understand. Please try again."
       end
@@ -137,7 +140,7 @@ class PeriodicTable::CLI
       if user_choice.between?(1,12)
         display_set_of_ten_elements(user_choice)
       elsif user_choice == 13 
-        display_all_elements
+        display_all_elements(PeriodicTable::Element.all)
       elsif user_choice == 14 
         # Go back to #list_elements 
       else
@@ -167,8 +170,8 @@ class PeriodicTable::CLI
     end
   end
   
-  def display_all_elements 
-    PeriodicTable::Element.all.each.with_index(1) do |element, i| 
+  def display_all_elements(element_list) 
+    element_list.each.with_index(1) do |element, i| 
       puts "#{i}. #{element.name}"
       sleep 0.5
     end
@@ -198,5 +201,10 @@ class PeriodicTable::CLI
       puts "--------------------------------------"
     end
     puts "\n"
+  end
+  
+  def sort_elements 
+    sorted_elements = PeriodicTable::Element.all.sort_by{|element| element.name}
+    display_all_elements(sorted_elements)
   end
 end
