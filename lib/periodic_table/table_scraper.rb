@@ -1,6 +1,6 @@
 class PeriodicTable::TableScraper
 
-  def scrape_and_create_elements
+  def scrape_periodic_table
     page = self.get_page("https://en.wikipedia.org/wiki/List_of_chemical_elements")
     scraped_elements = self.scrape_elements_from(page)
 

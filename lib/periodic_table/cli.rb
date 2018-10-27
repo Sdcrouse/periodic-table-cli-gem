@@ -12,7 +12,7 @@ class PeriodicTable::CLI
   end
 
   def make_elements
-    elements_array = PeriodicTable::TableScraper.new.scrape_and_create_elements
+    elements_array = PeriodicTable::TableScraper.new.scrape_periodic_table
     
     elements_array.each do |element| 
       PeriodicTable::Element.new_from_periodic_table(element)
