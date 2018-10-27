@@ -8,3 +8,5 @@ Put this into the PeriodicTable::TableScraper's #make_properties_hash_from metho
 element_properties_hash[:atomic_weight] = self.find_value_in(element_properties[6])
 
 If you do this, you will also need to delete the method #remove_brackets_or_uncertainty_from.
+
+Note about the TableScraper's method #make_properties_hash_from: Some of the abundance values have scientific notation, which looks a bit strange; if there are too many element properties, discard the abundance property.

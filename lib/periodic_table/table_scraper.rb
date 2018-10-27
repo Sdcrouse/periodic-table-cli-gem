@@ -50,7 +50,6 @@ class PeriodicTable::TableScraper
       electronegativity: self.number_or_na(element_properties[11].text),
       abundance: element_properties[12].children[0].text.strip 
     }
-    # The scientific notation looks a bit strange; if there are too many properties, discard the abundance property.
   end
   
   def determine_element_type_from(background_color)
