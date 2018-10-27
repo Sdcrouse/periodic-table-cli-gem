@@ -15,6 +15,7 @@ class PeriodicTable::TableScraper
     end
     
     #Create new Element instances here!
+    hydrogen = PeriodicTable::Element.new_from_periodic_table(elements_and_properties_array[0])
     binding.pry
   end
 
