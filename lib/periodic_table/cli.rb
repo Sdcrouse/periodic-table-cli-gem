@@ -6,12 +6,15 @@ class PeriodicTable::CLI
   end
 
   def call
-    # Delete the following line once I make the Scraper:
-    PeriodicTable::Element.new_from_periodic_table
+    make_elements
     start
     puts "\nUntil next time, future chemist!"
   end
 
+  def make_elements
+    #PeriodicTable::Element.new_from_periodic_table
+  end
+  
   def start
     puts "Welcome to the Interactive Periodic Table!"
     puts "Ready to start learning some chemistry? (Y/n)"
