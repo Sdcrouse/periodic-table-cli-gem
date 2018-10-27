@@ -52,7 +52,10 @@ class PeriodicTable::CLI
 
   def choose_from(option_list)
     puts "Choose from the numbered list below:\n\n"
-    option_list.each.with_index(1) {|option, i| puts "#{i}. #{option}"}
+    option_list.each.with_index(1) do |option, i| 
+      puts "#{i}. #{option}"
+      sleep 0.5 
+    end
     gets.strip.to_i
   end
 
@@ -72,10 +75,13 @@ class PeriodicTable::CLI
 
   def describe_main_menu_options
     puts "\nHere are the Main Menu options:"
+    sleep 1
     puts "Press 1 to view a list of chemical elements from the Periodic Table."
+    sleep 1
     puts "Press 2 to view this description of the Main Menu options."
+    sleep 1
     puts "Press 3 to quit the Interactive Periodic Table."
-    sleep 5
+    sleep 3
   end
 
   def list_elements
@@ -137,7 +143,7 @@ class PeriodicTable::CLI
       else
         puts "I don't understand. Please try again."
       end
-      sleep 1
+      puts "\n"
     end
   end
   
@@ -157,6 +163,7 @@ class PeriodicTable::CLI
     
     PeriodicTable::Element.all[first..last].each.with_index(index) do |element, i| 
       puts "#{i}. #{element.name}"
+      sleep 0.5
     end
   end
   
