@@ -89,16 +89,13 @@ class PeriodicTable::CLI
     list_choices = [
       "List elements without their properties",
       "List elements with their properties",
-      "List element periods",
-      "List element groups",
-      "List element categories",
       "Sort elements",
       "Help",
       "Return to Main Menu"
     ]
 
     puts "\nHere's where the REAL fun begins!"
-    until user_choice == 8
+    until user_choice == 5
       puts "How do you want to list the elements?"
       user_choice = self.choose_from(list_choices)
       puts "\n"
@@ -108,17 +105,11 @@ class PeriodicTable::CLI
         list_elements_without_properties
       when 2
         #list_elements_with_properties
-      when 3
-        #list_periods
-      when 4
-        #list_groups
-      when 5
-        #list_categories
-      when 6 
+      when 3 
         sort_elements
-      when 7
+      when 4
         #list_elements_help
-      when 8 # Return to Main Menu
+      when 5 # Return to Main Menu
       else
         puts "I don't understand. Please try again."
       end
