@@ -22,6 +22,7 @@ Additional functionality that I would like to add to this program later on:
 •	Let the user choose between listing some chemical elements either with or without their properties.
 •	List the element categories, groups, periods, atomic numbers, etc.
 •	Sort the elements by group, period, atomic_number (the default way to show them), etc.
+•	Sort the partial lists of elements as well as the list of all elements.
 •	Add more help/description options as the program gains new features.
 •	Have the option to choose an element and navigate to the next or previous element.
 •	Be able to view small groups of elements instead of just one big list of them. And be able to navigate to the next or previous 10 elements.
