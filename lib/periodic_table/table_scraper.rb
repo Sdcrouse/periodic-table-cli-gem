@@ -10,13 +10,9 @@ class PeriodicTable::TableScraper
     end
     scraped_elements.delete(scraped_elements.last) # Remove the last node, which contains notes and no chemical elements.
     
-    elements_and_properties_array = scraped_elements.collect do |element| 
-      self.make_properties_hash_from(element)
+    scraped_elements.collect do |scraped_element| 
+      self.make_properties_hash_from(scraped_element)
     end
-    
-    #Create new Element instances here!
-    hydrogen = PeriodicTable::Element.new_from_periodic_table(elements_and_properties_array[0])
-    binding.pry
   end
 
   def get_page(page)
@@ -112,5 +108,3 @@ class PeriodicTable::TableScraper
     self.remove_parentheses_from(property)
   end
 end
-
-PeriodicTable::TableScraper.new.scrape_and_create_elements
