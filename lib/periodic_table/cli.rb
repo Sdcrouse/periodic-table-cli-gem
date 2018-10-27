@@ -1,9 +1,9 @@
 class PeriodicTable::CLI
-  attr_reader :elements
+  #attr_reader :elements
 
-  def initialize # Remember to update this with a list of Elements (or delete it)
-    @elements = ["helium", "carbon", "oxygen", "nitrogen", "sulfur", "astatine", "phosphorus", "neon", "xenon", "iron", "lead", "silver", "gold", "sodium"]
-  end
+  #def initialize # Remember to update this with a list of Elements (or delete it)
+  #  @elements = ["helium", "carbon", "oxygen", "nitrogen", "sulfur", "astatine", #"phosphorus", "neon", "xenon", "iron", "lead", "silver", "gold", "sodium"]
+  #end
 
   def call
     make_elements
@@ -32,7 +32,6 @@ class PeriodicTable::CLI
     yes_or_no = "no"
     user_choice = nil
 
-    #call PeriodicTable::Table here. That should then scrape Wikipedia.
     until yes_or_no == "y" || yes_or_no == "yes"
       puts "\nWelcome to the Main Menu! What would you like to do?"
       user_choice = self.choose_from(menu_options)
@@ -150,11 +149,10 @@ class PeriodicTable::CLI
 
   def list_elements_with_properties
     # Maybe split this into #basic_properties and #more_properties...
-    # :name, :symbol, :atomic_number, :atomic_weight, :element_url, :name_origin, :group, :period, :density, :melting_point, :boiling_point, :heat_capacity, :electronegativity, :abundance
     # Since there's a lot of properties, I may use #sleep between each property for easier viewing.
     PeriodicTable::Element.all.each.with_index(1) do |element, i|
       puts "--------------------------------------"
-      puts "Element #{i}\n\n" # When scraped, each of these should have a value or 'n/a'
+      puts "Element #{i}\n\n"
       puts "Name: #{element.name}"
       puts "Element Type: #{element.element_type}"
       puts "Origin of Name: #{element.name_origin}"
