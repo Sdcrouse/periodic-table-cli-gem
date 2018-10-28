@@ -14,6 +14,8 @@ If you do this, you will also need to delete the method #remove_brackets_or_unce
 
 Note about the TableScraper's method #make_properties_hash_from: Some of the abundance values have scientific notation, which looks a bit strange; if there are too many element properties, discard the abundance property.
 
+I was going to have the program wait until a list of elements had been displayed, before I gave the user the option to examine an element. But I think it's easier for me to include that option in the Main Menu. It also makes the program easier for the user (and future programmers) to understand, since there's more than one list option. And by having the user choose the name of an element instead of a number from the list, my program won't need to know which list had been displayed before the user examines an element! (That's especially good, since the numbers in the sorted list are different from the numbers in the regular list.)
+
 Ideas for more features ------------------------------------------------------------------
 Additional functionality that I would like to add to this program later on:
 •	Be able to return to the Main Menu from ANYWHERE in the program.
