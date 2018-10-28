@@ -1,10 +1,4 @@
 class PeriodicTable::CLI
-  #attr_reader :elements
-
-  #def initialize # Remember to update this with a list of Elements (or delete it)
-  #  @elements = ["helium", "carbon", "oxygen", "nitrogen", "sulfur", "astatine", #"phosphorus", "neon", "xenon", "iron", "lead", "silver", "gold", "sodium"]
-  #end
-
   def call
     make_elements
     start
