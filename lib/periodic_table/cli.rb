@@ -22,7 +22,7 @@ class PeriodicTable::CLI
   end
 
   def main_menu # Refactor the program so that most of it is run from here, including the options to examine an element and sort elements.
-    menu_options = ["List Elements", "Help", "Quit"]
+    menu_options = ["List Elements", "Examine an Element", "Sort Elements", "Help", "Quit"]
     yes_or_no = "no"
     user_choice = nil
 
@@ -34,8 +34,12 @@ class PeriodicTable::CLI
       when 1
         list_elements
       when 2
+        #examine_element
+      when 3 
+        sort_elements
+      when 4 
         help
-      when 3
+      when 5
         puts "\nAre you sure you want to quit? (N/y):"
         yes_or_no = gets.strip.downcase
       else
