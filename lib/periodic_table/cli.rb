@@ -87,7 +87,7 @@ class PeriodicTable::CLI
   end
 
   def list_elements
-    options = ["Elements 1-10", "Elements 11-20", "Elements 21-30", "Elements 31-40", "Elements 41-50", "Elements 51-60", "Elements 61-70", "Elements 71-80", "Elements 81-90", "Elements 91-100", "Elements 101-110", "Elements 111-118", "All Elements", "Go Back"]
+    options = ["Elements 1-10", "Elements 11-20", "Elements 21-30", "Elements 31-40", "Elements 41-50", "Elements 51-60", "Elements 61-70", "Elements 71-80", "Elements 81-90", "Elements 91-100", "Elements 101-110", "Elements 111-118", "All of them!", "Back to Main Menu"]
     user_choice = nil
 
     until user_choice == 14
@@ -103,7 +103,7 @@ class PeriodicTable::CLI
       elsif user_choice == 13 
         display_all_elements(PeriodicTable::Element.all)
       elsif user_choice == 14 
-        # Go back to #list_elements 
+        # Go back to the Main Menu.
       else
         puts "I don't understand. Please try again."
       end
