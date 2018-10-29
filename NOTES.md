@@ -19,7 +19,6 @@ I was going to have the program wait until a list of elements had been displayed
 Ideas for more features ------------------------------------------------------------------
 Additional functionality that I would like to add to this program later on:
 •	Be able to return to the Main Menu from ANYWHERE in the program.
-•	List SOME chemical elements as opposed to all of them.
 •	List all of the chemical elements AND their properties. (Warn the user first!)
 •	Let the user choose between listing some chemical elements either with or without their properties.
 •	List the element categories, groups, periods, atomic numbers, etc.
@@ -27,10 +26,10 @@ Additional functionality that I would like to add to this program later on:
 •	Sort the partial lists of elements as well as the list of all elements.
 •	Add more help/description options as the program gains new features.
 •	Have the option to choose an element and navigate to the next or previous element.
-•	Be able to view small groups of elements instead of just one big list of them. And be able to navigate to the next or previous 10 elements.
+•	When viewing small groups of elements instead of all of them at once, be able to navigate to the next or previous 10 elements.
 •	Maybe add a Glossary option.
 •	Use the Colorize gem to distinguish elements by element_type (alkali, noble gas, etc).
-•	Add a "List" option that will allow the user to see the list of elements again.
+•	Add a "List" option that will allow the user to see the list of elements again. (Update: given the new layout of the Main Menu, this option is already there in a different form.)
 •	Scrape more information from each Element's url attribute.
 
 Ideas for a new version of the CLI ------------------------------------------------------
