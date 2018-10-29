@@ -67,12 +67,14 @@ class PeriodicTable::CLI
   def introduction
     puts "\nThe Interactive Periodic Table is designed to mimic a real periodic table by providing information about each of the currently known chemical elements."
     sleep 5
-    puts "\nIn this program, you are able to view a list of all or some of the chemical elements, examine an individual chemical element for more information, and sort the elements. Currently, the elements can only be sorted by name."
+    puts "\nIn this program, you are able to view a list of all or some of the chemical elements, examine an individual chemical element for more information, and sort the elements."
+    sleep 5
+    puts "\nBy default, the chemical elements are listed by their atomic numbers. The 'Sort Elements' option will sort them by their names."
     sleep 5
   end
 
   def describe_main_menu_options
-    puts "\nHere are the Main Menu options:"
+    puts "\n\nHere are the Main Menu options:"
     sleep 1
     puts "Press 1 to view a list of chemical elements from the Periodic Table."
     sleep 1
