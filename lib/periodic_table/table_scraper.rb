@@ -40,14 +40,14 @@ class PeriodicTable::TableScraper
       name: element_properties[2].text,
       element_url: "https://en.wikipedia.org" + element_properties[2].css("a").attr("href").value,
       name_origin: element_properties[3].text,
-      group: self.number_or_na(element_properties[4].text),
+      group: self.number_or_nil(element_properties[4].text),
       period: element_properties[5].text,
       atomic_weight: self.remove_brackets_or_uncertainty_from(atomic_weight_node.text),
       density: self.remove_parentheses_from(element_properties[7].children[0].text),
       melting_point: self.modify_value_of(melting_point),
       boiling_point: self.modify_value_of(element_properties[9].children[0]),
-      heat_capacity: self.number_or_na(element_properties[10].text),
-      electronegativity: self.number_or_na(element_properties[11].text),
+      heat_capacity: self.number_or_nil(element_properties[10].text),
+      electronegativity: self.number_or_nil(element_properties[11].text),
       abundance: element_properties[12].children[0].text.strip 
     }
   end
@@ -79,8 +79,8 @@ class PeriodicTable::TableScraper
     end
   end
   
-  def number_or_na(node_text)
-    node_text.match(/\d+/) ? node_text : "N/A"
+  def number_or_nil(node_text)
+    node_text.match(/\d+/) ? node_text : nil
   end
   
   def remove_brackets_or_uncertainty_from(value)
@@ -106,7 +106,7 @@ class PeriodicTable::TableScraper
   end
   
   def modify_value_of(property_node)
-    property = self.number_or_na(property_node.text.strip)
+    property = self.number_or_nil(property_node.text.strip)
     self.remove_parentheses_from(property)
   end
 end
