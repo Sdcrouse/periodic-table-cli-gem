@@ -143,7 +143,7 @@ class PeriodicTable::CLI
   def examine_element
     puts "Which element would you like to examine? Please enter its name here:"
     input = gets.strip.capitalize 
-    element = PeriodicTable::Element.find_by_name(input)
+    element = PeriodicTable::Element.find_element_by_name(input)
     
     if !element.nil?
       #list_element_properties(element)
