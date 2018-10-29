@@ -87,37 +87,6 @@ class PeriodicTable::CLI
   end
 
   def list_elements
-    user_choice = nil
-    list_choices = [
-      "List elements without their properties",
-      "List elements with their properties",
-      "Sort elements",
-      "Help",
-      "Return to Main Menu"
-    ]
-
-    until user_choice == 5
-      puts "How do you want to list the elements?"
-      user_choice = self.choose_from(list_choices)
-      puts "\n"
-
-      case user_choice
-      when 1
-        list_elements_without_properties
-      when 2
-        #list_elements_with_properties
-      when 3 
-        sort_elements
-      when 4
-        #list_elements_help
-      when 5 # Return to Main Menu
-      else
-        puts "I don't understand. Please try again."
-      end
-    end
-  end
-
-  def list_elements_without_properties
     options = ["Elements 1-10", "Elements 11-20", "Elements 21-30", "Elements 31-40", "Elements 41-50", "Elements 51-60", "Elements 61-70", "Elements 71-80", "Elements 81-90", "Elements 91-100", "Elements 101-110", "Elements 111-118", "All Elements", "Go Back"]
     user_choice = nil
 
