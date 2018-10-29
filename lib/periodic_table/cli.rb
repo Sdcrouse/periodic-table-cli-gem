@@ -146,35 +146,33 @@ class PeriodicTable::CLI
     element = PeriodicTable::Element.find_element_by_name(input)
     
     if !element.nil?
-      #list_element_properties(element)
+      list_properties_of(element)
     else 
       puts "I'm sorry. I do not recognize that element. Please be careful to spell its name correctly."
     end
   end
 
-  def list_elements_with_properties
+  def list_properties_of(element)
     # Maybe split this into #basic_properties and #more_properties...
     # Since there are a lot of properties, I may use #sleep between each property for easier viewing.
-    PeriodicTable::Element.all.each.with_index(1) do |element, i|
-      puts "--------------------------------------"
-      puts "Element #{i}\n\n"
-      puts "Name: #{element.name}"
-      puts "Element Type: #{element.element_type}"
-      puts "Origin of Name: #{element.name_origin}"
-      puts "Symbol: #{element.symbol}"
-      puts "Atomic Number: #{element.atomic_number}"
-      puts "Atomic Weight: #{element.atomic_weight}"
-      puts "Group: #{element.group}"
-      puts "Period: #{element.period}"
-      puts "Density: #{element.density} g/cm^3"
-      puts "Melting Point: #{element.melting_point} K"
-      puts "Boiling Point: #{element.boiling_point} K"
-      puts "Heat Capacity: #{element.heat_capacity} J/(g * K)"
-      puts "Electronegativity (Pauline Scale): #{element.electronegativity}"
-      puts "Abundance in Earth's Crust: #{element.abundance} mg/kg"
-      puts "URL: #{element.element_url}"
-      puts "--------------------------------------"
-    end
+    
+    puts "\n--------------------------------------"
+    puts "Element: #{element.name}\n\n"
+    puts "Element Type: #{element.element_type}"
+    puts "Origin of Name: #{element.name_origin}"
+    puts "Symbol: #{element.symbol}"
+    puts "Atomic Number: #{element.atomic_number}"
+    puts "Atomic Weight: #{element.atomic_weight}"
+    puts "Group: #{element.group}"
+    puts "Period: #{element.period}"
+    puts "Density: #{element.density} g/cm^3"
+    puts "Melting Point: #{element.melting_point} K"
+    puts "Boiling Point: #{element.boiling_point} K"
+    puts "Heat Capacity: #{element.heat_capacity} J/(g * K)"
+    puts "Electronegativity (Pauline Scale): #{element.electronegativity}"
+    puts "Abundance in Earth's Crust: #{element.abundance} mg/kg"
+    puts "URL: #{element.element_url}"
+    puts "--------------------------------------"
     puts "\n"
   end
   
