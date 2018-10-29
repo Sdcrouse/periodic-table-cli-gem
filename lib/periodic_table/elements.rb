@@ -18,4 +18,8 @@ class PeriodicTable::Element
    def self.all
     @@all
   end
+  
+  def self.find_element_by_name(name)
+    self.all.detect {|element| element.name == name}
+  end
 end
