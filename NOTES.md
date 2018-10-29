@@ -1,4 +1,5 @@
 Rspec test ideas -------------------------------------------------------------------------
+
 Put this in an rspec test for the PeriodicTable::TableScraper's #determine_element_type_from method:
 
 background_color = "Invalid color"
@@ -6,6 +7,7 @@ background_color = element_properties[1].attr("style").gsub("background:", "")
 Write code that expects self.determine_element_type_from(background_color) to equal "Error. Cannot determine the element type from the background color."
 
 Ideas for modifying code -----------------------------------------------------------------
+
 Put this into the PeriodicTable::TableScraper's #make_properties_hash_from method, but ONLY if you want to explain measurement uncertainty and element stability to the user: 
 
 element_properties_hash[:atomic_weight] = self.find_value_in(element_properties[6])
@@ -17,7 +19,7 @@ Note about the TableScraper's method #make_properties_hash_from: Some of the abu
 I was going to have the program wait until a list of elements had been displayed, before I gave the user the option to examine an element. But I think it's easier for me to include that option in the Main Menu. It also makes the program easier for the user (and future programmers) to understand, since there's more than one list option. And by having the user choose the name of an element instead of a number from the list, my program won't need to know which list had been displayed before the user examines an element! (That's especially good, since the numbers in the sorted list are different from the numbers in the regular list.)
 
 Ideas for more features ------------------------------------------------------------------
-Additional functionality that I would like to add to this program later on:
+
 •	Be able to return to the Main Menu from ANYWHERE in the program.
 •	List all of the chemical elements AND their properties. (Warn the user first!)
 •	Let the user choose between listing some chemical elements either with or without their properties.
@@ -33,6 +35,7 @@ Additional functionality that I would like to add to this program later on:
 •	Scrape more information from each Element's url attribute.
 
 Ideas for a new version of the CLI ------------------------------------------------------
+
 •	Let the user create an atom/element by specifying the number of protons
 •	Return an error message if they specify too many or too few protons
 •	Tell the user the name and properties of the atom/element
@@ -43,6 +46,7 @@ Ideas for a new version of the CLI ---------------------------------------------
 •	Erase the inventory at the user’s request
 
 Ideas for a newer version after THAT -----------------------------------------------------
+
 •	Let the user create molecular compounds by specifying the type(s) of atom(s) to use and how many of each type of atom to use
     o	It will also create molecular compounds by adding atoms to molecules
 •	Return an error message if the program doesn’t yet recognize that molecular compound
