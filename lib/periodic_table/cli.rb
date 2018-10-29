@@ -25,6 +25,8 @@ class PeriodicTable::CLI
     menu_options = ["List Elements", "Examine an Element", "Sort Elements", "Help", "Quit"]
     yes_or_no = "no"
     user_choice = nil
+    
+    puts "\nHere's where the REAL fun begins!"
 
     until yes_or_no == "y" || yes_or_no == "yes"
       puts "\nWelcome to the Main Menu! What would you like to do?"
@@ -94,7 +96,6 @@ class PeriodicTable::CLI
       "Return to Main Menu"
     ]
 
-    puts "\nHere's where the REAL fun begins!"
     until user_choice == 5
       puts "How do you want to list the elements?"
       user_choice = self.choose_from(list_choices)
