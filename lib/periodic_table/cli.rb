@@ -15,7 +15,7 @@ class PeriodicTable::CLI
   
   def start
     puts "Welcome to the Interactive Periodic Table!"
-    puts "Ready to start learning some chemistry? (Y/n)"
+    puts "Ready to start learning some chemistry? (Y/n)\n\n"
     start_program = gets.strip.downcase
 
     main_menu unless start_program == "n" || start_program == "no"
@@ -42,7 +42,7 @@ class PeriodicTable::CLI
       when 4 
         help
       when 5
-        puts "\nAre you sure you want to quit? (N/y):"
+        puts "\nAre you sure you want to quit? (N/y):\n\n"
         yes_or_no = gets.strip.downcase
       else
         puts "I don't understand. Please try again."
@@ -56,6 +56,7 @@ class PeriodicTable::CLI
       puts "#{i}. #{option}"
       sleep 0.5 
     end
+    puts "\n"
     gets.strip.to_i
   end
 
@@ -145,7 +146,7 @@ class PeriodicTable::CLI
     
     until input == "Back"
       puts "\nWhich element would you like to examine?"
-      puts "Please enter its name here, or type 'back' to go back to the Main Menu:"
+      puts "Please enter its name here, or type 'back' to go back to the Main Menu:\n\n"
       input = gets.strip.capitalize 
       element = PeriodicTable::Element.find_element_by_name(input)
       
