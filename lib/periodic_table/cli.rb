@@ -141,14 +141,22 @@ class PeriodicTable::CLI
   end
 
   def examine_element
-    puts "Which element would you like to examine? Please enter its name here:"
-    input = gets.strip.capitalize 
-    element = PeriodicTable::Element.find_element_by_name(input)
+    input = nil 
     
-    if !element.nil?
-      list_properties_of(element)
-    else 
-      puts "I'm sorry. I do not recognize that element. Please be careful to spell its name correctly."
+    until input == "Back"
+      puts "\nWhich element would you like to examine?"
+      puts "Please enter its name here, or type 'back' to go back to the Main Menu:"
+      input = gets.strip.capitalize 
+      element = PeriodicTable::Element.find_element_by_name(input)
+      
+      if !element.nil?
+        list_properties_of(element)
+      elsif input == "Back"
+        puts "\nOK. Back to the Main Menu we go!"
+      else 
+        puts "\nI'm sorry. I do not recognize that element." 
+        puts "Please be careful to spell its name correctly."
+      end
     end
   end
 
