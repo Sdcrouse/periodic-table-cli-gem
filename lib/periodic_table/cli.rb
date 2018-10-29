@@ -36,7 +36,7 @@ class PeriodicTable::CLI
       when 1
         list_elements
       when 2
-        #examine_element
+        examine_element
       when 3 
         sort_elements
       when 4 
@@ -137,6 +137,18 @@ class PeriodicTable::CLI
     element_list.each.with_index(1) do |element, i| 
       puts "#{i}. #{element.name}"
       sleep 0.5
+    end
+  end
+
+  def examine_element
+    puts "Which element would you like to examine? Please enter its name here:"
+    input = gets.strip.capitalize 
+    element = PeriodicTable::Element.find_by_name(input)
+    
+    if !element.nil?
+      #list_element_properties(element)
+    else 
+      puts "I'm sorry. I do not recognize that element. Please be careful to spell its name correctly."
     end
   end
 
