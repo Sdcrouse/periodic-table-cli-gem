@@ -74,11 +74,11 @@ class PeriodicTable::CLI
   end
 
   def describe_main_menu_options
-    puts "\n\nHere are the Main Menu options:"
+    puts "\nHere are the Main Menu options:"
     sleep 1
     puts "Press 1 to view a list of chemical elements from the Periodic Table."
     sleep 1
-    puts "Press 2 to get more information about an element (name, symbol, properties, etc)."
+    puts "Press 2 to get more information about an element (name, properties, etc)."
     sleep 1
     puts "Press 3 to see the chemical elements sorted by name."
     sleep 1
