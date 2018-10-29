@@ -91,9 +91,9 @@ class PeriodicTable::CLI
   def list_elements
     options = ["Elements 1-10", "Elements 11-20", "Elements 21-30", "Elements 31-40", "Elements 41-50", "Elements 51-60", "Elements 61-70", "Elements 71-80", "Elements 81-90", "Elements 91-100", "Elements 101-110", "Elements 111-118", "All of them!", "Back to Main Menu"]
     user_choice = nil
-
+    
     until user_choice == 14
-      puts "Which elements would you like to see?"
+      puts "\nWhich elements would you like to see?"
       user_choice = choose_from(options)
       puts "\n"
       
@@ -105,11 +105,10 @@ class PeriodicTable::CLI
       elsif user_choice == 13 
         display_all_elements(PeriodicTable::Element.all)
       elsif user_choice == 14 
-        # Go back to the Main Menu.
+        puts "OK. Heading back to the Main Menu now."
       else
         puts "I don't understand. Please try again."
       end
-      puts "\n"
     end
   end
   
@@ -138,6 +137,7 @@ class PeriodicTable::CLI
       puts "#{i}. #{element.name}"
       sleep 0.5
     end
+    sleep 1
   end
 
   def examine_element
@@ -164,27 +164,42 @@ class PeriodicTable::CLI
     # Maybe split this into #basic_properties and #more_properties...
     # Since there are a lot of properties, I may use #sleep between each property for easier viewing.
     
-    puts "\n--------------------------------------"
+    puts "\n--------------------------------------------"
     puts "Element: #{element.name}\n\n"
+    sleep 1
     puts "Element Type: #{element.element_type}"
+    sleep 1
     puts "Origin of Name: #{element.name_origin}"
+    sleep 1
     puts "Symbol: #{element.symbol}"
+    sleep 1
     puts "Atomic Number: #{element.atomic_number}"
+    sleep 1
     puts "Atomic Weight: #{element.atomic_weight}"
+    sleep 1
     puts "Group: #{element.group}"
+    sleep 1
     puts "Period: #{element.period}"
+    sleep 1
     puts "Density: #{element.density} g/cm^3"
+    sleep 1
     puts "Melting Point: #{element.melting_point} K"
+    sleep 1
     puts "Boiling Point: #{element.boiling_point} K"
+    sleep 1
     puts "Heat Capacity: #{element.heat_capacity} J/(g * K)"
+    sleep 1
     puts "Electronegativity (Pauline Scale): #{element.electronegativity}"
+    sleep 1
     puts "Abundance in Earth's Crust: #{element.abundance} mg/kg"
+    sleep 1
     puts "URL: #{element.element_url}"
-    puts "--------------------------------------"
-    puts "\n"
+    puts "--------------------------------------------"
+    sleep 1
   end
   
   def sort_elements 
+    puts "\n"
     sorted_elements = PeriodicTable::Element.all.sort_by{|element| element.name}
     display_all_elements(sorted_elements)
   end
