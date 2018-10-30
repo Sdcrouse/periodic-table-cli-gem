@@ -164,23 +164,23 @@ class PeriodicTable::CLI
   def list_properties_of(element)
     # Maybe split this into #basic_properties and #more_properties...
     
-    puts "\n--------------------------------------------"
+    puts "\n---------------------------------------------------------------------------"
     puts "Element: #{element.name}\n\n"
-    sleep 1
-    
-    puts "Element Type: #{element.element_type}"
-    sleep 1
-    
-    puts "Origin of Name: #{element.name_origin}"
-    sleep 1
-    
-    puts "Symbol: #{element.symbol}"
     sleep 1
     
     puts "Atomic Number: #{element.atomic_number}"
     sleep 1
     
+    puts "Symbol: #{element.symbol}"
+    sleep 1
+    
     puts "Atomic Weight: #{element.atomic_weight}"
+    sleep 1
+    
+    puts "Origin of Name: #{element.name_origin}"
+    sleep 1
+    
+    puts "Element Type: #{element.element_type}"
     sleep 1
     
     puts "Group: #{element.group}" unless element.group.nil?
@@ -193,7 +193,7 @@ class PeriodicTable::CLI
     sleep 1
     
     puts "Melting Point: #{element.melting_point} K" unless element.melting_point.nil?
-    sleep unless element.melting_point.nil?
+    sleep 1 unless element.melting_point.nil?
     
     puts "Boiling Point: #{element.boiling_point} K" unless element.boiling_point.nil?
     sleep 1 unless element.boiling_point.nil?
@@ -207,8 +207,8 @@ class PeriodicTable::CLI
     puts "Abundance in Earth's Crust: #{element.abundance} mg/kg" unless element.abundance == "0"
     sleep 1 unless element.abundance == "0"
     
-    puts "URL: #{element.element_url}"
-    puts "--------------------------------------------"
+    puts "\nURL: #{element.element_url}"
+    puts "---------------------------------------------------------------------------"
     sleep 1
   end
   
