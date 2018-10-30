@@ -92,7 +92,7 @@ class PeriodicTable::TableScraper
   end
   
   def remove_parentheses_from(value)
-    value.gsub(/(\(|\))/, "")
+    value.gsub(/(\(|\))/, "") unless value.nil?
   end
   
   def find_value_in(node) # Expect node to equal element_properties[some_number]
