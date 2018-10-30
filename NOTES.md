@@ -22,6 +22,8 @@ I was going to have the program wait until a list of elements had been displayed
 
 In the CLI class, maybe split #list_properties_of into #basic_properties and #more_properties...
 
+The text colors are best seen against a black background. It may be a good idea to use the colorize gem to make the background of the text black, so that it displays the same on multiple local environments.
+
 Ideas for more features ------------------------------------------------------------------
 
 •	Be able to return to the Main Menu from ANYWHERE in the program.
