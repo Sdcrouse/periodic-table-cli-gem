@@ -10,7 +10,8 @@ Gem::Specification.new do |spec|
   spec.email         = ["'sdcrouse91@gmail.com'"]
 
   spec.summary       = %q{An interactive Periodic Table for the chemist in all of us.}
-  spec.description   = %q{The Periodic Table CLI acts as a reference for people who are interested in and/or studying chemistry. It allows them to see a list of all known chemical elements and examine each element for additional information.}
+  spec.description   = %q{The Periodic Table CLI acts as a reference for people who are interested in and/or studying chemistry. 
+  It allows them to see a list of all known chemical elements and examine each element for additional information.}
   spec.homepage      = "https://github.com/Sdcrouse/periodic-table-cli-gem"
   spec.license       = "MIT"
 
