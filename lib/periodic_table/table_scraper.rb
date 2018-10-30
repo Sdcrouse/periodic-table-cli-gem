@@ -16,7 +16,6 @@ class PeriodicTable::TableScraper
 
   def scrape_elements_from(page)
     page.css("#mw-content-text table.wikitable tbody tr")
-    #.select{|element| element.attribute("class") == nil}
   end
   
   def delete_unnecessary_nodes_from(elements_array)

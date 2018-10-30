@@ -8,8 +8,6 @@ class PeriodicTable::Element
   end
 
   def self.new_from_periodic_table(element_attributes = {}) 
-    # Create a new Element from the scraped periodic table.
-    
     self.new.tap do |element| 
       element_attributes.each{|key, value| element.send("#{key}=", value)}
     end

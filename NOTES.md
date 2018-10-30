@@ -16,7 +16,11 @@ If you do this, you will also need to delete the method #remove_brackets_or_unce
 
 Note about the TableScraper's method #make_properties_hash_from: Some of the abundance values have scientific notation, which looks a bit strange; if there are too many element properties, discard the abundance property.
 
+In the TableScraper's #scrape_elements_from method, I originally had this line of code appended to what is currently in there: ".select{|element| element.attribute("class") == nil}". It doesn't appear to be necessary, but it may help down the road if Wikipedia's HTML ever changes.
+
 I was going to have the program wait until a list of elements had been displayed, before I gave the user the option to examine an element. But I think it's easier for me to include that option in the Main Menu. It also makes the program easier for the user (and future programmers) to understand, since there's more than one list option. And by having the user choose the name of an element instead of a number from the list, my program won't need to know which list had been displayed before the user examines an element! (That's especially good, since the numbers in the sorted list are different from the numbers in the regular list.)
+
+In the CLI class, maybe split #list_properties_of into #basic_properties and #more_properties...
 
 Ideas for more features ------------------------------------------------------------------
 
@@ -28,11 +32,11 @@ Ideas for more features --------------------------------------------------------
 •	Sort the partial lists of elements as well as the list of all elements.
 •	Add more help/description options as the program gains new features.
 •	Have the option to choose an element and navigate to the next or previous element.
-•	When viewing small groups of elements instead of all of them at once, be able to navigate to the next or previous 10 elements.
+•	When viewing small groups of elements instead of all of them at once, be able to navigate to the first, previous, or next 10 elements or the last 8 elements. Refactor the CLI's #list_elements method and/or add a new method to do that. #element_book method?
 •	Maybe add a Glossary option.
 •	Use the Colorize gem to distinguish elements by element_type (alkali, noble gas, etc).
 •	Add a "List" option that will allow the user to see the list of elements again. (Update: given the new layout of the Main Menu, this option is already there in a different form.)
-•	Scrape more information from each Element's url attribute.
+•	Scrape more information from each Element's URL attribute.
 
 Ideas for a new version of the CLI ------------------------------------------------------
 

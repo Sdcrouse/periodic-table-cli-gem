@@ -21,7 +21,7 @@ class PeriodicTable::CLI
     main_menu unless start_program == "n" || start_program == "no"
   end
 
-  def main_menu # Refactor the program so that most of it is run from here, including the options to examine an element and sort elements.
+  def main_menu
     menu_options = ["List Elements", "Examine an Element", "Sort Elements", "Help", "Quit"]
     yes_or_no = "no"
     user_choice = nil
@@ -98,9 +98,6 @@ class PeriodicTable::CLI
       user_choice = choose_from(options)
       puts "\n"
       
-      # Refactor part of this into a method that works like a book (i.e. includes the #choices First, Previous, Next, and Last)
-      # Be sure to puts "\n" after displaying them. 
-      
       if user_choice.between?(1,12)
         display_set_of_ten_elements(user_choice)
       elsif user_choice == 13 
@@ -114,7 +111,7 @@ class PeriodicTable::CLI
   end
   
   def display_set_of_ten_elements(set_number) 
-    # Example: if set_number == 2, then do this:
+    # Example: if set_number == 2, then do this to puts Elements 11-19:
     # PeriodicTable::Element.all[10..19].each.with_index(11) {|element, i| puts "#{i}. #{element.name}"}
     
     first = (set_number - 1) * 10
@@ -162,8 +159,6 @@ class PeriodicTable::CLI
   end
 
   def list_properties_of(element)
-    # Maybe split this into #basic_properties and #more_properties...
-    
     puts "\n---------------------------------------------------------------------------"
     puts "Element: #{element.name}\n\n"
     sleep 1
