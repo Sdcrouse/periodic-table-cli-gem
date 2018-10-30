@@ -163,37 +163,50 @@ class PeriodicTable::CLI
 
   def list_properties_of(element)
     # Maybe split this into #basic_properties and #more_properties...
-    # Since there are a lot of properties, I may use #sleep between each property for easier viewing.
     
     puts "\n--------------------------------------------"
     puts "Element: #{element.name}\n\n"
     sleep 1
+    
     puts "Element Type: #{element.element_type}"
     sleep 1
+    
     puts "Origin of Name: #{element.name_origin}"
     sleep 1
+    
     puts "Symbol: #{element.symbol}"
     sleep 1
+    
     puts "Atomic Number: #{element.atomic_number}"
     sleep 1
+    
     puts "Atomic Weight: #{element.atomic_weight}"
     sleep 1
+    
     puts "Group: #{element.group}" unless element.group.nil?
-    sleep 1
+    sleep 1 unless element.group.nil?
+    
     puts "Period: #{element.period}"
     sleep 1
+    
     puts "Density: #{element.density} g/cm^3"
     sleep 1
+    
     puts "Melting Point: #{element.melting_point} K" unless element.melting_point.nil?
-    sleep 1
+    sleep unless element.melting_point.nil?
+    
     puts "Boiling Point: #{element.boiling_point} K" unless element.boiling_point.nil?
-    sleep 1
+    sleep 1 unless element.boiling_point.nil?
+    
     puts "Heat Capacity: #{element.heat_capacity} J/(g * K)" unless element.heat_capacity.nil?
-    sleep 1
+    sleep 1 unless element.heat_capacity.nil?
+    
     puts "Electronegativity (Pauline Scale): #{element.electronegativity}" unless element.electronegativity.nil?
-    sleep 1
+    sleep 1 unless element.electronegativity.nil?
+    
     puts "Abundance in Earth's Crust: #{element.abundance} mg/kg" unless element.abundance == "0"
-    sleep 1
+    sleep 1 unless element.abundance == "0"
+    
     puts "URL: #{element.element_url}"
     puts "--------------------------------------------"
     sleep 1
