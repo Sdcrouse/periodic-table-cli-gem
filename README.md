@@ -4,9 +4,9 @@ Welcome to the PeriodicTable CLI! If you're here to study chemistry and need som
 
 Disclaimer: This probably won't look like any Periodic Table you've ever seen.
 
-Welcome to your new gem! In this directory, you'll find the files you need to be able to package up your Ruby library into a gem. Put your Ruby code in the file `lib/periodic_table`. To experiment with that code, run `bin/console` for an interactive prompt.
+## Motivation 
 
-TODO: Delete this and the text above, and describe your gem
+This gem was built by a student for Flatiron School's CLI Data Gem Portfolio Project. It is meant to demonstrate a student's knowledge of the basics of procedural and object-oriented Ruby and with building a CLI.
 
 ## Installation
 
