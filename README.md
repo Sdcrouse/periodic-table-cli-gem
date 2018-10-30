@@ -8,6 +8,10 @@ Disclaimer: This probably won't look like any Periodic Table you've ever seen.
 
 This gem was built by a student for Flatiron School's CLI Data Gem Portfolio Project. It is meant to demonstrate a student's knowledge of the basics of procedural and object-oriented Ruby and with building a CLI.
 
+## Gems Used
+
+The following gems were used to make this program: Bundler, Rake, Rspec, Pry, Nokogiri, and Colorize. 
+
 ## Installation
 
 Add this line to your application's Gemfile:
