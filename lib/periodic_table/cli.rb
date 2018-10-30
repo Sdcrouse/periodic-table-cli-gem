@@ -2,7 +2,7 @@ class PeriodicTable::CLI
   def call
     make_elements
     start
-    puts "\nUntil next time, future chemist!"
+    puts "\nUntil next time, future chemist!".colorize(:light_cyan)
   end
 
   def make_elements
@@ -15,7 +15,7 @@ class PeriodicTable::CLI
   
   def start
     puts "Welcome to the Interactive Periodic Table!".colorize(:light_red)
-    puts "Ready to start learning some chemistry? (Y/n)\n\n".colorize(:light_red)
+    puts "Ready to start learning some chemistry? (Y/n)\n".colorize(:light_red)
     start_program = gets.strip.downcase
 
     main_menu unless start_program == "n" || start_program == "no"
@@ -26,10 +26,10 @@ class PeriodicTable::CLI
     yes_or_no = "no"
     user_choice = nil
     
-    puts "\nHere's where the REAL fun begins!".colorize(:light_blue)
+    puts "\nHere's where the REAL fun begins!".colorize(:light_yellow)
 
     until yes_or_no == "y" || yes_or_no == "yes"
-      puts "\nWelcome to the Main Menu! What would you like to do?".colorize(:light_blue)
+      puts "\nWelcome to the Main Menu! What would you like to do?".colorize(:light_yellow)
       user_choice = self.choose_from(menu_options)
 
       case user_choice
@@ -42,18 +42,18 @@ class PeriodicTable::CLI
       when 4 
         help
       when 5
-        puts "\nAre you sure you want to quit? (N/y):\n\n".colorize(:light_blue)
+        puts "\nAre you sure you want to quit? (N/y):\n".colorize(:light_yellow)
         yes_or_no = gets.strip.downcase
       else
-        puts "I don't understand. Please try again.".colorize(:light_blue)
+        puts "I don't understand. Please try again.".colorize(:light_yellow)
       end
     end
   end
 
   def choose_from(option_list)
-    puts "Choose from the numbered list below:\n\n"
+    puts "Choose from the numbered list below:\n".colorize(:light_green)
     option_list.each.with_index(1) do |option, i| 
-      puts "#{i}. #{option}"
+      puts "#{i}. #{option}".colorize(:light_green)
       sleep 0.5 
     end
     puts "\n"
@@ -66,26 +66,26 @@ class PeriodicTable::CLI
   end
 
   def introduction
-    puts "\nThe Interactive Periodic Table is designed to mimic a real periodic table by providing information about each of the currently known chemical elements.".colorize(:light_green)
+    puts "\nThe Interactive Periodic Table is designed to mimic a real periodic table by providing information about each of the currently known chemical elements.".colorize(:light_red)
     sleep 5
-    puts "\nIn this program, you are able to view a list of all or some of the chemical elements, examine an individual chemical element for more information, and sort the elements.".colorize(:light_green)
+    puts "\nIn this program, you are able to view a list of all or some of the chemical elements, examine an individual chemical element for more information, and sort the elements.".colorize(:light_red)
     sleep 5
-    puts "\nBy default, the chemical elements are listed by their atomic numbers. The 'Sort Elements' option will sort them by their names.".colorize(:light_green)
+    puts "\nBy default, the chemical elements are listed by their atomic numbers. The 'Sort Elements' option will sort them by their names.".colorize(:light_red)
     sleep 5
   end
 
   def describe_main_menu_options
-    puts "\nHere are the Main Menu options:".colorize(:light_cyan)
+    puts "\nHere are the Main Menu options:".colorize(:light_yellow)
     sleep 1
-    puts "Press 1 to view a list of chemical elements from the Periodic Table.".colorize(:light_cyan)
+    puts "Press 1 to view a list of chemical elements from the Periodic Table.".colorize(:light_yellow)
     sleep 1
-    puts "Press 2 to get more information about an element (name, properties, etc).".colorize(:light_cyan)
+    puts "Press 2 to get more information about an element (name, properties, etc).".colorize(:light_yellow)
     sleep 1
-    puts "Press 3 to see the chemical elements sorted by name.".colorize(:light_cyan)
+    puts "Press 3 to see the chemical elements sorted by name.".colorize(:light_yellow)
     sleep 1
-    puts "Press 4 to view this description of the Main Menu options.".colorize(:light_cyan)
+    puts "Press 4 to view this description of the Main Menu options.".colorize(:light_yellow)
     sleep 1
-    puts "Press 5 to quit the Interactive Periodic Table.".colorize(:light_cyan)
+    puts "Press 5 to quit the Interactive Periodic Table.".colorize(:light_yellow)
     sleep 3
   end
 
@@ -94,7 +94,7 @@ class PeriodicTable::CLI
     user_choice = nil
     
     until user_choice == 14
-      puts "\nWhich elements would you like to see?".colorize(:light_yellow)
+      puts "\nWhich elements would you like to see?".colorize(:light_magenta)
       user_choice = choose_from(options)
       puts "\n"
       
@@ -103,9 +103,9 @@ class PeriodicTable::CLI
       elsif user_choice == 13 
         display_all_elements(PeriodicTable::Element.all)
       elsif user_choice == 14 
-        puts "OK. Heading back to the Main Menu now.".colorize(:light_yellow)
+        puts "OK. Heading back to the Main Menu now.".colorize(:light_magenta)
       else
-        puts "I don't understand. Please try again.".colorize(:light_yellow)
+        puts "I don't understand. Please try again.".colorize(:light_magenta)
       end
     end
   end
@@ -125,14 +125,14 @@ class PeriodicTable::CLI
     end
     
     PeriodicTable::Element.all[first..last].each.with_index(index) do |element, i| 
-      puts "#{i}. #{element.name}".colorize(:light_magenta)
+      puts "#{i}. #{element.name}".colorize(:yellow)
       sleep 0.5
     end
   end
   
   def display_all_elements(element_list) 
     element_list.each.with_index(1) do |element, i| 
-      puts "#{i}. #{element.name}".colorize(:light_red)
+      puts "#{i}. #{element.name}".colorize(:light_cyan)
       sleep 0.5
     end
     sleep 1
@@ -142,40 +142,40 @@ class PeriodicTable::CLI
     input = nil 
     
     until input == "Back"
-      puts "\nWhich element would you like to examine?".colorize(:blue)
-      puts "Please enter its name here, or type 'back' to go back to the Main Menu:\n\n".colorize(:blue)
+      puts "\nWhich element would you like to examine?".colorize(:light_blue)
+      puts "Please enter its name here, or type 'back' to go back to the Main Menu:\n".colorize(:light_blue)
       input = gets.strip.capitalize 
       element = PeriodicTable::Element.find_element_by_name(input)
       
       if !element.nil?
         list_properties_of(element)
       elsif input == "Back"
-        puts "\nOK. Back to the Main Menu we go!".colorize(:blue)
+        puts "\nOK. Back to the Main Menu we go!".colorize(:light_blue)
       else 
-        puts "\nI'm sorry. I do not recognize that element.".colorize(:blue) 
-        puts "Please be careful to spell its name correctly.".colorize(:blue)
+        puts "\nI'm sorry. I do not recognize that element.".colorize(:light_blue) 
+        puts "Please be careful to spell its name correctly.".colorize(:light_blue)
       end
     end
   end
 
   def list_properties_of(element)
     puts "\n---------------------------------------------------------------------------"
-    puts "Element: #{element.name}\n\n".colorize(:red)
+    puts "Element: #{element.name}\n".colorize(:light_red)
     sleep 1
     
-    puts "Atomic Number: #{element.atomic_number}".colorize(:yellow)
+    puts "Atomic Number: #{element.atomic_number}".colorize(:light_yellow)
     sleep 1
     
-    puts "Symbol: #{element.symbol}".colorize(:green)
+    puts "Symbol: #{element.symbol}".colorize(:light_green)
     sleep 1
     
-    puts "Atomic Weight: #{element.atomic_weight}".colorize(:cyan)
+    puts "Atomic Weight: #{element.atomic_weight}".colorize(:light_cyan)
     sleep 1
     
-    puts "Origin of Name: #{element.name_origin}".colorize(:blue)
+    puts "Origin of Name: #{element.name_origin}".colorize(:light_blue)
     sleep 1
     
-    puts "Element Type: #{element.element_type}".colorize(:magenta)
+    puts "Element Type: #{element.element_type}".colorize(:light_magenta)
     sleep 1
     
     puts "Group: #{element.group}".colorize(:light_red) unless element.group.nil?
@@ -196,13 +196,13 @@ class PeriodicTable::CLI
     puts "Heat Capacity: #{element.heat_capacity} J/(g * K)".colorize(:light_magenta) unless element.heat_capacity.nil?
     sleep 1 unless element.heat_capacity.nil?
     
-    puts "Electronegativity (Pauline Scale): #{element.electronegativity}".colorize(:red) unless element.electronegativity.nil?
+    puts "Electronegativity (Pauline Scale): #{element.electronegativity}".colorize(:light_red) unless element.electronegativity.nil?
     sleep 1 unless element.electronegativity.nil?
     
-    puts "Abundance in Earth's Crust: #{element.abundance} mg/kg".colorize(:yellow) unless element.abundance == "0"
+    puts "Abundance in Earth's Crust: #{element.abundance} mg/kg".colorize(:light_yellow) unless element.abundance == "0"
     sleep 1 unless element.abundance == "0"
     
-    puts "\nURL: #{element.element_url}".colorize(:green)
+    puts "\nURL: #{element.element_url}".colorize(:light_green)
     puts "---------------------------------------------------------------------------"
     sleep 1
   end
