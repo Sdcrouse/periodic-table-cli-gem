@@ -30,11 +30,20 @@ Or install it yourself as:
 
 ## Usage
 
-TODO: Write usage instructions here
-
-This gem will allow you to view a list of all 118 chemical elements currently known as of 2017. If you'd rather not get overwhelmed by all of those elements, there are also options for displaying shorter lists of elements that fall into specific categories. Additionally, you are able to sort these lists by a chemical element's name, symbol, atomic number, relative atomic mass, and other categories.
+This gem will allow you to view a list of all 118 chemical elements currently known as of 2018. If you'd rather not get overwhelmed by all of those elements, there are also options for displaying shorter lists of elements.
 
 Within each list, there is an option to examine an individual element for more information. All of this information has been scraped from [Wikipedia's List of Chemical Elements](https://en.wikipedia.org/wiki/List_of_chemical_elements).
+
+You are also able to sort the list of all 118 chemical elements alphabetically by name.
+
+Lastly, there is a NOTES.md file that contains ideas for more features and new versions of the gem.
+
+To run the PeriodicTable CLI gem, enter the following lines of code:
+
+    $ cd periodic-table-cli-gem
+    $ bin/periodic-table
+
+Follow the prompts from there, and have fun!
 
 ## Development
 
