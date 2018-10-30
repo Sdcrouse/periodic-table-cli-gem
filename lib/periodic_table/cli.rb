@@ -14,8 +14,8 @@ class PeriodicTable::CLI
   end
   
   def start
-    puts "Welcome to the Interactive Periodic Table!"
-    puts "Ready to start learning some chemistry? (Y/n)\n\n"
+    puts "Welcome to the Interactive Periodic Table!".colorize(:light_red)
+    puts "Ready to start learning some chemistry? (Y/n)\n\n".colorize(:light_red)
     start_program = gets.strip.downcase
 
     main_menu unless start_program == "n" || start_program == "no"
@@ -26,10 +26,10 @@ class PeriodicTable::CLI
     yes_or_no = "no"
     user_choice = nil
     
-    puts "\nHere's where the REAL fun begins!"
+    puts "\nHere's where the REAL fun begins!".colorize(:light_blue)
 
     until yes_or_no == "y" || yes_or_no == "yes"
-      puts "\nWelcome to the Main Menu! What would you like to do?"
+      puts "\nWelcome to the Main Menu! What would you like to do?".colorize(:light_blue)
       user_choice = self.choose_from(menu_options)
 
       case user_choice
@@ -42,10 +42,10 @@ class PeriodicTable::CLI
       when 4 
         help
       when 5
-        puts "\nAre you sure you want to quit? (N/y):\n\n"
+        puts "\nAre you sure you want to quit? (N/y):\n\n".colorize(:light_blue)
         yes_or_no = gets.strip.downcase
       else
-        puts "I don't understand. Please try again."
+        puts "I don't understand. Please try again.".colorize(:light_blue)
       end
     end
   end
@@ -66,26 +66,26 @@ class PeriodicTable::CLI
   end
 
   def introduction
-    puts "\nThe Interactive Periodic Table is designed to mimic a real periodic table by providing information about each of the currently known chemical elements."
+    puts "\nThe Interactive Periodic Table is designed to mimic a real periodic table by providing information about each of the currently known chemical elements.".colorize(:light_green)
     sleep 5
-    puts "\nIn this program, you are able to view a list of all or some of the chemical elements, examine an individual chemical element for more information, and sort the elements."
+    puts "\nIn this program, you are able to view a list of all or some of the chemical elements, examine an individual chemical element for more information, and sort the elements.".colorize(:light_green)
     sleep 5
-    puts "\nBy default, the chemical elements are listed by their atomic numbers. The 'Sort Elements' option will sort them by their names."
+    puts "\nBy default, the chemical elements are listed by their atomic numbers. The 'Sort Elements' option will sort them by their names.".colorize(:light_green)
     sleep 5
   end
 
   def describe_main_menu_options
-    puts "\nHere are the Main Menu options:"
+    puts "\nHere are the Main Menu options:".colorize(:light_cyan)
     sleep 1
-    puts "Press 1 to view a list of chemical elements from the Periodic Table."
+    puts "Press 1 to view a list of chemical elements from the Periodic Table.".colorize(:light_cyan)
     sleep 1
-    puts "Press 2 to get more information about an element (name, properties, etc)."
+    puts "Press 2 to get more information about an element (name, properties, etc).".colorize(:light_cyan)
     sleep 1
-    puts "Press 3 to see the chemical elements sorted by name."
+    puts "Press 3 to see the chemical elements sorted by name.".colorize(:light_cyan)
     sleep 1
-    puts "Press 4 to view this description of the Main Menu options."
+    puts "Press 4 to view this description of the Main Menu options.".colorize(:light_cyan)
     sleep 1
-    puts "Press 5 to quit the Interactive Periodic Table."
+    puts "Press 5 to quit the Interactive Periodic Table.".colorize(:light_cyan)
     sleep 3
   end
 
@@ -94,7 +94,7 @@ class PeriodicTable::CLI
     user_choice = nil
     
     until user_choice == 14
-      puts "\nWhich elements would you like to see?"
+      puts "\nWhich elements would you like to see?".colorize(:light_yellow)
       user_choice = choose_from(options)
       puts "\n"
       
@@ -103,9 +103,9 @@ class PeriodicTable::CLI
       elsif user_choice == 13 
         display_all_elements(PeriodicTable::Element.all)
       elsif user_choice == 14 
-        puts "OK. Heading back to the Main Menu now."
+        puts "OK. Heading back to the Main Menu now.".colorize(:light_yellow)
       else
-        puts "I don't understand. Please try again."
+        puts "I don't understand. Please try again.".colorize(:light_yellow)
       end
     end
   end
@@ -125,14 +125,14 @@ class PeriodicTable::CLI
     end
     
     PeriodicTable::Element.all[first..last].each.with_index(index) do |element, i| 
-      puts "#{i}. #{element.name}"
+      puts "#{i}. #{element.name}".colorize(:light_magenta)
       sleep 0.5
     end
   end
   
   def display_all_elements(element_list) 
     element_list.each.with_index(1) do |element, i| 
-      puts "#{i}. #{element.name}"
+      puts "#{i}. #{element.name}".colorize(:light_red)
       sleep 0.5
     end
     sleep 1
@@ -142,67 +142,67 @@ class PeriodicTable::CLI
     input = nil 
     
     until input == "Back"
-      puts "\nWhich element would you like to examine?"
-      puts "Please enter its name here, or type 'back' to go back to the Main Menu:\n\n"
+      puts "\nWhich element would you like to examine?".colorize(:blue)
+      puts "Please enter its name here, or type 'back' to go back to the Main Menu:\n\n".colorize(:blue)
       input = gets.strip.capitalize 
       element = PeriodicTable::Element.find_element_by_name(input)
       
       if !element.nil?
         list_properties_of(element)
       elsif input == "Back"
-        puts "\nOK. Back to the Main Menu we go!"
+        puts "\nOK. Back to the Main Menu we go!".colorize(:blue)
       else 
-        puts "\nI'm sorry. I do not recognize that element." 
-        puts "Please be careful to spell its name correctly."
+        puts "\nI'm sorry. I do not recognize that element.".colorize(:blue) 
+        puts "Please be careful to spell its name correctly.".colorize(:blue)
       end
     end
   end
 
   def list_properties_of(element)
     puts "\n---------------------------------------------------------------------------"
-    puts "Element: #{element.name}\n\n"
+    puts "Element: #{element.name}\n\n".colorize(:red)
     sleep 1
     
-    puts "Atomic Number: #{element.atomic_number}"
+    puts "Atomic Number: #{element.atomic_number}".colorize(:yellow)
     sleep 1
     
-    puts "Symbol: #{element.symbol}"
+    puts "Symbol: #{element.symbol}".colorize(:green)
     sleep 1
     
-    puts "Atomic Weight: #{element.atomic_weight}"
+    puts "Atomic Weight: #{element.atomic_weight}".colorize(:cyan)
     sleep 1
     
-    puts "Origin of Name: #{element.name_origin}"
+    puts "Origin of Name: #{element.name_origin}".colorize(:blue)
     sleep 1
     
-    puts "Element Type: #{element.element_type}"
+    puts "Element Type: #{element.element_type}".colorize(:magenta)
     sleep 1
     
-    puts "Group: #{element.group}" unless element.group.nil?
+    puts "Group: #{element.group}".colorize(:light_red) unless element.group.nil?
     sleep 1 unless element.group.nil?
     
-    puts "Period: #{element.period}"
+    puts "Period: #{element.period}".colorize(:light_yellow)
     sleep 1
     
-    puts "Density: #{element.density} g/cm^3"
+    puts "Density: #{element.density} g/cm^3".colorize(:light_green)
     sleep 1
     
-    puts "Melting Point: #{element.melting_point} K" unless element.melting_point.nil?
+    puts "Melting Point: #{element.melting_point} K".colorize(:light_cyan) unless element.melting_point.nil?
     sleep 1 unless element.melting_point.nil?
     
-    puts "Boiling Point: #{element.boiling_point} K" unless element.boiling_point.nil?
+    puts "Boiling Point: #{element.boiling_point} K".colorize(:light_blue) unless element.boiling_point.nil?
     sleep 1 unless element.boiling_point.nil?
     
-    puts "Heat Capacity: #{element.heat_capacity} J/(g * K)" unless element.heat_capacity.nil?
+    puts "Heat Capacity: #{element.heat_capacity} J/(g * K)".colorize(:light_magenta) unless element.heat_capacity.nil?
     sleep 1 unless element.heat_capacity.nil?
     
-    puts "Electronegativity (Pauline Scale): #{element.electronegativity}" unless element.electronegativity.nil?
+    puts "Electronegativity (Pauline Scale): #{element.electronegativity}".colorize(:red) unless element.electronegativity.nil?
     sleep 1 unless element.electronegativity.nil?
     
-    puts "Abundance in Earth's Crust: #{element.abundance} mg/kg" unless element.abundance == "0"
+    puts "Abundance in Earth's Crust: #{element.abundance} mg/kg".colorize(:yellow) unless element.abundance == "0"
     sleep 1 unless element.abundance == "0"
     
-    puts "\nURL: #{element.element_url}"
+    puts "\nURL: #{element.element_url}".colorize(:green)
     puts "---------------------------------------------------------------------------"
     sleep 1
   end

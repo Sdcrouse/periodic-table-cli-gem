@@ -1,6 +1,7 @@
 require "pry"
 require "open-uri"
 require "nokogiri"
+require "colorize"
 
 # Be VERY careful about the order in which you call these files!
 require_relative "../lib/periodic_table/version"
