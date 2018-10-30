@@ -178,21 +178,21 @@ class PeriodicTable::CLI
     sleep 1
     puts "Atomic Weight: #{element.atomic_weight}"
     sleep 1
-    puts "Group: #{element.group}"
+    puts "Group: #{element.group}" unless element.group.nil?
     sleep 1
     puts "Period: #{element.period}"
     sleep 1
     puts "Density: #{element.density} g/cm^3"
     sleep 1
-    puts "Melting Point: #{element.melting_point} K"
+    puts "Melting Point: #{element.melting_point} K" unless element.melting_point.nil?
     sleep 1
-    puts "Boiling Point: #{element.boiling_point} K"
+    puts "Boiling Point: #{element.boiling_point} K" unless element.boiling_point.nil?
     sleep 1
-    puts "Heat Capacity: #{element.heat_capacity} J/(g * K)"
+    puts "Heat Capacity: #{element.heat_capacity} J/(g * K)" unless element.heat_capacity.nil?
     sleep 1
-    puts "Electronegativity (Pauline Scale): #{element.electronegativity}"
+    puts "Electronegativity (Pauline Scale): #{element.electronegativity}" unless element.electronegativity.nil?
     sleep 1
-    puts "Abundance in Earth's Crust: #{element.abundance} mg/kg"
+    puts "Abundance in Earth's Crust: #{element.abundance} mg/kg" unless element.abundance == "0"
     sleep 1
     puts "URL: #{element.element_url}"
     puts "--------------------------------------------"
