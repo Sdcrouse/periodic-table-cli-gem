@@ -3,7 +3,9 @@ RSpec.describe PeriodicTable do
     expect(PeriodicTable::VERSION).not_to be nil
   end
 
-  it "does something useful" do
-    expect(false).to eq(true)
+  it "scrapes the periodic table and makes an array of chemical elements" do
+    elements_array = PeriodicTable::TableScraper.new.scrape_periodic_table
+    
+    expect(PeriodicTable::CLI.new.make_elements).to eq(elements_array)
   end
 end
