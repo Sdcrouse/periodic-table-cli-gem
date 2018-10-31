@@ -221,10 +221,15 @@ class PeriodicTable::CLI
       {"Melting Point" => "#{element.melting_point} K", "color" => :light_cyan},
       {"Boiling Point" => "#{element.boiling_point} K", "color" => :light_blue},
       {"Heat Capacity" => "#{element.heat_capacity} J/(g * K)", "color" => :light_magenta},
-      {"Electronegativity (Pauline Scale)" => "#{element.electronegativity}", "color" =>  (:light_red}, 
+      {"Electronegativity (Pauline Scale)" => "#{element.electronegativity}", "color" =>  :light_red}, 
       {"Abundance in Earth's Crust" => "#{element.abundance} mg/kg", "color" => :light_yellow},
-      {"\nURL" => "#{element.element_url}", "color" => :light_green)}
+      {"\nURL" => "#{element.element_url}", "color" => :light_green}
     ]
+    
+    puts "\n---------------------------------------------------------------------------"
+    
+    puts "---------------------------------------------------------------------------"
+    sleep 1
   end
   
   def sort_elements 
