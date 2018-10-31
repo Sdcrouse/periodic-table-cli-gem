@@ -211,14 +211,14 @@ class PeriodicTable::CLI
     property_collection = make_property_collection_from(element)
     
     puts "\n---------------------------------------------------------------------------"
-    
+    puts "Element: #{element.name}\n".colorize(:light_red)
+    property_collection.each {|property_hash| display_property_from(property_hash)}
     puts "---------------------------------------------------------------------------"
     sleep 1
   end
   
   def make_property_collection_from(element)
     [
-      {"Element" => "#{element.name}\n", "color" => :light_red},
       {"Atomic Number" => "#{element.atomic_number}", "color" => :light_yellow},
       {"Symbol" => "#{element.symbol}", "color" => :light_green},
       {"Atomic Weight" => "#{element.atomic_weight}", "color" => :light_cyan},
@@ -226,14 +226,30 @@ class PeriodicTable::CLI
       {"Element Type" => "#{element.element_type}", "color" => :light_magenta},
       {"Group" => "#{element.group}", "color" => :light_red},
       {"Period" => "#{element.period}", "color" => :light_yellow},
-      {"Density" => "#{element.density} g/cm^3", "color" => :light_green},
-      {"Melting Point" => "#{element.melting_point} K", "color" => :light_cyan},
-      {"Boiling Point" => "#{element.boiling_point} K", "color" => :light_blue},
-      {"Heat Capacity" => "#{element.heat_capacity} J/(g * K)", "color" => :light_magenta},
+      {"Density" => "#{element.density}", "units" => "g/cm^3", "color" => :light_green},
+      {"Melting Point" => "#{element.melting_point}", "units" => "K", "color" => :light_cyan},
+      {"Boiling Point" => "#{element.boiling_point}", "units" => "K", "color" => :light_blue},
+      {"Heat Capacity" => "#{element.heat_capacity}", "units" => "J/(g * K)", "color" => :light_magenta},
       {"Electronegativity (Pauline Scale)" => "#{element.electronegativity}", "color" =>  :light_red}, 
-      {"Abundance in Earth's Crust" => "#{element.abundance} mg/kg", "color" => :light_yellow},
+      {"Abundance in Earth's Crust" => "#{element.abundance}", "units" => "mg/kg", "color" => :light_yellow},
       {"\nURL" => "#{element.element_url}", "color" => :light_green}
     ]
+  end
+  
+  def display_property_from(property_hash)
+    key = property_hash.keys[0]
+    value = property_hash.values[0]
+    units = property_hash["units"]
+    
+    binding.pry
+    unless value.nil? || value == 0
+      puts "#{key}: #{value} #{units}".strip.colorize(property_hash["color"])
+      sleep 1
+    end
+    
+    #hash3 = {"Atomic Weight" => 16.01
+    #key3 = hash3.keys[0]
+    #puts "#{key3}: #{hash3[key3]} #{hash3["units"]}".strip
   end
   
   def sort_elements 
