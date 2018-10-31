@@ -212,7 +212,10 @@ class PeriodicTable::CLI
     
     puts "\n---------------------------------------------------------------------------"
     puts "Element: #{element.name}\n".colorize(:light_red)
+    
     property_collection.each {|property_hash| display_property_from(property_hash)}
+    
+    puts "\nURL: #{element.element_url}".colorize(:light_green)
     puts "---------------------------------------------------------------------------"
     sleep 1
   end
@@ -231,8 +234,7 @@ class PeriodicTable::CLI
       {"Boiling Point" => "#{element.boiling_point}", "units" => "K", "color" => :light_blue},
       {"Heat Capacity" => "#{element.heat_capacity}", "units" => "J/(g * K)", "color" => :light_magenta},
       {"Electronegativity (Pauline Scale)" => "#{element.electronegativity}", "color" =>  :light_red}, 
-      {"Abundance in Earth's Crust" => "#{element.abundance}", "units" => "mg/kg", "color" => :light_yellow},
-      {"\nURL" => "#{element.element_url}", "color" => :light_green}
+      {"Abundance in Earth's Crust" => "#{element.abundance}", "units" => "mg/kg", "color" => :light_yellow}
     ]
   end
   
@@ -241,7 +243,6 @@ class PeriodicTable::CLI
     value = property_hash.values[0]
     units = property_hash["units"]
     
-    binding.pry
     unless value == "" || value == "0"
       puts "#{key}: #{value} #{units}".strip.colorize(property_hash["color"])
       sleep 1
