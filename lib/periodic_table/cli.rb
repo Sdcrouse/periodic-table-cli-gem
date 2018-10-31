@@ -207,6 +207,24 @@ class PeriodicTable::CLI
     sleep 1
   end
   
+  def list_elements_v2(element)
+    puts "Element: #{element.name}\n".colorize(:light_red)
+    puts "Atomic Number: #{element.atomic_number}".colorize(:light_yellow)
+    puts "Symbol: #{element.symbol}".colorize(:light_green)
+    puts "Atomic Weight: #{element.atomic_weight}".colorize(:light_cyan)
+    puts "Origin of Name: #{element.name_origin}".colorize(:light_blue)
+    puts "Element Type: #{element.element_type}".colorize(:light_magenta)
+    puts "Group: #{element.group}".colorize(:light_red)
+    puts "Period: #{element.period}".colorize(:light_yellow)
+    puts "Density: #{element.density} g/cm^3".colorize(:light_green)
+    puts "Melting Point: #{element.melting_point} K".colorize(:light_cyan)
+    puts "Boiling Point: #{element.boiling_point} K".colorize(:light_blue)
+    puts "Heat Capacity: #{element.heat_capacity} J/(g * K)".colorize(:light_magenta)
+    puts "Electronegativity (Pauline Scale): #{element.electronegativity}".colorize(:light_red) 
+    puts "Abundance in Earth's Crust: #{element.abundance} mg/kg".colorize(:light_yellow)
+    puts "\nURL: #{element.element_url}".colorize(:light_green)
+  end
+  
   def sort_elements 
     puts "\n"
     sorted_elements = PeriodicTable::Element.all.sort_by{|element| element.name}
