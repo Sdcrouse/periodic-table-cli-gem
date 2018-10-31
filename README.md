@@ -1,12 +1,16 @@
 # PeriodicTable
 
+The PeriodicTable CLI gem is designed to mimic a real Periodic Table by displaying all 118 elements and providing information about each of their properties.
+
+## Introduction
+
 Welcome to the PeriodicTable CLI! If you're here to study chemistry and need some information to reference, or if you just want to get your feet wet with chemistry, then you've come to the right place. (Though be careful not to get your feet wet with the wrong chemicals!)
 
-Disclaimer: This probably won't look like any Periodic Table you've ever seen.
+Disclaimer: This probably won't look like any Periodic Table you've ever seen, but the information presented is accurate.
 
 ## Motivation 
 
-This gem was built by a student for Flatiron School's CLI Data Gem Portfolio Project. It is meant to demonstrate a student's knowledge of the basics of procedural and object-oriented Ruby and with building a CLI.
+This gem was built by a student for Flatiron School's CLI Data Gem Portfolio Project. It is meant to demonstrate a student's knowledge of the basics of procedural and object-oriented Ruby and with building a CLI. He chose to make an interactive PeriodicTable CLI because chemistry was one of his favorite school subjects.
 
 ## Gems Used
 
