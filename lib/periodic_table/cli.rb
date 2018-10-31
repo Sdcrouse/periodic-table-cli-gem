@@ -222,19 +222,19 @@ class PeriodicTable::CLI
   
   def make_property_collection_from(element)
     [
-      {"Atomic Number" => "#{element.atomic_number}", "color" => :light_yellow},
-      {"Symbol" => "#{element.symbol}", "color" => :light_green},
-      {"Atomic Weight" => "#{element.atomic_weight}", "color" => :light_cyan},
-      {"Origin of Name" => "#{element.name_origin}", "color" => :light_blue},
-      {"Element Type" => "#{element.element_type}", "color" => :light_magenta},
-      {"Group" => "#{element.group}", "color" => :light_red},
-      {"Period" => "#{element.period}", "color" => :light_yellow},
-      {"Density" => "#{element.density}", "units" => "g/cm^3", "color" => :light_green},
-      {"Melting Point" => "#{element.melting_point}", "units" => "K", "color" => :light_cyan},
-      {"Boiling Point" => "#{element.boiling_point}", "units" => "K", "color" => :light_blue},
-      {"Heat Capacity" => "#{element.heat_capacity}", "units" => "J/(g * K)", "color" => :light_magenta},
-      {"Electronegativity (Pauline Scale)" => "#{element.electronegativity}", "color" =>  :light_red}, 
-      {"Abundance in Earth's Crust" => "#{element.abundance}", "units" => "mg/kg", "color" => :light_yellow}
+      {"Atomic Number" => element.atomic_number, "color" => :light_yellow},
+      {"Symbol" => element.symbol, "color" => :light_green},
+      {"Atomic Weight" => element.atomic_weight, "color" => :light_cyan},
+      {"Origin of Name" => element.name_origin, "color" => :light_blue},
+      {"Element Type" => element.element_type, "color" => :light_magenta},
+      {"Group" => element.group, "color" => :light_red},
+      {"Period" => element.period, "color" => :light_yellow},
+      {"Density" => element.density, "units" => "g/cm^3", "color" => :light_green},
+      {"Melting Point" => element.melting_point, "units" => "K", "color" => :light_cyan},
+      {"Boiling Point" => element.boiling_point, "units" => "K", "color" => :light_blue},
+      {"Heat Capacity" => element.heat_capacity, "units" => "J/(g * K)", "color" => :light_magenta},
+      {"Electronegativity (Pauline Scale)" => element.electronegativity, "color" =>  :light_red}, 
+      {"Abundance in Earth's Crust" => element.abundance, "units" => "mg/kg", "color" => :light_yellow}
     ]
   end
   
@@ -243,14 +243,10 @@ class PeriodicTable::CLI
     value = property_hash.values[0]
     units = property_hash["units"]
     
-    unless value == "" || value == "0"
+    unless value.nil? || value == "0"
       puts "#{key}: #{value} #{units}".strip.colorize(property_hash["color"])
       sleep 1
     end
-    
-    #hash3 = {"Atomic Weight" => 16.01
-    #key3 = hash3.keys[0]
-    #puts "#{key3}: #{hash3[key3]} #{hash3["units"]}".strip
   end
   
   def sort_elements 
