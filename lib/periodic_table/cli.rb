@@ -208,7 +208,16 @@ class PeriodicTable::CLI
   end
   
   def list_properties_of_v2(element)
-    property_collection = [
+    property_collection = make_property_collection_from(element)
+    
+    puts "\n---------------------------------------------------------------------------"
+    
+    puts "---------------------------------------------------------------------------"
+    sleep 1
+  end
+  
+  def make_property_collection_from(element)
+    [
       {"Element" => "#{element.name}\n", "color" => :light_red},
       {"Atomic Number" => "#{element.atomic_number}", "color" => :light_yellow},
       {"Symbol" => "#{element.symbol}", "color" => :light_green},
@@ -225,11 +234,6 @@ class PeriodicTable::CLI
       {"Abundance in Earth's Crust" => "#{element.abundance} mg/kg", "color" => :light_yellow},
       {"\nURL" => "#{element.element_url}", "color" => :light_green}
     ]
-    
-    puts "\n---------------------------------------------------------------------------"
-    
-    puts "---------------------------------------------------------------------------"
-    sleep 1
   end
   
   def sort_elements 
