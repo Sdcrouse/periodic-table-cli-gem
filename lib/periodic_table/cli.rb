@@ -242,7 +242,7 @@ class PeriodicTable::CLI
     units = property_hash["units"]
     
     binding.pry
-    unless value.nil? || value == 0
+    unless value == "" || value == "0"
       puts "#{key}: #{value} #{units}".strip.colorize(property_hash["color"])
       sleep 1
     end
@@ -258,3 +258,7 @@ class PeriodicTable::CLI
     display_all_elements(sorted_elements)
   end
 end
+# Delete this comment and the following lines after testing is completed:
+#table = PeriodicTable::CLI.new
+#table.make_elements
+#table.list_properties_of_v2(PeriodicTable::Element.all[117])
