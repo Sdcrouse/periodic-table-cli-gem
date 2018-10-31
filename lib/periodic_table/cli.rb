@@ -208,21 +208,23 @@ class PeriodicTable::CLI
   end
   
   def list_elements_v2(element)
-    puts "Element: #{element.name}\n".colorize(:light_red)
-    puts "Atomic Number: #{element.atomic_number}".colorize(:light_yellow)
-    puts "Symbol: #{element.symbol}".colorize(:light_green)
-    puts "Atomic Weight: #{element.atomic_weight}".colorize(:light_cyan)
-    puts "Origin of Name: #{element.name_origin}".colorize(:light_blue)
-    puts "Element Type: #{element.element_type}".colorize(:light_magenta)
-    puts "Group: #{element.group}".colorize(:light_red)
-    puts "Period: #{element.period}".colorize(:light_yellow)
-    puts "Density: #{element.density} g/cm^3".colorize(:light_green)
-    puts "Melting Point: #{element.melting_point} K".colorize(:light_cyan)
-    puts "Boiling Point: #{element.boiling_point} K".colorize(:light_blue)
-    puts "Heat Capacity: #{element.heat_capacity} J/(g * K)".colorize(:light_magenta)
-    puts "Electronegativity (Pauline Scale): #{element.electronegativity}".colorize(:light_red) 
-    puts "Abundance in Earth's Crust: #{element.abundance} mg/kg".colorize(:light_yellow)
-    puts "\nURL: #{element.element_url}".colorize(:light_green)
+    property_collection = [
+      {"Element" => "#{element.name}\n", "color" => :light_red},
+      {"Atomic Number" => "#{element.atomic_number}", "color" => :light_yellow},
+      {"Symbol" => "#{element.symbol}", "color" => :light_green},
+      {"Atomic Weight" => "#{element.atomic_weight}", "color" => :light_cyan},
+      {"Origin of Name" => "#{element.name_origin}", "color" => :light_blue},
+      {"Element Type" => "#{element.element_type}", "color" => :light_magenta},
+      {"Group" => "#{element.group}", "color" => :light_red},
+      {"Period" => "#{element.period}", "color" => :light_yellow},
+      {"Density" => "#{element.density} g/cm^3", "color" => :light_green},
+      {"Melting Point" => "#{element.melting_point} K", "color" => :light_cyan},
+      {"Boiling Point" => "#{element.boiling_point} K", "color" => :light_blue},
+      {"Heat Capacity" => "#{element.heat_capacity} J/(g * K)", "color" => :light_magenta},
+      {"Electronegativity (Pauline Scale)" => "#{element.electronegativity}", "color" =>  (:light_red}, 
+      {"Abundance in Earth's Crust" => "#{element.abundance} mg/kg", "color" => :light_yellow},
+      {"\nURL" => "#{element.element_url}", "color" => :light_green)}
+    ]
   end
   
   def sort_elements 
