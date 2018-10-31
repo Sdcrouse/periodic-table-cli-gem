@@ -207,7 +207,7 @@ class PeriodicTable::CLI
     sleep 1
   end
   
-  def list_elements_v2(element)
+  def list_properties_of_v2(element)
     property_collection = [
       {"Element" => "#{element.name}\n", "color" => :light_red},
       {"Atomic Number" => "#{element.atomic_number}", "color" => :light_yellow},
