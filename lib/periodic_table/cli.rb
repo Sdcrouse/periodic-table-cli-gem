@@ -159,55 +159,6 @@ class PeriodicTable::CLI
   end
 
   def list_properties_of(element)
-    puts "\n---------------------------------------------------------------------------"
-    puts "Element: #{element.name}\n".colorize(:light_red)
-    sleep 1
-    
-    puts "Atomic Number: #{element.atomic_number}".colorize(:light_yellow)
-    sleep 1
-    
-    puts "Symbol: #{element.symbol}".colorize(:light_green)
-    sleep 1
-    
-    puts "Atomic Weight: #{element.atomic_weight}".colorize(:light_cyan)
-    sleep 1
-    
-    puts "Origin of Name: #{element.name_origin}".colorize(:light_blue)
-    sleep 1
-    
-    puts "Element Type: #{element.element_type}".colorize(:light_magenta)
-    sleep 1
-    
-    puts "Group: #{element.group}".colorize(:light_red) unless element.group.nil?
-    sleep 1 unless element.group.nil?
-    
-    puts "Period: #{element.period}".colorize(:light_yellow)
-    sleep 1
-    
-    puts "Density: #{element.density} g/cm^3".colorize(:light_green)
-    sleep 1
-    
-    puts "Melting Point: #{element.melting_point} K".colorize(:light_cyan) unless element.melting_point.nil?
-    sleep 1 unless element.melting_point.nil?
-    
-    puts "Boiling Point: #{element.boiling_point} K".colorize(:light_blue) unless element.boiling_point.nil?
-    sleep 1 unless element.boiling_point.nil?
-    
-    puts "Heat Capacity: #{element.heat_capacity} J/(g * K)".colorize(:light_magenta) unless element.heat_capacity.nil?
-    sleep 1 unless element.heat_capacity.nil?
-    
-    puts "Electronegativity (Pauline Scale): #{element.electronegativity}".colorize(:light_red) unless element.electronegativity.nil?
-    sleep 1 unless element.electronegativity.nil?
-    
-    puts "Abundance in Earth's Crust: #{element.abundance} mg/kg".colorize(:light_yellow) unless element.abundance == "0"
-    sleep 1 unless element.abundance == "0"
-    
-    puts "\nURL: #{element.element_url}".colorize(:light_green)
-    puts "---------------------------------------------------------------------------"
-    sleep 1
-  end
-  
-  def list_properties_of_v2(element)
     property_collection = make_property_collection_from(element)
     
     puts "\n---------------------------------------------------------------------------"
