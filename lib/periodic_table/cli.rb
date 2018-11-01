@@ -128,6 +128,7 @@ class PeriodicTable::CLI
       puts "#{i}. #{element.name}".colorize(:yellow)
       sleep 0.5
     end
+    sleep 1
   end
   
   def display_all_elements(element_list) 
