@@ -18,7 +18,7 @@ The following gems were used to make this program: Bundler, Rake, Rspec, Pry, No
 
 ## Installation
 
-This gem is not yet available on [rubygems.org](https://rubygems.org) and therefore cannot be added to your Gemfile. (There is a periodic_table gem available on [rubygems.org](https://rubygems.org), but is not the same as this one.)
+This gem is not yet available on [rubygems.org](https://rubygems.org) and therefore cannot be added to your Gemfile. (There is a periodic_table gem available on [rubygems.org](https://rubygems.org), but it is not the same as this one.)
 
 To install this gem, fork and clone it from its Github repository at [https://github.com/Sdcrouse/periodic-table-cli-gem](https://github.com/Sdcrouse/periodic-table-cli-gem).
 
