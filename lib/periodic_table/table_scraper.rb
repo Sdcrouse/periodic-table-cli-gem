@@ -20,10 +20,12 @@ class PeriodicTable::TableScraper
   
   def delete_unnecessary_nodes_from(elements_array)
     2.times do
-      elements_array.delete(elements_array.first)
-      # Somehow, Nokogiri included the tr nodes from thead! These need to be deleted.
+      elements_array.delete(elements_array.first) 
+      # Somehow, Nokogiri includes the tr nodes from thead. These need to be deleted.
     end
-    elements_array.delete(elements_array.last) # Remove the last node, which contains notes and no chemical elements.
+    
+    elements_array.delete(elements_array.last) 
+    # Remove the last node, which contains notes and no chemical elements.
   end
 
   def make_properties_hash_from(scraped_element)
@@ -94,7 +96,9 @@ class PeriodicTable::TableScraper
     value.gsub(/(\(|\))/, "") unless value.nil?
   end
   
-  def find_value_in(node) # Expect node to equal element_properties[some_number]
+  def find_value_in(node) 
+    # This method should receive element_properties[index] as its argument.
+    
     span_node = node.css("span")
     
     if span_node.size == 0
