@@ -8,17 +8,17 @@ Welcome to the PeriodicTable CLI! If you're here to study chemistry and need som
 
 Disclaimer: This probably won't look like any Periodic Table you've ever seen, but the information presented is accurate.
 
-## Motivation 
+## Motivation
 
 This gem was built by a student for Flatiron School's CLI Data Gem Portfolio Project. It is meant to demonstrate a student's knowledge of the basics of procedural and object-oriented Ruby and with building a CLI. He chose to make an interactive PeriodicTable CLI because chemistry was one of his favorite school subjects.
 
 ## Gems Used
 
-The following gems were used to make this program: Bundler, Rake, Rspec, Pry, Nokogiri, and Colorize. 
+The following gems were used to make this program: Bundler, Rake, Rspec, Pry, Nokogiri, and Colorize.
 
 ## Installation
 
-This gem is not yet available on [rubygems.org](https://rubygems.org) and therefore cannot be added to your Gemfile. (There is a periodic_table gem available on [rubygems.org](https://rubygems.org), but is not the same as this one.) 
+This gem is not yet available on [rubygems.org](https://rubygems.org) and therefore cannot be added to your Gemfile. (There is a periodic_table gem available on [rubygems.org](https://rubygems.org), but is not the same as this one.)
 
 To install this gem, fork and clone it from its Github repository at [https://github.com/Sdcrouse/periodic-table-cli-gem](https://github.com/Sdcrouse/periodic-table-cli-gem).
 
@@ -47,7 +47,7 @@ To install this gem onto your local machine, run `bundle exec rake install`. To 
 
 ## Contributing
 
-Bug reports and pull requests are welcome on GitHub at https://github.com/'Sdcrouse'/periodic_table. This project is intended to be a safe, welcoming space for collaboration, and contributors are expected to adhere to the [Contributor Covenant](http://contributor-covenant.org) code of conduct.
+Bug reports and pull requests are welcome on GitHub at [https://github.com/Sdcrouse/periodic-table-cli-gem](https://github.com/Sdcrouse/periodic-table-cli-gem). This project is intended to be a safe, welcoming space for collaboration, and contributors are expected to adhere to the [Contributor Covenant](http://contributor-covenant.org) code of conduct.
 
 ## License
 
@@ -55,4 +55,4 @@ The gem is available as open source under the terms of the [MIT License](https:/
 
 ## Code of Conduct
 
-Everyone interacting in the PeriodicTable project’s codebases, issue trackers, chat rooms and mailing lists is expected to follow the [code of conduct](https://github.com/Sdcrouse/periodic-table-cli-gem).
+Everyone interacting in the PeriodicTable project’s codebases, issue trackers, chat rooms and mailing lists is expected to follow the code of conduct (see the CODE_OF_CONDUCT.md file for more information).
