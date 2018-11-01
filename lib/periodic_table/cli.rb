@@ -190,9 +190,9 @@ class PeriodicTable::CLI
   end
   
   def display_property_from(property_hash)
-    key = property_hash.keys[0]
-    value = property_hash.values[0]
-    units = property_hash["units"]
+    key = property_hash.keys[0] # "Atomic Number", "Symbol", "Period", etc.
+    value = property_hash.values[0] # element.atomic_number, element.symbol, etc.
+    units = property_hash["units"] # nil, "g/cm^3", "K", etc.
     
     unless value.nil? || value == "0"
       puts "#{key}: #{value} #{units}".strip.colorize(property_hash["color"])
@@ -206,7 +206,3 @@ class PeriodicTable::CLI
     display_all_elements(sorted_elements)
   end
 end
-# Delete this comment and the following lines after testing is completed:
-#table = PeriodicTable::CLI.new
-#table.make_elements
-#table.list_properties_of_v2(PeriodicTable::Element.all[117])
