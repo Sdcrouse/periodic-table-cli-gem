@@ -1,7 +1,7 @@
 class PeriodicTable::CLI
   def call
-    make_elements
-    start
+    self.make_elements
+    self.start
     puts "\nUntil next time, future chemist!".colorize(:light_cyan)
   end
 
@@ -18,7 +18,7 @@ class PeriodicTable::CLI
     puts "Ready to start learning some chemistry? (Y/n)\n".colorize(:light_red)
     start_program = gets.strip.downcase
 
-    main_menu unless start_program == "n" || start_program == "no"
+    self.main_menu unless start_program == "n" || start_program == "no"
   end
 
   def main_menu
@@ -34,13 +34,13 @@ class PeriodicTable::CLI
 
       case user_choice
       when 1
-        list_elements
+        self.list_elements
       when 2
-        examine_element
+        self.examine_element
       when 3 
-        sort_elements
+        self.sort_elements
       when 4 
-        help
+        self.help
       when 5
         puts "\nAre you sure you want to quit? (N/y):\n".colorize(:light_yellow)
         yes_or_no = gets.strip.downcase
@@ -61,8 +61,8 @@ class PeriodicTable::CLI
   end
 
   def help # Note: I slowed these methods down to give the user more time to read.
-    introduction
-    describe_main_menu_options
+    self.introduction
+    self.describe_main_menu_options
   end
 
   def introduction
@@ -95,13 +95,13 @@ class PeriodicTable::CLI
     
     until user_choice == 14
       puts "\nWhich elements would you like to see?".colorize(:light_magenta)
-      user_choice = choose_from(options)
+      user_choice = self.choose_from(options)
       puts "\n"
       
       if user_choice.between?(1,12)
-        display_set_of_ten_elements(user_choice)
+        self.display_set_of_ten_elements(user_choice)
       elsif user_choice == 13 
-        display_all_elements(PeriodicTable::Element.all)
+        self.display_all_elements(PeriodicTable::Element.all)
       elsif user_choice == 14 
         puts "OK. Heading back to the Main Menu now.".colorize(:light_magenta)
       else
@@ -149,7 +149,7 @@ class PeriodicTable::CLI
       element = PeriodicTable::Element.find_element_by_name(input)
       
       if !element.nil?
-        list_properties_of(element)
+        self.list_properties_of(element)
       elsif input == "Back"
         puts "\nOK. Back to the Main Menu we go!".colorize(:light_blue)
       else 
@@ -160,12 +160,12 @@ class PeriodicTable::CLI
   end
 
   def list_properties_of(element)
-    property_collection = make_property_collection_from(element)
+    property_collection = self.make_property_collection_from(element)
     
     puts "\n---------------------------------------------------------------------------"
     puts "Element: #{element.name}\n".colorize(:light_red)
     
-    property_collection.each {|property_hash| display_property_from(property_hash)}
+    property_collection.each {|property_hash| self.display_property_from(property_hash)}
     
     puts "\nURL: #{element.element_url}".colorize(:light_green)
     puts "---------------------------------------------------------------------------"
@@ -204,6 +204,6 @@ class PeriodicTable::CLI
   def sort_elements 
     puts "\n"
     sorted_elements = PeriodicTable::Element.all.sort_by{|element| element.name}
-    display_all_elements(sorted_elements)
+    self.display_all_elements(sorted_elements)
   end
 end
