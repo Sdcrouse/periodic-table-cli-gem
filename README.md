@@ -30,20 +30,22 @@ Within each list, there is an option to examine an individual element for more i
 
 You are also able to sort the list of all 118 chemical elements alphabetically by name.
 
-Lastly, there is a NOTES.md file that contains ideas for more features and new versions of the gem.
-
 To run the PeriodicTable CLI gem, enter the following lines of code:
 
     $ cd periodic-table-cli-gem
     $ bin/periodic-table
 
-Follow the prompts from there, and have fun!
+Follow the prompts from there, and have fun! 
+
+To see the Periodic Table CLI in action, [click here for a walkthrough video](https://www.useloom.com/share/a51352ba5ccb4f06b11eceeaf403844c).
 
 ## Development
 
 After checking out the repo, run `bin/setup` to install dependencies. Then, run `rake spec` to run the tests. (Note: there are only two tests at this time. The first tests for a version number. The second makes sure that the CLI scrapes the Periodic Table and creates new Elements.) You can also run `bin/console` for an interactive prompt that will allow you to experiment. You will need to run `bundle install` before running `bin/console`, or else the program will not be able to find the rake gem.
 
 To install this gem onto your local machine, run `bundle exec rake install`. To release a new version, update the version number in `version.rb`, and then run `bundle exec rake release`, which will create a git tag for the version, push git commits and tags, and push the `.gem` file to [rubygems.org](https://rubygems.org).
+
+There is also a NOTES.md file that contains ideas for more features and new versions of the gem.
 
 ## Contributing
 
