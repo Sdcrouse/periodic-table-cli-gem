@@ -54,7 +54,7 @@ class PeriodicTable::CLI
     puts "Choose from the numbered list below:\n".colorize(:light_green)
     option_list.each.with_index(1) do |option, i| 
       puts "#{i}. #{option}".colorize(:light_green)
-      sleep 0.5 
+      sleep 0.25 
     end
     puts "\n"
     gets.strip.to_i
@@ -126,15 +126,15 @@ class PeriodicTable::CLI
     
     PeriodicTable::Element.all[first..last].each.with_index(index) do |element, i| 
       puts "#{i}. #{element.name}".colorize(:yellow)
-      sleep 0.5
+      sleep 0.25
     end
-    sleep 1
+    sleep 0.5
   end
   
   def display_all_elements(element_list) 
     element_list.each.with_index(1) do |element, i| 
       puts "#{i}. #{element.name}".colorize(:light_cyan)
-      sleep 0.5
+      sleep 0.25
     end
     sleep 1
   end
@@ -197,7 +197,7 @@ class PeriodicTable::CLI
     
     unless value.nil? || value == "0"
       puts "#{key}: #{value} #{units}".strip.colorize(property_hash["color"])
-      sleep 1
+      sleep 0.5
     end
   end
   
