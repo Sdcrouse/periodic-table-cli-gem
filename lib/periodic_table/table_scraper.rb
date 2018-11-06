@@ -3,9 +3,11 @@ class PeriodicTable::TableScraper
   def scrape_periodic_table
     page = self.get_page("https://en.wikipedia.org/wiki/List_of_chemical_elements")
     scraped_elements = self.scrape_elements_from(page)
-    self.delete_unnecessary_nodes_from(scraped_elements)
+    #self.delete_unnecessary_nodes_from(scraped_elements)
     
-    scraped_elements.collect do |scraped_element| 
+    # Note: scraped_elements has a few extra nodes that it doesn't need.
+    # That is accounted for below:
+    scraped_elements[2..-2].collect do |scraped_element| 
       self.make_properties_hash_from(scraped_element)
     end
   end
@@ -16,16 +18,6 @@ class PeriodicTable::TableScraper
 
   def scrape_elements_from(page)
     page.css("#mw-content-text table.wikitable tbody tr")
-  end
-  
-  def delete_unnecessary_nodes_from(elements_array)
-    2.times do
-      elements_array.delete(elements_array.first) 
-      # Somehow, Nokogiri includes the tr nodes from thead. These need to be deleted.
-    end
-    
-    elements_array.delete(elements_array.last) 
-    # Remove the last node, which contains notes and no chemical elements.
   end
 
   def make_properties_hash_from(scraped_element)
