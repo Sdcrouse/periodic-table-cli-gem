@@ -40,6 +40,8 @@ class PeriodicTable::TableScraper
     }
   end
   
+  #-----------------------------Helper Methods-----------------------------------------
+  
   def determine_element_type_from(background_color)
     case background_color
     when "#f0ff8f"
