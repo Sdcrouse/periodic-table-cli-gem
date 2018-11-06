@@ -1,19 +1,14 @@
 class PeriodicTable::TableScraper
 
   def scrape_periodic_table
-    page = self.get_page("https://en.wikipedia.org/wiki/List_of_chemical_elements")
+    page = Nokogiri::HTML(open("https://en.wikipedia.org/wiki/List_of_chemical_elements"))
     scraped_elements = self.scrape_elements_from(page)
-    #self.delete_unnecessary_nodes_from(scraped_elements)
     
     # Note: scraped_elements has a few extra nodes that it doesn't need.
     # That is accounted for below:
     scraped_elements[2..-2].collect do |scraped_element| 
       self.make_properties_hash_from(scraped_element)
     end
-  end
-
-  def get_page(page)
-    Nokogiri::HTML(open(page))
   end
 
   def scrape_elements_from(page)
