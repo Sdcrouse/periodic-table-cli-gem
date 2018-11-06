@@ -2,17 +2,13 @@ class PeriodicTable::TableScraper
 
   def scrape_periodic_table
     page = Nokogiri::HTML(open("https://en.wikipedia.org/wiki/List_of_chemical_elements"))
-    scraped_elements = self.scrape_elements_from(page)
+    scraped_elements = page.css("#mw-content-text table.wikitable tbody tr")
     
     # Note: scraped_elements has a few extra nodes that it doesn't need.
     # That is accounted for below:
     scraped_elements[2..-2].collect do |scraped_element| 
       self.make_properties_hash_from(scraped_element)
     end
-  end
-
-  def scrape_elements_from(page)
-    page.css("#mw-content-text table.wikitable tbody tr")
   end
 
   def make_properties_hash_from(scraped_element)
