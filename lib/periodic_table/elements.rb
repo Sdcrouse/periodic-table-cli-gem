@@ -18,4 +18,9 @@ class PeriodicTable::Element
   def self.find_element_by_name(name)
     self.all.detect {|element| element.name == name}
   end
+  
+  def self.find_element_by_atomic_number(number)
+    binding.pry
+    self.all.detect {|element| element.atomic_number == number}
+  end
 end

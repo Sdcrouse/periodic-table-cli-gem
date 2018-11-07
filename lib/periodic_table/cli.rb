@@ -103,10 +103,11 @@ class PeriodicTable::CLI
         puts "Would you like to examine one of these elements? (Y/n):"
         input = gets.strip.upcase
         if ["Y", "YES"].include?(input)
-          puts "Which element would you like to see? Choose from the numbered list above:"
+          puts "Which element would you like to examine? Choose from 1-10:"
           choice = gets.strip.to_i
-          if choice.between?(1..10)
+          if choice.between?(1,10)
             element = PeriodicTable::Element.find_element_by_atomic_number(choice)
+            binding.pry
             list_properties_of(element)
           else
             puts "I don't understand your choice. Please try again."

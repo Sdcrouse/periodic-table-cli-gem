@@ -21,7 +21,7 @@ class PeriodicTable::TableScraper
     melting_point = self.find_value_in(element_properties[8])
     
     element_properties_hash = {
-      atomic_number: element_properties[0].text,
+      atomic_number: element_properties[0].text.to_i,
       symbol: element_properties[1].text,
       element_type: self.determine_element_type_from(background_color),
       name: element_properties[2].text,
