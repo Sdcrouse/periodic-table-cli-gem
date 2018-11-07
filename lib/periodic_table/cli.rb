@@ -100,6 +100,18 @@ class PeriodicTable::CLI
       
       if user_choice.between?(1,12)
         display_set_of_ten_elements(user_choice)
+        puts "Would you like to examine one of these elements? (Y/n):"
+        input = gets.strip.upcase
+        if ["Y", "YES"].include?(input)
+          puts "Which element would you like to see? Choose from the numbered list above:"
+          choice = gets.strip.to_i
+          if choice.between?(1..10)
+            element = PeriodicTable::Element.find_element_by_atomic_number(choice)
+            list_properties_of(element)
+          else
+            puts "I don't understand your choice. Please try again."
+          end
+        end
       elsif user_choice == 13 
         display_all_elements(PeriodicTable::Element.all)
       elsif user_choice == 14 
