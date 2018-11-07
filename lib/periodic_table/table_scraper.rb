@@ -1,4 +1,5 @@
 class PeriodicTable::TableScraper
+  include PeriodicTable::ValueModifier
 
   def scrape_periodic_table
     page = Nokogiri::HTML(open("https://en.wikipedia.org/wiki/List_of_chemical_elements"))
@@ -65,22 +66,6 @@ class PeriodicTable::TableScraper
     end
   end
   
-  def number_or_nil(node_text)
-    node_text.match(/\d+/) ? node_text : nil
-  end
-  
-  def remove_brackets_or_uncertainty_from(value)
-    if value.match(/\[\d+\]/) 
-      value.gsub(/(\[|\])/, "") # Remove brackets (if any) from the value
-    else
-      value.to_f # Remove uncertainty (if any) from the value
-    end
-  end
-  
-  def remove_parentheses_from(value)
-    value.gsub(/(\(|\))/, "") unless value.nil?
-  end
-  
   def find_value_in(node) 
     # This method should receive element_properties[index] as its argument.
     
@@ -91,10 +76,5 @@ class PeriodicTable::TableScraper
     else
       span_node.children[0]
     end
-  end
-  
-  def modify_value_of(property_node)
-    property = self.number_or_nil(property_node.text.strip)
-    self.remove_parentheses_from(property)
   end
 end
