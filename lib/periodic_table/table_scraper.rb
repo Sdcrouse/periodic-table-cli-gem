@@ -13,6 +13,8 @@ class PeriodicTable::TableScraper
   end
 
   def make_properties_hash_from(scraped_element)
+    # The following four variables help to spread out the code and make the element_properties_hash more readable:
+    
     element_properties = scraped_element.css("td")
     background_color = element_properties[1].attr("style").gsub("background:", "")
     atomic_weight_node = self.find_value_in(element_properties[6])
@@ -68,6 +70,7 @@ class PeriodicTable::TableScraper
   
   def find_value_in(node) 
     # This method should receive element_properties[index] as its argument.
+    # This helps the scraper get the needed text nodes from inconsistently structured td nodes.
     
     span_node = node.css("span")
     
