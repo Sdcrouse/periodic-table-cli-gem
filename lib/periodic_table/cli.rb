@@ -22,7 +22,7 @@ class PeriodicTable::CLI
   end
 
   def main_menu
-    menu_options = ["List Elements", "Examine an Element", "Sort Elements", "Help", "Quit"]
+    menu_options = ["View a List of Chemical Elements", "List the Element Names Alphabetically", "Examine an Element", "Help", "Quit"]
     yes_or_no = "no"
     user_choice = nil
     
@@ -36,9 +36,9 @@ class PeriodicTable::CLI
       when 1
         list_elements
       when 2
-        examine_element
+        list_elements_alphabetically
       when 3 
-        sort_elements
+        examine_element
       when 4 
         help
       when 5
@@ -68,10 +68,10 @@ class PeriodicTable::CLI
   def introduction
     puts "\nThe Interactive Periodic Table is designed to mimic a real periodic table by providing information about each of the currently known chemical elements.".colorize(:light_red)
     sleep 5
-    puts "\nIn this program, you are able to view a list of all or some of the chemical elements, examine an individual chemical element for more information, and sort the elements.".colorize(:light_red)
+    puts "\nIn this program, you are able to view a list of all or some of the chemical elements, list the names of the chemical elements alphabetically, and examine an individual chemical element for more information.".colorize(:light_red)
     sleep 5
-    puts "\nBy default, the chemical elements are listed by their atomic numbers. The 'Sort Elements' option will sort them by their names.".colorize(:light_red)
-    sleep 5
+    puts "\nAs a side note, by default the chemical elements are listed by their atomic numbers.".colorize(:light_red)
+    sleep 3
   end
 
   def describe_main_menu_options
@@ -79,9 +79,9 @@ class PeriodicTable::CLI
     sleep 1
     puts "Press 1 to view a list of chemical elements from the Periodic Table.".colorize(:light_yellow)
     sleep 1
-    puts "Press 2 to get more information about an element (name, properties, etc).".colorize(:light_yellow)
+    puts "Press 2 to see the names of the chemical elements listed in alphabetical order.".colorize(:light_yellow)
     sleep 1
-    puts "Press 3 to see the chemical elements sorted by name.".colorize(:light_yellow)
+    puts "Press 3 to get more information about an element (name, properties, etc).".colorize(:light_yellow)
     sleep 1
     puts "Press 4 to view this description of the Main Menu options.".colorize(:light_yellow)
     sleep 1
@@ -213,7 +213,7 @@ class PeriodicTable::CLI
     end
   end
   
-  def sort_elements 
+  def list_elements_alphabetically 
     puts "\n"
     sorted_elements = PeriodicTable::Element.all.sort_by{|element| element.name}
     display_all_elements(sorted_elements)
