@@ -20,7 +20,6 @@ class PeriodicTable::Element
   end
   
   def self.find_element_by_atomic_number(number)
-    binding.pry
     self.all.detect {|element| element.atomic_number == number}
   end
 end

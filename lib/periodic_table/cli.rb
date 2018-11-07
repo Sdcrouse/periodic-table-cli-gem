@@ -107,7 +107,6 @@ class PeriodicTable::CLI
           choice = gets.strip.to_i
           if choice.between?(1,10)
             element = PeriodicTable::Element.find_element_by_atomic_number(choice)
-            binding.pry
             list_properties_of(element)
           else
             puts "I don't understand your choice. Please try again."
