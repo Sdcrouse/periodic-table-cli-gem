@@ -130,17 +130,21 @@ class PeriodicTable::CLI
     
     puts "\nHow many elements would you like to see? Please enter a number, or type 'all' to see them all. To go back to the Main Menu, type 'back'.".colorize(:light_magenta)
     user_input = gets.strip.capitalize
-    input_to_number = user_input.to_i
+    elements_per_page = user_input.to_i
     puts "\n"
     
     if input_to_number.between?(1, element_total - 1)
-      number_of_pages = element_total / input_to_number
-      number_of_pages += 1 unless element_total % input_to_number == 0
+      page_total = element_total / elements_per_page
+      page_total += 1 unless element_total % elements_per_page == 0
       
       puts "Which page of elements would you like to see? Choose from 1-#{number_of_pages}."
       page = gets.strip.to_i
       
-      display_page_of_elements(page, number_of_pages, element_total)
+      if page.between?(1..page_total)
+        display_page_of_elements(page, page_total, elements_per_page, element_total)
+      else 
+        puts "Sorry. That is an invalid choice. Please try again."
+      end
       
       #puts "Would you like to examine one of these elements? (Y/n):"
       #input = gets.strip.capitalize
@@ -154,8 +158,8 @@ class PeriodicTable::CLI
       #    puts "I don't understand your choice. Please try again."
       #  end
       #end
-    elsif user_input == "All" || input_to_number == element_total
-      display_all_elements_v2
+    elsif user_input == "All" || elements_per_page == element_total
+      display_all_elements_v2(PeriodicTable::Element.all, 1)
     elsif user_input == "Back" 
       puts "OK. Heading back to the Main Menu now.".colorize(:light_magenta)
     else
@@ -163,8 +167,42 @@ class PeriodicTable::CLI
     end
   end
   
-  def display_page_of_elements(page, number_of_pages, element_total)
-    puts "The page of elements has been displayed."
+  def display_page_of_elements(page, page_total, elements_per_page, element_total)
+    # If you want to display page 1 with 40 elements, then display Elements 1-40
+    # If you want to display page 2 with 40 elements, then display Elements 41-80
+    # If you want to display the last page (page 3) with 118 - 2 * 40 = 38 Elements, then display elements 81-118.
+    # The last page of elements has element_total % elements_per_page elements.
+    # However, if element_total % elements_per_page == 0, then the last page has elements_per_page elements
+    # I need a selector. Something like PeriodicTable::Element.select_elements(first, last)
+    
+    # For 4 pages, each containing 20 elements, for a total of 80 elements, we have:
+    # Page 1: Elements 1-20 => first = 1, last = 20
+    # Page 2: Elements 21-40 => first = 21 = 2 * 20 + 1, last = 40 = 2 * 20
+    # Page 3: Elements 41-60
+    # Page 4: Elements 61-80
+    # So, how do the first and last elements relate to the current page and page total?
+    
+    first, last = 0, 0
+    
+    if page == page_total
+      last = element_total
+      final_elements = element_total % elements_per_page
+      
+      if final_elements == 0 
+        first = element_total - elements_per_page + 1 # 118 - 59 + 1 = 60
+      else 
+        first = element_total - final_elements + 1 # 118 - 8 + 1 = 111
+      end
+    elsif page == 1 
+      first = 1
+      last = elements_per_page
+    else 
+      first = elements_per_page + 1
+      last = elements_per_page * page
+    end
+    
+    display_all_elements_v2(PeriodicTable::Element.find_elements_by_atomic_number(first, last), first)
+    #puts "The page of elements has been displayed."
   end
   
   def display_set_of_elements(number_of_elements) 
@@ -198,8 +236,13 @@ class PeriodicTable::CLI
     sleep 1
   end
   
-  def display_all_elements_v2
+  def display_all_elements_v2(element_list, first_element_index)
+    element_list.each_with_index(first_element_index) do |element, i|
+      puts "#{i}. #{element.name}".colorize(:light_cyan)
+      sleep 0.25
+    end
     puts "Every element has been displayed."
+    sleep 1
   end
 
   def examine_element
