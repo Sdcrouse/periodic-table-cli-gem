@@ -99,7 +99,7 @@ class PeriodicTable::CLI
       puts "\n"
       
       if user_choice.between?(1,12)
-        display_set_of_ten_elements(user_choice)
+        display_set_of_elements(user_choice)
         puts "Would you like to examine one of these elements? (Y/n):"
         input = gets.strip.upcase
         if ["Y", "YES"].include?(input)
@@ -122,25 +122,60 @@ class PeriodicTable::CLI
     end
   end
   
-  def display_set_of_ten_elements(set_number) 
-    # Example: if set_number == 2, then do this to puts Elements 11-19:
+  def list_elements_v2
+    options = ["Elements 1-10", "Elements 11-20", "Elements 21-30", "Elements 31-40", "Elements 41-50", "Elements 51-60", "Elements 61-70", "Elements 71-80", "Elements 81-90", "Elements 91-100", "Elements 101-110", "Elements 111-118", "All of them!", "Back to Main Menu"]
+    user_choice = nil
+    
+    until user_choice == 14
+      puts "\nWhich elements would you like to see?".colorize(:light_magenta)
+      user_choice = choose_from(options)
+      puts "\n"
+      
+      if user_choice.between?(1,12)
+        display_set_of_elements(user_choice)
+        puts "Would you like to examine one of these elements? (Y/n):"
+        input = gets.strip.upcase
+        if ["Y", "YES"].include?(input)
+          puts "Which element would you like to examine? Choose from 1-10:"
+          choice = gets.strip.to_i
+          if choice.between?(1,10)
+            element = PeriodicTable::Element.find_element_by_atomic_number(choice)
+            list_properties_of(element)
+          else
+            puts "I don't understand your choice. Please try again."
+          end
+        end
+      elsif user_choice == 13 
+        display_all_elements(PeriodicTable::Element.all)
+      elsif user_choice == 14 
+        puts "OK. Heading back to the Main Menu now.".colorize(:light_magenta)
+      else
+        puts "I don't understand. Please try again.".colorize(:light_magenta)
+      end
+    end
+  end
+  
+  def display_set_of_elements(number_of_elements) 
+    # Example: if number_of_elements == 2, then do this to puts Elements 11-19:
     # PeriodicTable::Element.all[10..19].each.with_index(11) {|element, i| puts "#{i}. #{element.name}"}
     
-    first = (set_number - 1) * 10
-    index = first + 1
     
-    last = nil 
-    if set_number == 12 
-      last = 117 # There are only 118 elements, so the last set contains 8, not 10
-    else 
-      last = first + 9
-    end
     
-    PeriodicTable::Element.all[first..last].each.with_index(index) do |element, i| 
-      puts "#{i}. #{element.name}".colorize(:yellow)
-      sleep 0.25
-    end
-    sleep 0.5
+    #first = (number_of_elements - 1) * 10
+    #index = first + 1
+    #
+    #last = nil 
+    #if number_of_elements == 12 
+    #  last = 117 # There are only 118 elements, so the last set contains 8, not 10
+    #else 
+    #  last = first + 9
+    #end
+    #
+    #PeriodicTable::Element.all[first..last].each.with_index(index) do |element, i| 
+    #  puts "#{i}. #{element.name}".colorize(:yellow)
+    #  sleep 0.25
+    #end
+    #sleep 0.5
   end
   
   def display_all_elements(element_list) 
@@ -203,8 +238,8 @@ class PeriodicTable::CLI
   end
   
   def display_property_from(property_hash)
-    key = property_hash.keys[0] # "Atomic Number", "Symbol", "Period", etc.
-    value = property_hash.values[0] # element.atomic_number, element.symbol, etc.
+    key = property_hash.keys.first # "Atomic Number", "Symbol", "Period", etc.
+    value = property_hash.values.first # element.atomic_number, element.symbol, etc.
     units = property_hash["units"] # nil, "g/cm^3", "K", etc.
     
     unless value.nil? || value == "0"
