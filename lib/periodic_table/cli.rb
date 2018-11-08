@@ -90,6 +90,7 @@ class PeriodicTable::CLI
   end
 
   def list_elements
+    binding.pry
     options = ["Elements 1-10", "Elements 11-20", "Elements 21-30", "Elements 31-40", "Elements 41-50", "Elements 51-60", "Elements 61-70", "Elements 71-80", "Elements 81-90", "Elements 91-100", "Elements 101-110", "Elements 111-118", "All of them!", "Back to Main Menu"]
     user_choice = nil
     
@@ -123,43 +124,54 @@ class PeriodicTable::CLI
   end
   
   def list_elements_v2
-    options = ["Elements 1-10", "Elements 11-20", "Elements 21-30", "Elements 31-40", "Elements 41-50", "Elements 51-60", "Elements 61-70", "Elements 71-80", "Elements 81-90", "Elements 91-100", "Elements 101-110", "Elements 111-118", "All of them!", "Back to Main Menu"]
-    user_choice = nil
     
-    until user_choice == 14
-      puts "\nWhich elements would you like to see?".colorize(:light_magenta)
-      user_choice = choose_from(options)
-      puts "\n"
+    user_input = nil
+    element_total = PeriodicTable::Element.all.size
+    
+    puts "\nHow many elements would you like to see? Please enter a number, or type 'all' to see them all. To go back to the Main Menu, type 'back'.".colorize(:light_magenta)
+    user_input = gets.strip.capitalize
+    input_to_number = user_input.to_i
+    puts "\n"
+    
+    if input_to_number.between?(1, element_total - 1)
+      number_of_pages = element_total / input_to_number
+      number_of_pages += 1 unless element_total % input_to_number == 0
       
-      if user_choice.between?(1,12)
-        display_set_of_elements(user_choice)
-        puts "Would you like to examine one of these elements? (Y/n):"
-        input = gets.strip.upcase
-        if ["Y", "YES"].include?(input)
-          puts "Which element would you like to examine? Choose from 1-10:"
-          choice = gets.strip.to_i
-          if choice.between?(1,10)
-            element = PeriodicTable::Element.find_element_by_atomic_number(choice)
-            list_properties_of(element)
-          else
-            puts "I don't understand your choice. Please try again."
-          end
-        end
-      elsif user_choice == 13 
-        display_all_elements(PeriodicTable::Element.all)
-      elsif user_choice == 14 
-        puts "OK. Heading back to the Main Menu now.".colorize(:light_magenta)
-      else
-        puts "I don't understand. Please try again.".colorize(:light_magenta)
-      end
+      puts "Which page of elements would you like to see? Choose from 1-#{number_of_pages}."
+      page = gets.strip.to_i
+      
+      display_page_of_elements(page, number_of_pages, element_total)
+      
+      #puts "Would you like to examine one of these elements? (Y/n):"
+      #input = gets.strip.capitalize
+      #if ["Y", "Yes"].include?(input)
+      #  puts "Which element would you like to examine? Choose from 1-10:"
+      #  choice = gets.strip.to_i
+      #  if choice.between?(1,10)
+      #    element = PeriodicTable::Element.find_element_by_atomic_number(choice)
+      #    list_properties_of(element)
+      #  else
+      #    puts "I don't understand your choice. Please try again."
+      #  end
+      #end
+    elsif user_input == "All" || input_to_number == element_total
+      display_all_elements_v2
+    elsif user_input == "Back" 
+      puts "OK. Heading back to the Main Menu now.".colorize(:light_magenta)
+    else
+      puts "I don't understand. Please try again.".colorize(:light_magenta)
     end
+  end
+  
+  def display_page_of_elements(page, number_of_pages, element_total)
+    puts "The page of elements has been displayed."
   end
   
   def display_set_of_elements(number_of_elements) 
     # Example: if number_of_elements == 2, then do this to puts Elements 11-19:
     # PeriodicTable::Element.all[10..19].each.with_index(11) {|element, i| puts "#{i}. #{element.name}"}
     
-    
+    puts "The elements have been displayed."
     
     #first = (number_of_elements - 1) * 10
     #index = first + 1
@@ -184,6 +196,10 @@ class PeriodicTable::CLI
       sleep 0.25
     end
     sleep 1
+  end
+  
+  def display_all_elements_v2
+    puts "Every element has been displayed."
   end
 
   def examine_element
