@@ -14,21 +14,30 @@ class PeriodicTable::CLI
   end
   
   def start
-    puts "Welcome to the Interactive Periodic Table!".colorize(:light_red)
-    puts "Ready to start learning some chemistry? (Y/n)\n".colorize(:light_red)
-    start_program = gets.strip.downcase
-
-    main_menu unless start_program == "n" || start_program == "no"
+    start_program = nil
+    until ["Y", "YES", "N", "NO"].include?(start_program)
+      puts "Welcome to the Interactive Periodic Table!".colorize(:light_red)
+      puts "Ready to start learning some chemistry? (Y/N)\n".colorize(:light_red)
+      start_program = gets.strip.upcase
+      
+      if start_program == "Y" || start_program == "YES"
+        main_menu 
+      elsif start_program == "N" || start_program == "NO"
+        next
+      else 
+        puts "\nI don't understand what you're saying. Please try again.\n".colorize(:light_red)
+      end
+    end
   end
 
   def main_menu
     menu_options = ["View a List of Chemical Elements", "List the Element Names Alphabetically", "Examine an Element", "Help", "Quit"]
-    yes_or_no = "no"
     user_choice = nil
+    exit_program = nil
     
     puts "\nHere's where the REAL fun begins!".colorize(:light_yellow)
 
-    until yes_or_no == "y" || yes_or_no == "yes"
+    until exit_program == "Y" || exit_program == "YES"
       puts "\nWelcome to the Main Menu! What would you like to do?".colorize(:light_yellow)
       user_choice = choose_from(menu_options)
 
@@ -42,8 +51,7 @@ class PeriodicTable::CLI
       when 4 
         help
       when 5
-        puts "\nAre you sure you want to quit? (N/y):\n".colorize(:light_yellow)
-        yes_or_no = gets.strip.downcase
+        exit_program = quit?
       else
         puts "I don't understand. Please try again.".colorize(:light_yellow)
       end
@@ -59,36 +67,7 @@ class PeriodicTable::CLI
     puts "\n"
     gets.strip.to_i
   end
-
-  def help # Note: I slowed these methods down to give the user more time to read.
-    introduction
-    describe_main_menu_options
-  end
-
-  def introduction
-    puts "\nThe Interactive Periodic Table is designed to mimic a real periodic table by providing information about each of the currently known chemical elements.".colorize(:light_red)
-    sleep 5
-    puts "\nIn this program, you are able to view a list of all or some of the chemical elements, list the names of the chemical elements alphabetically, and examine an individual chemical element for more information.".colorize(:light_red)
-    sleep 5
-    puts "\nAs a side note, by default the chemical elements are listed by their atomic numbers.".colorize(:light_red)
-    sleep 3
-  end
-
-  def describe_main_menu_options
-    puts "\nHere are the Main Menu options:".colorize(:light_yellow)
-    sleep 1
-    puts "Press 1 to view a list of chemical elements from the Periodic Table.".colorize(:light_yellow)
-    sleep 1
-    puts "Press 2 to see the names of the chemical elements listed in alphabetical order.".colorize(:light_yellow)
-    sleep 1
-    puts "Press 3 to get more information about an element (name, properties, etc).".colorize(:light_yellow)
-    sleep 1
-    puts "Press 4 to view this description of the Main Menu options.".colorize(:light_yellow)
-    sleep 1
-    puts "Press 5 to quit the Interactive Periodic Table.".colorize(:light_yellow)
-    sleep 3
-  end
-
+  
   def list_elements
     #binding.pry
     options = ["Elements 1-10", "Elements 11-20", "Elements 21-30", "Elements 31-40", "Elements 41-50", "Elements 51-60", "Elements 61-70", "Elements 71-80", "Elements 81-90", "Elements 91-100", "Elements 101-110", "Elements 111-118", "All of them!", "Back to Main Menu"]
@@ -121,6 +100,56 @@ class PeriodicTable::CLI
         puts "I don't understand. Please try again.".colorize(:light_magenta)
       end
     end
+  end
+  
+  def list_elements_alphabetically 
+    puts "\n"
+    sorted_elements = PeriodicTable::Element.all.sort_by{|element| element.name}
+    display_all_elements(sorted_elements)
+  end
+
+  def help # Note: I slowed these methods down to give the user more time to read.
+    introduction
+    describe_main_menu_options
+  end
+
+  def introduction
+    puts "\nThe Interactive Periodic Table is designed to mimic a real periodic table by providing information about each of the currently known chemical elements.".colorize(:light_red)
+    sleep 5
+    puts "\nIn this program, you are able to view a list of all or some of the chemical elements, list the names of the chemical elements alphabetically, and examine an individual chemical element for more information.".colorize(:light_red)
+    sleep 5
+    puts "\nAs a side note, by default the chemical elements are listed by their atomic numbers.".colorize(:light_red)
+    sleep 3
+  end
+
+  def describe_main_menu_options
+    puts "\nHere are the Main Menu options:".colorize(:light_yellow)
+    sleep 1
+    puts "Press 1 to view a list of chemical elements from the Periodic Table.".colorize(:light_yellow)
+    sleep 1
+    puts "Press 2 to see the names of the chemical elements listed in alphabetical order.".colorize(:light_yellow)
+    sleep 1
+    puts "Press 3 to get more information about an element (name, properties, etc).".colorize(:light_yellow)
+    sleep 1
+    puts "Press 4 to view this description of the Main Menu options.".colorize(:light_yellow)
+    sleep 1
+    puts "Press 5 to quit the Interactive Periodic Table.".colorize(:light_yellow)
+    sleep 3
+  end
+  
+  def quit?
+    yes_or_no = nil
+    
+    until ["Y", "YES", "N", "NO"].include?(yes_or_no)
+      puts "\nAre you sure you want to quit? (Y/N):\n".colorize(:light_yellow)
+      yes_or_no = gets.strip.upcase
+      
+      unless ["Y", "YES", "N", "NO"].include?(yes_or_no)
+        puts "\nI don't understand your answer. Please try again.".colorize(:light_yellow)
+      end
+    end
+    
+    yes_or_no
   end
   
   def list_elements_v2
@@ -303,11 +332,5 @@ class PeriodicTable::CLI
       puts "#{key}: #{value} #{units}".strip.colorize(property_hash["color"])
       sleep 0.5
     end
-  end
-  
-  def list_elements_alphabetically 
-    puts "\n"
-    sorted_elements = PeriodicTable::Element.all.sort_by{|element| element.name}
-    display_all_elements(sorted_elements)
   end
 end
