@@ -13,29 +13,33 @@ class PeriodicTable::TableScraper
   end
 
   def self.make_properties_hash_from(scraped_element)
-    # The following four variables help to spread out the code and make the element_properties_hash more readable:
+    # Get the element_properties_node
+    element_properties_node = scraped_element.css("td")
     
-    element_properties = scraped_element.css("td")
-    background_color = element_properties[1].attr("style").gsub("background:", "")
-    atomic_weight_node = find_value_in(element_properties[6])
-    melting_point = find_value_in(element_properties[8])
+    # The following five variables help to spread out the code and make the element_properties_hash more readable:
+    background_color = element_properties_node[1].attr("style").gsub("background:", "")
+    atomic_weight_text = get_text_from(element_properties_node[6])
+    density_text = get_text_from(element_properties_node[7])
+    melting_point_text = get_text_from(element_properties_node[8])
+    boiling_point_text = get_text_from(element_properties_node[9])
     
+    # Make and return the element_properties_hash:
     element_properties_hash = {
-      atomic_number: element_properties[0].text.to_i,
-      symbol: element_properties[1].text,
+      atomic_number: element_properties_node[0].text.to_i,
+      symbol: element_properties_node[1].text,
       element_type: determine_element_type_from(background_color),
-      name: element_properties[2].text,
-      element_url: "https://en.wikipedia.org" + element_properties[2].css("a").attr("href").value,
-      name_origin: element_properties[3].text,
-      group: number_or_nil(element_properties[4].text),
-      period: element_properties[5].text,
-      atomic_weight: remove_brackets_or_uncertainty_from(atomic_weight_node.text),
-      density: remove_parentheses_from(element_properties[7].children[0].text),
-      melting_point: modify_value_of(melting_point),
-      boiling_point: modify_value_of(element_properties[9].children[0]),
-      heat_capacity: number_or_nil(element_properties[10].text),
-      electronegativity: number_or_nil(element_properties[11].text),
-      abundance: element_properties[12].children[0].text.strip 
+      name: element_properties_node[2].text,
+      element_url: "https://en.wikipedia.org" + element_properties_node[2].css("a").attr("href").value,
+      name_origin: element_properties_node[3].text,
+      group: number_or_nil(element_properties_node[4].text),
+      period: element_properties_node[5].text,
+      atomic_weight: remove_brackets_or_uncertainty_from(atomic_weight_text),
+      density: remove_parentheses_from(density_text),
+      melting_point: remove_parentheses_from(number_or_nil(melting_point_text)),
+      boiling_point: remove_parentheses_from(number_or_nil(boiling_point_text)),
+      heat_capacity: number_or_nil(element_properties_node[10].text),
+      electronegativity: number_or_nil(element_properties_node[11].text),
+      abundance: element_properties_node[12].children[0].text.strip 
     }
   end
   
@@ -68,16 +72,16 @@ class PeriodicTable::TableScraper
     end
   end
   
-  def self.find_value_in(node) 
-    # This method should receive a node from the element_properties Array as its argument.
-    # This helps the scraper get the needed text nodes from inconsistently structured td nodes.
+  def self.get_text_from(element_property_node) 
+    # This method should receive a node from the element_properties Array (from the class method #make_properties_hash_from) as its argument.
+    # This helps the scraper get the needed text from inconsistently structured td nodes.
     
-    span_node = node.css("span")
+    span_node = element_property_node.css("span")
     
     if span_node.size == 0
-      node.children[0]
+      element_property_node.children[0].text.strip
     else
-      span_node.children[0]
+      span_node.children[0].text.strip
     end
   end
 end

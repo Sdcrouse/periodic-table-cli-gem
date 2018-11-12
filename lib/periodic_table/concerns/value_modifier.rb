@@ -20,9 +20,4 @@ module PeriodicTable::ValueModifier
   def remove_parentheses_from(value)
     value.gsub(/(\(|\))/, "") unless value.nil?
   end
-  
-  def modify_value_of(property_node)
-    property = self.number_or_nil(property_node.text.strip)
-    self.remove_parentheses_from(property)
-  end
 end
