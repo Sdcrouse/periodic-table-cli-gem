@@ -25,7 +25,7 @@ class PeriodicTable::TableScraper
     
     # Make and return the element_properties_hash:
     element_properties_hash = {
-      atomic_number: element_properties_node[0].text.to_i,
+      atomic_number: element_properties_node[0].text,
       symbol: element_properties_node[1].text,
       element_type: determine_element_type_from(background_color),
       name: element_properties_node[2].text,

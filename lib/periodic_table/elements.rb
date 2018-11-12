@@ -20,13 +20,12 @@ class PeriodicTable::Element
   end
   
   def self.find_element_by_atomic_number(number)
-    self.all.detect {|element| element.atomic_number == number}
+    self.all.detect {|element| element.atomic_number == number.to_s}
   end
   
   def self.select_elements_by_atomic_number(first, last)
     # This assumes that self.all is currently sorted by atomic_number
     # It also assumes that it will have to convert first and last to index numbers.
-    # This ought to be refactored to adhere to the Single Responsibility Principle.
     
     self.all[first - 1..last - 1]
   end
