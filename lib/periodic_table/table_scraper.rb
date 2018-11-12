@@ -31,14 +31,14 @@ class PeriodicTable::TableScraper
       name: element_properties_node[2].text,
       element_url: "https://en.wikipedia.org" + element_properties_node[2].css("a").attr("href").value,
       name_origin: element_properties_node[3].text,
-      group: number_or_nil(element_properties_node[4].text),
+      group: number_or_na(element_properties_node[4].text),
       period: element_properties_node[5].text,
       atomic_weight: remove_brackets_or_uncertainty_from(atomic_weight_text),
       density: remove_parentheses_from(density_text),
-      melting_point: remove_parentheses_from(number_or_nil(melting_point_text)),
-      boiling_point: remove_parentheses_from(number_or_nil(boiling_point_text)),
-      heat_capacity: number_or_nil(element_properties_node[10].text),
-      electronegativity: number_or_nil(element_properties_node[11].text),
+      melting_point: remove_parentheses_from(number_or_na(melting_point_text)),
+      boiling_point: remove_parentheses_from(number_or_na(boiling_point_text)),
+      heat_capacity: number_or_na(element_properties_node[10].text),
+      electronegativity: number_or_na(element_properties_node[11].text),
       abundance: element_properties_node[12].children[0].text.strip 
     }
   end

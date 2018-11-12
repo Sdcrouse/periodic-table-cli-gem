@@ -314,23 +314,20 @@ class PeriodicTable::CLI
       {"Element Type" => element.element_type, "color" => :light_magenta},
       {"Group" => element.group, "color" => :light_red},
       {"Period" => element.period, "color" => :light_yellow},
-      {"Density" => element.density, "units" => "g/cm^3", "color" => :light_green},
-      {"Melting Point" => element.melting_point, "units" => "K", "color" => :light_cyan},
-      {"Boiling Point" => element.boiling_point, "units" => "K", "color" => :light_blue},
-      {"Heat Capacity" => element.heat_capacity, "units" => "J/(g * K)", "color" => :light_magenta},
+      {"Density (g/cm^3)" => element.density, "color" => :light_green},
+      {"Melting Point (K)" => element.melting_point, "color" => :light_cyan},
+      {"Boiling Point (K)" => element.boiling_point, "color" => :light_blue},
+      {"Heat Capacity (J/(g * K))" => element.heat_capacity, "color" => :light_magenta},
       {"Electronegativity (Pauline Scale)" => element.electronegativity, "color" =>  :light_red}, 
-      {"Abundance in Earth's Crust" => element.abundance, "units" => "mg/kg", "color" => :light_yellow}
+      {"Abundance in Earth's Crust (mg/kg)" => element.abundance, "color" => :light_yellow}
     ]
   end
   
   def display_property_from(property_hash)
     key = property_hash.keys.first # "Atomic Number", "Symbol", "Period", etc.
     value = property_hash.values.first # element.atomic_number, element.symbol, etc.
-    units = property_hash["units"] # nil, "g/cm^3", "K", etc.
     
-    unless value.nil? || value == "0"
-      puts "#{key}: #{value} #{units}".strip.colorize(property_hash["color"])
-      sleep 0.5
-    end
+    puts "#{key}: #{value}".strip.colorize(property_hash["color"])
+    sleep 0.5
   end
 end
