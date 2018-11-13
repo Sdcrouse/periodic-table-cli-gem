@@ -1,5 +1,6 @@
 class PeriodicTable::TableScraper
   extend PeriodicTable::ValueModifier
+  # The following class methods are in the ValueModifier module: #number_or_na, #remove_brackets_or_uncertainty_from, #remove_parentheses_from, and #insert_zero_abundance_footnote
 
   def self.scrape_periodic_table
     page = Nokogiri::HTML(open("https://en.wikipedia.org/wiki/List_of_chemical_elements"))
