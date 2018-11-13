@@ -2,6 +2,8 @@ PATH
   remote: .
   specs:
     periodic_table (0.1.0)
+      colorize
+      nokogiri
 
 GEM
   remote: https://rubygems.org/
@@ -36,12 +38,10 @@ PLATFORMS
 
 DEPENDENCIES
   bundler (~> 1.16)
-  colorize
-  nokogiri
   periodic_table!
   pry
   rake (= 10.5.0)
   rspec (~> 3.0)
 
 BUNDLED WITH
-   1.16.6
+   1.17.1
