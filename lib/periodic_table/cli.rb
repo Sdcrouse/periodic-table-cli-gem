@@ -272,17 +272,18 @@ class PeriodicTable::CLI
   end
 
   def examine_element
-    element_name = nil 
+    element_to_examine = nil
     
-    until element_name == "Back"
+    until element_to_examine == "Back"
       puts "\nWhich element would you like to examine?".colorize(:light_blue)
       puts "Please enter its name here, or type 'back' to go back to the Main Menu:\n".colorize(:light_blue)
-      element_name = gets.strip.capitalize 
-      element = PeriodicTable::Element.find_element_by_name(element_name)
       
-      if !element.nil?
-        list_properties_of(element)
-      elsif element_name == "Back"
+      element_to_examine = gets.strip.capitalize
+      element_from_table = PeriodicTable::Element.find_element_by_name(element_to_examine)
+      
+      if !element_from_table.nil?
+        list_properties_of(element_from_table)
+      elsif element_to_examine == "Back"
         puts "\nOK. Back to the Main Menu we go!".colorize(:light_blue)
       else 
         puts "\nI'm sorry. I do not recognize that element.".colorize(:light_blue) 
