@@ -1,6 +1,7 @@
 module PeriodicTable::ValueModifier
-  # Note: these should all be used as instance methods in the Scraper only.
-  # My goal with all of these is to make the property values look like numbers.
+  # Note: these should all be used as class methods in the Scraper only.
+  # My goal with most of these is to make some property values look like numbers.
+  # The last method adds a footnote to abundance values of zero.
   
   def number_or_na(node_text)
     # Change the value of the node_text to nil unless it's a number.
@@ -19,5 +20,17 @@ module PeriodicTable::ValueModifier
   
   def remove_parentheses_from(value)
     value.gsub(/(\(|\))/, "")
+  end
+  
+  def insert_zero_abundance_footnote(elements_array, zero_abundance_footnote)
+    # Insert the zero_abundance_footnote here for abundance values equal to zero:
+    
+    elements_array.each do |element_properties_hash|
+      if element_properties_hash[:abundance] == "0"
+        element_properties_hash[:abundance] += " (#{zero_abundance_footnote})"
+      end
+    end
+    
+    elements_array
   end
 end

@@ -88,16 +88,4 @@ class PeriodicTable::TableScraper
       span_node.children[0].text.strip
     end
   end
-  
-  def self.insert_zero_abundance_footnote(elements_array, zero_abundance_footnote)
-    # Insert the zero_abundance_footnote here for abundance values equal to zero:
-    
-    elements_array.each do |element_properties_hash|
-      if element_properties_hash[:abundance] == "0"
-        element_properties_hash[:abundance] += " (#{zero_abundance_footnote})"
-      end
-    end
-    
-    elements_array
-  end
 end
