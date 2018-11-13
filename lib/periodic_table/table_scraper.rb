@@ -4,12 +4,16 @@ class PeriodicTable::TableScraper
   def self.scrape_periodic_table
     page = Nokogiri::HTML(open("https://en.wikipedia.org/wiki/List_of_chemical_elements"))
     scraped_elements = page.css("#mw-content-text table.wikitable tbody tr")
+    zero_abundance_footnote = scraped_elements.search("#cite_note-fn14-18 span.reference-text").text
     
     # Note: scraped_elements has three extra nodes that it doesn't need.
     # This is accounted for in the code below:
-    scraped_elements[2..-2].collect do |scraped_element| 
+    elements_array = scraped_elements[2..-2].collect do |scraped_element| 
       make_properties_hash_from(scraped_element)
     end
+    
+    # Return the elements_array after adding the zero_abundance_footnote to the appropriate hashes:
+    insert_zero_abundance_footnote(elements_array, zero_abundance_footnote)
   end
 
   def self.make_properties_hash_from(scraped_element)
@@ -83,5 +87,17 @@ class PeriodicTable::TableScraper
     else
       span_node.children[0].text.strip
     end
+  end
+  
+  def self.insert_zero_abundance_footnote(elements_array, zero_abundance_footnote)
+    # Insert the zero_abundance_footnote here for abundance values equal to zero:
+    
+    elements_array.each do |element_properties_hash|
+      if element_properties_hash[:abundance] == "0"
+        element_properties_hash[:abundance] += " (#{zero_abundance_footnote})"
+      end
+    end
+    
+    elements_array
   end
 end
