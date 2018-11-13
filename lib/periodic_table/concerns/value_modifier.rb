@@ -10,24 +10,24 @@ module PeriodicTable::ValueModifier
     node_text.match(/\d+/) ? node_text : "N/A"
   end
   
-  def remove_brackets_or_uncertainty_from(value)
-    if value.match(/\[\d+\]/) 
-      value.gsub(/(\[|\])/, "") # Remove brackets (if any) from the value
+  def remove_brackets_or_uncertainty_from(attribute_value)
+    if attribute_value.match(/\[\d+\]/) 
+      attribute_value.gsub(/(\[|\])/, "") # Remove brackets (if any) from the attribute_value
     else
-      value.to_f # Remove uncertainty (if any) from the value
+      attribute_value.to_f # Remove uncertainty (if any) from the attribute_value
     end
   end
   
-  def remove_parentheses_from(value)
-    value.gsub(/(\(|\))/, "")
+  def remove_parentheses_from(attribute_value)
+    attribute_value.gsub(/(\(|\))/, "")
   end
   
   def insert_zero_abundance_footnote(elements_array, zero_abundance_footnote)
     # Insert the zero_abundance_footnote here for abundance values equal to zero:
     
-    elements_array.each do |element_properties_hash|
-      if element_properties_hash[:abundance] == "0"
-        element_properties_hash[:abundance] += " (#{zero_abundance_footnote})"
+    elements_array.each do |element_attributes_hash|
+      if element_attributes_hash[:abundance] == "0"
+        element_attributes_hash[:abundance] += " (#{zero_abundance_footnote})"
       end
     end
     

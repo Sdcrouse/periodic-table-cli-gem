@@ -3,9 +3,9 @@ class PeriodicTable::Element
 
   @@all = []
 
-  def self.new_from_periodic_table(element_attributes = {}) 
+  def self.new_from_periodic_table(element_attributes_hash = {}) 
     self.new.tap do |element| 
-      element_attributes.each{|key, value| element.send("#{key}=", value)}
+      element_attributes_hash.each{|key, value| element.send("#{key}=", value)}
       
       @@all << element
     end
@@ -23,10 +23,10 @@ class PeriodicTable::Element
     self.all.detect {|element| element.atomic_number == number.to_s}
   end
   
-  def self.select_elements_by_atomic_number(first, last)
+  def self.select_elements_by_atomic_number(first_number, last_number)
     # This assumes that self.all is currently sorted by atomic_number
-    # It also assumes that it will have to convert first and last to index numbers.
+    # It also assumes that it will have to convert first_number and last_number to index numbers.
     
-    self.all[first - 1..last - 1]
+    self.all[first_number - 1..last_number - 1]
   end
 end

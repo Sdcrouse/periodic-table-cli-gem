@@ -8,8 +8,8 @@ class PeriodicTable::CLI
   def make_elements
     elements_array = PeriodicTable::TableScraper.scrape_periodic_table
     
-    elements_array.each do |element| 
-      PeriodicTable::Element.new_from_periodic_table(element)
+    elements_array.each do |element_attributes_hash| 
+      PeriodicTable::Element.new_from_periodic_table(element_attributes_hash)
     end
   end
   
@@ -32,16 +32,16 @@ class PeriodicTable::CLI
 
   def main_menu
     menu_options = ["View a List of Chemical Elements", "List the Element Names Alphabetically", "Examine an Element", "Help", "Quit"]
-    user_choice = nil
+    selected_option = nil
     exit_program = nil
     
     puts "\nHere's where the REAL fun begins!".colorize(:light_yellow)
 
     until exit_program == "Y" || exit_program == "YES"
       puts "\nWelcome to the Main Menu! What would you like to do?".colorize(:light_yellow)
-      user_choice = choose_from(menu_options)
+      selected_option = choose_from(menu_options)
 
-      case user_choice
+      case selected_option
       when 1
         list_elements
       when 2
@@ -53,7 +53,7 @@ class PeriodicTable::CLI
       when 5
         exit_program = quit?
       else
-        puts "I don't understand. Please try again.".colorize(:light_yellow)
+        puts "\nI don't understand. Please try again.".colorize(:light_yellow)
       end
     end
   end
@@ -69,32 +69,31 @@ class PeriodicTable::CLI
   end
   
   def list_elements
-    #binding.pry
     options = ["Elements 1-10", "Elements 11-20", "Elements 21-30", "Elements 31-40", "Elements 41-50", "Elements 51-60", "Elements 61-70", "Elements 71-80", "Elements 81-90", "Elements 91-100", "Elements 101-110", "Elements 111-118", "All of them!", "Back to Main Menu"]
-    user_choice = nil
+    chosen_option_number = nil
     
-    until user_choice == 14
+    until chosen_option_number == 14
       puts "\nWhich elements would you like to see?".colorize(:light_magenta)
-      user_choice = choose_from(options)
+      chosen_option_number = choose_from(options)
       puts "\n"
       
-      if user_choice.between?(1,12)
-        display_set_of_elements(user_choice)
+      if chosen_option_number.between?(1,12)
+        display_set_of_elements(chosen_option_number)
         puts "\nWould you like to examine one of these elements? (Y/n):\n\n"
-        input = gets.strip.upcase
-        if ["Y", "YES"].include?(input)
+        yes_or_no = gets.strip.upcase
+        if ["Y", "YES"].include?(yes_or_no)
           puts "\nWhich element would you like to examine? Choose from 1-10:\n\n"
-          choice = gets.strip.to_i
-          if choice.between?(1,10)
-            element = PeriodicTable::Element.find_element_by_atomic_number(choice)
+          element_number = gets.strip.to_i
+          if element_number.between?(1,10)
+            element = PeriodicTable::Element.find_element_by_atomic_number(element_number)
             list_properties_of(element)
           else
             puts "\nI don't understand your choice. Please try again."
           end
         end
-      elsif user_choice == 13 
+      elsif chosen_option_number == 13 
         display_all_elements(PeriodicTable::Element.all)
-      elsif user_choice == 14 
+      elsif chosen_option_number == 14 
         puts "OK. Heading back to the Main Menu now.".colorize(:light_magenta)
       else
         puts "I don't understand. Please try again.".colorize(:light_magenta)
@@ -167,21 +166,21 @@ class PeriodicTable::CLI
       page_total += 1 unless element_total % elements_per_page == 0
       
       puts "Which page of elements would you like to see? Choose from 1-#{page_total}."
-      page = gets.strip.to_i
+      page_number = gets.strip.to_i
       
-      if page.between?(1,page_total)
-        display_page_of_elements(page, page_total, elements_per_page, element_total)
+      if page_number.between?(1, page_total)
+        display_page_of_elements(page_number, page_total, elements_per_page, element_total)
       else 
         puts "Sorry. That is an invalid choice. Please try again."
       end
       
       #puts "Would you like to examine one of these elements? (Y/n):"
-      #input = gets.strip.capitalize
-      #if ["Y", "Yes"].include?(input)
+      #yes_or_no = gets.strip.capitalize
+      #if ["Y", "Yes"].include?(yes_or_no)
       #  puts "Which element would you like to examine? Choose from 1-10:"
-      #  choice = gets.strip.to_i
-      #  if choice.between?(1,10)
-      #    element = PeriodicTable::Element.find_element_by_atomic_number(choice)
+      #  chosen_element_number = gets.strip.to_i
+      #  if chosen_element_number.between?(1,10)
+      #    element = PeriodicTable::Element.find_element_by_atomic_number(chosen_element_number)
       #    list_properties_of(element)
       #  else
       #    puts "I don't understand your choice. Please try again."
@@ -196,7 +195,7 @@ class PeriodicTable::CLI
     end
   end
   
-  def display_page_of_elements(page, page_total, elements_per_page, element_total)
+  def display_page_of_elements(page_number, page_total, elements_per_page, element_total)
     # If you want to display page 1 with 40 elements, then display Elements 1-40
     # If you want to display page 2 with 40 elements, then display Elements 41-80
     # If you want to display the last page (page 3) with 118 - 2 * 40 = 38 Elements, then display elements 81-118.
@@ -205,32 +204,32 @@ class PeriodicTable::CLI
     # I need a selector. Something like PeriodicTable::Element.select_elements(first, last)
     
     # For 4 pages, each containing 20 elements, for a total of 80 elements, we have:
-    # Page 1: Elements 1-20 => first = 1 = (1-1) * 20 + 1, last = 1 * 20
-    # Page 2: Elements 21-40 => first = 21 = 1 * 20 + 1 = (2 - 1) * 20 + 1, last = 40 = 2 * 20
-    # Page 3: Elements 41-60 => first = 41 = 40 + 1 = 2 * 20 + 1 = (3 - 1) * 20 + 1, last = 60 = 3 * 20
-    # Page 4: Elements 61-80 => first = 61 = 3 * 20 + 1 = (4 - 1) * 20 + 1, last = 4 * 20
+    # Page 1: Elements 1-20 => first_element_number = 1 = (1-1) * 20 + 1, last_element_number = 1 * 20
+    # Page 2: Elements 21-40 => first_element_number = 21 = 1 * 20 + 1 = (2 - 1) * 20 + 1, last_element_number = 40 = 2 * 20
+    # Page 3: Elements 41-60 => first_element_number = 41 = 40 + 1 = 2 * 20 + 1 = (3 - 1) * 20 + 1, last_element_number = 60 = 3 * 20
+    # Page 4: Elements 61-80 => first_element_number = 61 = 3 * 20 + 1 = (4 - 1) * 20 + 1, last_element_number = 4 * 20
     # So, how do the first and last elements relate to the current page and page total?
-    # It appears that first = (page - 1) * elements_per_page + 1, and last = page * elements_per_page
-    # Or, first = last - elements_per_page + 1
+    # It appears that first_element_number = (page_number - 1) * elements_per_page + 1, and last_element_number = page_number * elements_per_page
+    # Or, first_element_number = last_element_number - elements_per_page + 1
     # Maybe it would be easier to somehow keep track of the previous page?
     
-    first, last = 0, 0
+    #first, last = 0, 0
     
-    if page == page_total
-      last = element_total
-      final_elements = element_total % elements_per_page
+    if page_number == page_total
+      last_element_number = element_total
+      final_element_group = element_total % elements_per_page
       
       if final_elements == 0 
-        first = element_total - elements_per_page + 1 # 118 - 59 + 1 = 60
+        first_element_number = element_total - elements_per_page + 1 # 118 - 59 + 1 = 60
       else 
-        first = element_total - final_elements + 1 # 118 - 8 + 1 = 111
+        first_element_number = element_total - final_element_group + 1 # 118 - 8 + 1 = 111
       end
     else 
-      last = elements_per_page * page
-      first = last - elements_per_page + 1
+      last_element_number = elements_per_page * page_number
+      first_element_number = last_element_number - elements_per_page + 1
     end
     
-    display_all_elements_v2(PeriodicTable::Element.select_elements_by_atomic_number(first, last), first)
+    display_all_elements_v2(PeriodicTable::Element.select_elements_by_atomic_number(first_element_number, last_element_number), first_element_number)
     #puts "The page of elements has been displayed."
   end
   
@@ -238,17 +237,17 @@ class PeriodicTable::CLI
     # Example: if number_of_elements == 2, then do this to puts Elements 11-19:
     # PeriodicTable::Element.all[10..19].each.with_index(11) {|element, i| puts "#{i}. #{element.name}"}
     
-    first = (number_of_elements - 1) * 10
-    index = first + 1
+    first_element_number = (number_of_elements - 1) * 10
+    first_element_index = first_element_number + 1
     
-    last = nil 
+    last_element_number = nil 
     if number_of_elements == 12 
-      last = 117 # There are only 118 elements, so the last set contains 8, not 10
+      last_element_number = 117 # There are only 118 elements, so the last set contains 8, not 10
     else 
-      last = first + 9
+      last_element_number = first_element_number + 9
     end
     
-    PeriodicTable::Element.all[first..last].each.with_index(index) do |element, i| 
+    PeriodicTable::Element.all[first_element_number..last_element_number].each.with_index(first_element_index) do |element, i| 
       puts "#{i}. #{element.name}".colorize(:yellow)
       sleep 0.25
     end
@@ -273,17 +272,17 @@ class PeriodicTable::CLI
   end
 
   def examine_element
-    input = nil 
+    element_name = nil 
     
-    until input == "Back"
+    until element_name == "Back"
       puts "\nWhich element would you like to examine?".colorize(:light_blue)
       puts "Please enter its name here, or type 'back' to go back to the Main Menu:\n".colorize(:light_blue)
-      input = gets.strip.capitalize 
-      element = PeriodicTable::Element.find_element_by_name(input)
+      element_name = gets.strip.capitalize 
+      element = PeriodicTable::Element.find_element_by_name(element_name)
       
       if !element.nil?
         list_properties_of(element)
-      elsif input == "Back"
+      elsif element_name == "Back"
         puts "\nOK. Back to the Main Menu we go!".colorize(:light_blue)
       else 
         puts "\nI'm sorry. I do not recognize that element.".colorize(:light_blue) 
@@ -293,19 +292,19 @@ class PeriodicTable::CLI
   end
 
   def list_properties_of(element)
-    property_collection = make_property_collection_from(element)
+    element_attribute_collection = make_element_attribute_collection_from(element)
     
     puts "\n---------------------------------------------------------------------------"
     puts "Element: #{element.name}\n".colorize(:light_red)
     
-    property_collection.each {|property_hash| display_property_from(property_hash)}
+    element_attribute_collection.each {|attribute_hash| display_attribute_from(attribute_hash)}
     
     puts "\nURL: #{element.element_url}".colorize(:light_green)
     puts "---------------------------------------------------------------------------"
     sleep 1
   end
   
-  def make_property_collection_from(element)
+  def make_element_attribute_collection_from(element)
     [
       {"Atomic Number" => element.atomic_number, "color" => :light_yellow},
       {"Symbol" => element.symbol, "color" => :light_green},
@@ -323,11 +322,11 @@ class PeriodicTable::CLI
     ]
   end
   
-  def display_property_from(property_hash)
-    key = property_hash.keys.first # "Atomic Number", "Symbol", "Period", etc.
-    value = property_hash.values.first # element.atomic_number, element.symbol, etc.
+  def display_attribute_from(attribute_hash)
+    key = attribute_hash.keys.first # "Atomic Number", "Symbol", "Period", etc.
+    value = attribute_hash.values.first # element.atomic_number, element.symbol, etc.
     
-    puts "#{key}: #{value}".strip.colorize(property_hash["color"])
+    puts "#{key}: #{value}".strip.colorize(attribute_hash["color"])
     sleep 0.5
   end
 end
