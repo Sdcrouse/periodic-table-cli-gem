@@ -47,7 +47,7 @@ class PeriodicTable::CLI
       when 2
         list_elements_alphabetically
       when 3 
-        examine_element
+        examine_element_from_main_menu
       when 4 
         help
       when 5
@@ -69,36 +69,37 @@ class PeriodicTable::CLI
   end
   
   def list_elements
-    options = ["Elements 1-10", "Elements 11-20", "Elements 21-30", "Elements 31-40", "Elements 41-50", "Elements 51-60", "Elements 61-70", "Elements 71-80", "Elements 81-90", "Elements 91-100", "Elements 101-110", "Elements 111-118", "All of them!", "Back to Main Menu"]
-    chosen_option_number = nil
-    
-    until chosen_option_number == 14
-      puts "\nWhich elements would you like to see?".colorize(:light_magenta)
-      chosen_option_number = choose_from(options)
-      puts "\n"
-      
-      if chosen_option_number.between?(1,12)
-        display_set_of_elements(chosen_option_number)
-        puts "\nWould you like to examine one of these elements? (Y/n):\n\n"
-        yes_or_no = gets.strip.upcase
-        if ["Y", "YES"].include?(yes_or_no)
-          puts "\nWhich element would you like to examine? Choose from 1-10:\n\n"
-          element_number = gets.strip.to_i
-          if element_number.between?(1,10)
-            element = PeriodicTable::Element.find_element_by_atomic_number(element_number)
-            list_properties_of(element)
-          else
-            puts "\nI don't understand your choice. Please try again."
-          end
-        end
-      elsif chosen_option_number == 13 
-        display_all_elements(PeriodicTable::Element.all)
-      elsif chosen_option_number == 14 
-        puts "OK. Heading back to the Main Menu now.".colorize(:light_magenta)
-      else
-        puts "I don't understand. Please try again.".colorize(:light_magenta)
-      end
-    end
+    list_elements_v2
+    #options = ["Elements 1-10", "Elements 11-20", "Elements 21-30", "Elements 31-40", #"Elements 41-50", "Elements 51-60", "Elements 61-70", "Elements 71-80", "Elements #81-90", "Elements 91-100", "Elements 101-110", "Elements 111-118", "All of them!", #"Back to Main Menu"]
+    #chosen_option_number = nil
+    #
+    #until chosen_option_number == 14
+    #  puts "\nWhich elements would you like to see?".colorize(:light_magenta)
+    #  chosen_option_number = choose_from(options)
+    #  puts "\n"
+    #  
+    #  if chosen_option_number.between?(1,12)
+    #    display_set_of_elements(chosen_option_number)
+    #    puts "\nWould you like to examine one of these elements? (Y/n):\n\n"
+    #    yes_or_no = gets.strip.upcase
+    #    if ["Y", "YES"].include?(yes_or_no)
+    #      puts "\nWhich element would you like to examine? Choose from 1-10:\n\n"
+    #      element_number = gets.strip.to_i
+    #      if element_number.between?(1,10)
+    #        element = PeriodicTable::Element.find_element_by_atomic_number(element_number#)
+    #        list_properties_of(element)
+    #      else
+    #        puts "\nI don't understand your choice. Please try again."
+    #      end
+    #    end
+    #  elsif chosen_option_number == 13 
+    #    display_all_elements(PeriodicTable::Element.all)
+    #  elsif chosen_option_number == 14 
+    #    puts "OK. Heading back to the Main Menu now.".colorize(:light_magenta)
+    #  else
+    #    puts "I don't understand. Please try again.".colorize(:light_magenta)
+    #  end
+    #end
   end
   
   def list_elements_alphabetically 
@@ -153,42 +154,44 @@ class PeriodicTable::CLI
   
   def list_elements_v2
     
-    user_input = nil
+    selected_option = nil
     element_total = PeriodicTable::Element.all.size
     
-    puts "\nHow many elements would you like to see? Please enter a number, or type 'all' to see them all. To go back to the Main Menu, type 'back'.".colorize(:light_magenta)
-    user_input = gets.strip.capitalize
-    elements_per_page = user_input.to_i
+    puts "\nHow many elements would you like to see? Please enter a number, or type 'all' to see them all. To go back to the Main Menu, type 'back'.\n".colorize(:light_magenta)
+    selected_option = gets.strip.capitalize
+    elements_per_page = selected_option.to_i
     puts "\n"
     
     if elements_per_page.between?(1, element_total - 1)
       page_total = element_total / elements_per_page
       page_total += 1 unless element_total % elements_per_page == 0
+      yes_or_no = nil
       
-      puts "Which page of elements would you like to see? Choose from 1-#{page_total}."
+      puts "\nWhich page of elements would you like to see? Choose from 1-#{page_total}.\n".colorize(:light_magenta)
       page_number = gets.strip.to_i
       
       if page_number.between?(1, page_total)
         display_page_of_elements(page_number, page_total, elements_per_page, element_total)
       else 
-        puts "Sorry. That is an invalid choice. Please try again."
+        puts "\nSorry. That is an invalid choice. Please try again.".colorize(:light_magenta)
       end
       
-      #puts "Would you like to examine one of these elements? (Y/n):"
-      #yes_or_no = gets.strip.capitalize
-      #if ["Y", "Yes"].include?(yes_or_no)
-      #  puts "Which element would you like to examine? Choose from 1-10:"
-      #  chosen_element_number = gets.strip.to_i
-      #  if chosen_element_number.between?(1,10)
-      #    element = PeriodicTable::Element.find_element_by_atomic_number(chosen_element_number)
-      #    list_properties_of(element)
-      #  else
-      #    puts "I don't understand your choice. Please try again."
-      #  end
-      #end
-    elsif user_input == "All" || elements_per_page == element_total
+      until ["N", "No"].include?(yes_or_no)
+        puts "\nWould you like to examine one of these elements? (Y/n):\n\n"
+        yes_or_no = gets.strip.capitalize
+        
+        if ["Y", "Yes"].include?(yes_or_no)
+          examine_element_from_list((1..10).to_a) # This stub is temporary
+        elsif ["N", "No"].include?(yes_or_no)
+          next 
+        else 
+          puts "\nI don't understand your choice. Please try again."
+        end
+      end
+    elsif selected_option == "All" || elements_per_page == element_total
       display_all_elements_v2(PeriodicTable::Element.all, 1)
-    elsif user_input == "Back" 
+      # Ask the user to examine an element here.
+    elsif selected_option == "Back" 
       puts "OK. Heading back to the Main Menu now.".colorize(:light_magenta)
     else
       puts "I don't understand. Please try again.".colorize(:light_magenta)
@@ -267,11 +270,10 @@ class PeriodicTable::CLI
       puts "#{i}. #{element.name}".colorize(:light_cyan)
       sleep 0.25
     end
-    puts "Every element has been displayed."
     sleep 1
   end
 
-  def examine_element
+  def examine_element_from_main_menu
     element_to_examine = nil
     
     until element_to_examine == "Back"
@@ -288,6 +290,24 @@ class PeriodicTable::CLI
       else 
         puts "\nI'm sorry. I do not recognize that element.".colorize(:light_blue) 
         puts "Please be careful to spell its name correctly.".colorize(:light_blue)
+      end
+    end
+  end
+  
+  def examine_element_from_list(element_range) 
+    chosen_element_number = nil 
+    
+    until chosen_element_number == "Back"
+      puts "Which element would you like to examine? Choose from #{element_range.first} - #{element_range.last}, or type 'back' to go back to the previous option:"
+      chosen_element_number = gets.strip.capitalize
+    
+      if chosen_element_number.to_i.between?(element_range.first, element_range.last)
+        element = PeriodicTable::Element.find_element_by_atomic_number(chosen_element_number)
+        list_properties_of(element)
+      elsif chosen_element_number == "Back"
+        next # Back to the previous choice
+      else
+        puts "I don't understand your choice. Please try again."
       end
     end
   end
