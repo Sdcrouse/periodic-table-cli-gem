@@ -157,44 +157,65 @@ class PeriodicTable::CLI
     selected_option = nil
     element_total = PeriodicTable::Element.all.size
     
-    puts "\nHow many elements would you like to see? Please enter a number, or type 'all' to see them all. To go back to the Main Menu, type 'back'.\n".colorize(:light_magenta)
-    selected_option = gets.strip.capitalize
-    elements_per_page = selected_option.to_i
-    puts "\n"
-    
-    if elements_per_page.between?(1, element_total - 1)
-      page_total = element_total / elements_per_page
-      page_total += 1 unless element_total % elements_per_page == 0
-      yes_or_no = nil
+    until selected_option == "Back"
+      puts "\nHow many elements would you like to see? Please enter a number, or type 'all' to see them all. To go back to the Main Menu, type 'back'.\n".colorize  (:light_magenta)
+      selected_option = gets.strip.capitalize
+      elements_per_page = selected_option.to_i
+      puts "\n"
       
-      puts "\nWhich page of elements would you like to see? Choose from 1-#{page_total}.\n".colorize(:light_magenta)
-      page_number = gets.strip.to_i
-      
-      if page_number.between?(1, page_total)
-        display_page_of_elements(page_number, page_total, elements_per_page, element_total)
-      else 
-        puts "\nSorry. That is an invalid choice. Please try again.".colorize(:light_magenta)
-      end
-      
-      until ["N", "No"].include?(yes_or_no)
-        puts "\nWould you like to examine one of these elements? (Y/n):\n\n"
-        yes_or_no = gets.strip.capitalize
+      if elements_per_page.between?(1, element_total - 1)
+        page_total = element_total / elements_per_page
+        page_total += 1 unless element_total % elements_per_page == 0
+        page_number = 0
         
-        if ["Y", "Yes"].include?(yes_or_no)
-          examine_element_from_list((1..10).to_a) # This stub is temporary
-        elsif ["N", "No"].include?(yes_or_no)
-          next 
-        else 
-          puts "\nI don't understand your choice. Please try again."
+        until page_number.between?(1, page_total)
+          puts "Which page of elements would you like to see? Choose from 1-#{page_total}:\n".colorize(:light_magenta)
+          page_number = gets.strip.to_i
+          puts "\n"
+          
+          unless page_number.between?(1, page_total) 
+            puts "Sorry. That is an invalid choice. Please try again.".colorize  (:light_magenta)
+          end
         end
+        
+        display_page_of_elements(page_number, page_total, elements_per_page,  element_total)
+        
+        yes_or_no = nil
+        until ["N", "No"].include?(yes_or_no)
+          puts "\nWould you like to examine one of these elements? (Y/N):\n\n"
+          yes_or_no = gets.strip.capitalize
+          
+          if ["Y", "Yes"].include?(yes_or_no)
+            examine_element_from_list((1..10).to_a) # This stub is temporary
+          elsif ["N", "No"].include?(yes_or_no)
+            next 
+          else 
+            puts "\nI don't understand your choice. Please try again."
+          end
+        end
+        
+        # I need to figure out where to put this to make it work:
+        #examine_again = nil
+        #until ["N", "No"].include?(yes_or_no)
+        #  puts "\nWould you like to examine another element? (Y/N):\n\n"
+        #  examine_again = gets.strip.capitalize 
+        #  
+        #  if ["Y", "Yes"].include?(examine_again)
+        #    examine_element_from_list(element_range)
+        #  elsif ["N", "No"].include?(examine_again)
+        #    # Go back
+        #  else 
+        #    puts "\nCould you say that again? I didn't quite understand you."
+        #  end
+        #end
+      elsif selected_option == "All" || elements_per_page == element_total
+        display_all_elements_v2(PeriodicTable::Element.all, 1)
+        # Ask the user to examine an element here.
+      elsif selected_option == "Back" 
+        puts "OK. Heading back to the Main Menu now.".colorize(:light_magenta)
+      else
+        puts "I don't understand. Please try again.".colorize(:light_magenta)
       end
-    elsif selected_option == "All" || elements_per_page == element_total
-      display_all_elements_v2(PeriodicTable::Element.all, 1)
-      # Ask the user to examine an element here.
-    elsif selected_option == "Back" 
-      puts "OK. Heading back to the Main Menu now.".colorize(:light_magenta)
-    else
-      puts "I don't understand. Please try again.".colorize(:light_magenta)
     end
   end
   
@@ -222,7 +243,7 @@ class PeriodicTable::CLI
       last_element_number = element_total
       final_element_group = element_total % elements_per_page
       
-      if final_elements == 0 
+      if final_element_group == 0 
         first_element_number = element_total - elements_per_page + 1 # 118 - 59 + 1 = 60
       else 
         first_element_number = element_total - final_element_group + 1 # 118 - 8 + 1 = 111
@@ -298,16 +319,16 @@ class PeriodicTable::CLI
     chosen_element_number = nil 
     
     until chosen_element_number == "Back"
-      puts "Which element would you like to examine? Choose from #{element_range.first} - #{element_range.last}, or type 'back' to go back to the previous option:"
+      puts "\nWhich element would you like to examine? Choose from #{element_range.first} - #{element_range.last}, or type 'back' to go back to the previous option:\n\n"
       chosen_element_number = gets.strip.capitalize
     
       if chosen_element_number.to_i.between?(element_range.first, element_range.last)
         element = PeriodicTable::Element.find_element_by_atomic_number(chosen_element_number)
         list_properties_of(element)
       elsif chosen_element_number == "Back"
-        next # Back to the previous choice
+        next # Exit this method and go back to the previous choice.
       else
-        puts "I don't understand your choice. Please try again."
+        puts "\nI don't understand your choice. Please try again."
       end
     end
   end
