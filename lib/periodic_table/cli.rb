@@ -69,92 +69,7 @@ class PeriodicTable::CLI
   end
   
   def list_elements
-    list_elements_v2
-    #options = ["Elements 1-10", "Elements 11-20", "Elements 21-30", "Elements 31-40", #"Elements 41-50", "Elements 51-60", "Elements 61-70", "Elements 71-80", "Elements #81-90", "Elements 91-100", "Elements 101-110", "Elements 111-118", "All of them!", #"Back to Main Menu"]
-    #chosen_option_number = nil
-    #
-    #until chosen_option_number == 14
-    #  puts "\nWhich elements would you like to see?".colorize(:light_magenta)
-    #  chosen_option_number = choose_from(options)
-    #  puts "\n"
-    #  
-    #  if chosen_option_number.between?(1,12)
-    #    display_set_of_elements(chosen_option_number)
-    #    puts "\nWould you like to examine one of these elements? (Y/n):\n\n"
-    #    yes_or_no = gets.strip.upcase
-    #    if ["Y", "YES"].include?(yes_or_no)
-    #      puts "\nWhich element would you like to examine? Choose from 1-10:\n\n"
-    #      element_number = gets.strip.to_i
-    #      if element_number.between?(1,10)
-    #        element = PeriodicTable::Element.find_element_by_atomic_number(element_number#)
-    #        list_properties_of(element)
-    #      else
-    #        puts "\nI don't understand your choice. Please try again."
-    #      end
-    #    end
-    #  elsif chosen_option_number == 13 
-    #    display_all_elements(PeriodicTable::Element.all)
-    #  elsif chosen_option_number == 14 
-    #    puts "OK. Heading back to the Main Menu now.".colorize(:light_magenta)
-    #  else
-    #    puts "I don't understand. Please try again.".colorize(:light_magenta)
-    #  end
-    #end
-  end
-  
-  def list_elements_alphabetically 
-    puts "\n"
-    sorted_elements = PeriodicTable::Element.all.sort_by{|element| element.name}
-    display_all_elements(sorted_elements)
-  end
-
-  def help # Note: I slowed these methods down to give the user more time to read.
-    introduction
-    describe_main_menu_options
-  end
-
-  def introduction
-    puts "\nThe Interactive Periodic Table is designed to mimic a real periodic table by providing information about each of the currently known chemical elements.".colorize(:light_red)
-    sleep 5
-    puts "\nIn this program, you are able to view a list of all or some of the chemical elements, list the names of the chemical elements alphabetically, and examine an individual chemical element for more information.".colorize(:light_red)
-    sleep 5
-    puts "\nAs a side note, by default the chemical elements are listed by their atomic numbers.".colorize(:light_red)
-    sleep 3
-  end
-
-  def describe_main_menu_options
-    puts "\nHere are the Main Menu options:".colorize(:light_yellow)
-    sleep 1
-    puts "Press 1 to view a list of chemical elements from the Periodic Table.".colorize(:light_yellow)
-    sleep 1
-    puts "Press 2 to see the names of the chemical elements listed in alphabetical order.".colorize(:light_yellow)
-    sleep 1
-    puts "Press 3 to get more information about an element (name, properties, etc).".colorize(:light_yellow)
-    sleep 1
-    puts "Press 4 to view this description of the Main Menu options.".colorize(:light_yellow)
-    sleep 1
-    puts "Press 5 to quit the Interactive Periodic Table.".colorize(:light_yellow)
-    sleep 3
-  end
-  
-  def quit?
-    yes_or_no = nil
-    
-    until ["Y", "YES", "N", "NO"].include?(yes_or_no)
-      puts "\nAre you sure you want to quit? (Y/N):\n".colorize(:light_yellow)
-      yes_or_no = gets.strip.upcase
-      
-      unless ["Y", "YES", "N", "NO"].include?(yes_or_no)
-        puts "\nI don't understand your answer. Please try again.".colorize(:light_yellow)
-      end
-    end
-    
-    yes_or_no
-  end
-  
-  def list_elements_v2
-    
-    selected_option = nil
+     selected_option = nil
     element_total = PeriodicTable::Element.all.size
     
     until selected_option == "Back"
@@ -219,6 +134,56 @@ class PeriodicTable::CLI
         puts "I don't understand. Please try again.".colorize(:light_magenta)
       end
     end
+  end
+  
+  def list_elements_alphabetically 
+    puts "\n"
+    sorted_elements = PeriodicTable::Element.all.sort_by{|element| element.name}
+    display_all_elements(sorted_elements)
+  end
+
+  def help # Note: I slowed these methods down to give the user more time to read.
+    introduction
+    describe_main_menu_options
+  end
+
+  def introduction
+    puts "\nThe Interactive Periodic Table is designed to mimic a real periodic table by providing information about each of the currently known chemical elements.".colorize(:light_red)
+    sleep 5
+    puts "\nIn this program, you are able to view a list of all or some of the chemical elements, list the names of the chemical elements alphabetically, and examine an individual chemical element for more information.".colorize(:light_red)
+    sleep 5
+    puts "\nAs a side note, by default the chemical elements are listed by their atomic numbers.".colorize(:light_red)
+    sleep 3
+  end
+
+  def describe_main_menu_options
+    puts "\nHere are the Main Menu options:".colorize(:light_yellow)
+    sleep 1
+    puts "Press 1 to view a list of chemical elements from the Periodic Table.".colorize(:light_yellow)
+    sleep 1
+    puts "Press 2 to see the names of the chemical elements listed in alphabetical order.".colorize(:light_yellow)
+    sleep 1
+    puts "Press 3 to get more information about an element (name, properties, etc).".colorize(:light_yellow)
+    sleep 1
+    puts "Press 4 to view this description of the Main Menu options.".colorize(:light_yellow)
+    sleep 1
+    puts "Press 5 to quit the Interactive Periodic Table.".colorize(:light_yellow)
+    sleep 3
+  end
+  
+  def quit?
+    yes_or_no = nil
+    
+    until ["Y", "YES", "N", "NO"].include?(yes_or_no)
+      puts "\nAre you sure you want to quit? (Y/N):\n".colorize(:light_yellow)
+      yes_or_no = gets.strip.upcase
+      
+      unless ["Y", "YES", "N", "NO"].include?(yes_or_no)
+        puts "\nI don't understand your answer. Please try again.".colorize(:light_yellow)
+      end
+    end
+    
+    yes_or_no
   end
   
   def get_page_of_elements(page_number, page_total, elements_per_page, element_total)
