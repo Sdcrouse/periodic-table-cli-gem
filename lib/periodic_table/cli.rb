@@ -99,7 +99,7 @@ class PeriodicTable::CLI
         
         page_of_elements = get_page_of_elements(page_number, page_total, elements_per_page, element_total)
         
-        display_page_of_elements(page_number, page_total, elements_per_page,  element_total)
+        display_all_elements(PeriodicTable::Element.select_elements_by_atomic_number(page_of_elements.first, page_of_elements.last), page_of_elements.first)
         
         yes_or_no = nil
         until ["N", "No"].include?(yes_or_no)
@@ -130,7 +130,7 @@ class PeriodicTable::CLI
         #  end
         #end
       elsif selected_option == "All" || elements_per_page == element_total
-        display_all_elements_v2(PeriodicTable::Element.all, 1)
+        display_all_elements(PeriodicTable::Element.all, 1)
         # Ask the user to examine an element here.
       elsif selected_option == "Back" 
         puts "OK. Heading back to the Main Menu now.".colorize(:light_magenta)
@@ -221,83 +221,10 @@ class PeriodicTable::CLI
     end
     
     (first_element_index..last_element_index).to_a
-  end 
-  
-  def display_page_of_elements(page_number, page_total, elements_per_page, element_total)
-    # If you want to display page 1 with 40 elements, then display Elements 1-40
-    # If you want to display page 2 with 40 elements, then display Elements 41-80
-    # If you want to display the last page (page 3) with 118 - 2 * 40 = 38 Elements, then display elements 81-118.
-    # The last page of elements has element_total % elements_per_page elements.
-    # However, if element_total % elements_per_page == 0, then the last page has elements_per_page elements
-    # I need a selector. Something like PeriodicTable::Element.select_elements(first, last)
-    
-    # For 4 pages, each containing 20 elements, for a total of 80 elements, we have:
-    # Page 1: Elements 1-20 => first_element_number = 1 = (1-1) * 20 + 1, last_element_number = 1 * 20
-    # Page 2: Elements 21-40 => first_element_number = 21 = 1 * 20 + 1 = (2 - 1) * 20 + 1, last_element_number = 40 = 2 * 20
-    # Page 3: Elements 41-60 => first_element_number = 41 = 40 + 1 = 2 * 20 + 1 = (3 - 1) * 20 + 1, last_element_number = 60 = 3 * 20
-    # Page 4: Elements 61-80 => first_element_number = 61 = 3 * 20 + 1 = (4 - 1) * 20 + 1, last_element_number = 4 * 20
-    # So, how do the first and last elements relate to the current page and page total?
-    # It appears that first_element_number = (page_number - 1) * elements_per_page + 1, and last_element_number = page_number * elements_per_page
-    # Or, first_element_number = last_element_number - elements_per_page + 1
-    # Maybe it would be easier to somehow keep track of the previous page?
-    
-    first_element_index, last_element_index = 0, 0
-    
-    if elements_per_page > element_total # Edge case 1
-      raise StandardError, "The specified number of chemical elements per page is more than the number of known chemical elements."
-    elsif page_number > page_total # Edge case 2
-      raise StandardError, "The specified page number is more than the total number of pages."
-    end
-    
-    if page_number == page_total
-      last_element_ = element_total
-      number_of_elements_on_last_page = element_total % elements_per_page
-      
-      if number_of_elements_on_last_page == 0 
-        first_element_index = element_total - elements_per_page + 1 # 118 - 59 + 1 = 60
-      else 
-        first_element_index = element_total - number_of_elements_on_last_page + 1 # 118 - 8 + 1 = 111
-      end
-    else 
-      last_element_index = elements_per_page * page_number
-      first_element_index = last_element_index - elements_per_page + 1
-    end
-    
-    display_all_elements_v2(PeriodicTable::Element.select_elements_by_atomic_number(first_element_index, last_element_index), first_element_index)
-    #puts "The page of elements has been displayed."
   end
   
-  def display_set_of_elements(number_of_elements) 
-    # Example: if number_of_elements == 2, then do this to puts Elements 11-19:
-    # PeriodicTable::Element.all[10..19].each.with_index(11) {|element, i| puts "#{i}. #{element.name}"}
-    
-    first_element_number = (number_of_elements - 1) * 10
-    first_element_index = first_element_number + 1
-    
-    last_element_number = nil 
-    if number_of_elements == 12 
-      last_element_number = 117 # There are only 118 elements, so the last set contains 8, not 10
-    else 
-      last_element_number = first_element_number + 9
-    end
-    
-    PeriodicTable::Element.all[first_element_number..last_element_number].each.with_index(first_element_index) do |element, i| 
-      puts "#{i}. #{element.name}".colorize(:yellow)
-      sleep 0.25
-    end
-    sleep 0.5
-  end
-  
-  def display_all_elements(element_list) 
-    element_list.each.with_index(1) do |element, i| 
-      puts "#{i}. #{element.name}".colorize(:light_cyan)
-      sleep 0.25
-    end
-    sleep 1
-  end
-  
-  def display_all_elements_v2(element_list, first_element_index)
-    element_list.each.with_index(first_element_index) do |element, i|
+  def display_all_elements(element_list, first_element_index = 1) 
+    element_list.each.with_index(first_element_index) do |element, i| 
       puts "#{i}. #{element.name}".colorize(:light_cyan)
       sleep 0.25
     end
