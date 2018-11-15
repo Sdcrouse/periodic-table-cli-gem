@@ -64,7 +64,6 @@ class PeriodicTable::CLI
       puts "#{i}. #{option}".colorize(:light_green)
       sleep 0.25 
     end
-    
     puts "\n"
     
     gets.strip.to_i
@@ -101,37 +100,11 @@ class PeriodicTable::CLI
         
         display_all_elements(PeriodicTable::Element.select_elements_by_atomic_number(page_of_elements.first, page_of_elements.last), page_of_elements.first)
         
-        yes_or_no = nil
-        until ["N", "No"].include?(yes_or_no)
-          puts "\nWould you like to examine one of these elements? (Y/N):\n\n"
-          yes_or_no = gets.strip.capitalize
-          
-          if ["Y", "Yes"].include?(yes_or_no)
-            examine_element_from_list(page_of_elements)
-          elsif ["N", "No"].include?(yes_or_no)
-            next 
-          else 
-            puts "\nI don't understand your choice. Please try again."
-          end
-        end
+        ask_user_to_examine_element(page_of_elements)
         
-        # I need to figure out where to put this to make it work:
-        #examine_again = nil
-        #until ["N", "No"].include?(yes_or_no)
-        #  puts "\nWould you like to examine another element? (Y/N):\n\n"
-        #  examine_again = gets.strip.capitalize 
-        #  
-        #  if ["Y", "Yes"].include?(examine_again)
-        #    examine_element_from_list(element_range)
-        #  elsif ["N", "No"].include?(examine_again)
-        #    # Go back
-        #  else 
-        #    puts "\nCould you say that again? I didn't quite understand you."
-        #  end
-        #end
       elsif selected_option == "All" || elements_per_page == element_total
         display_all_elements(PeriodicTable::Element.all, 1)
-        # Ask the user to examine an element here.
+        ask_user_to_examine_element((0..element_total).to_a)
       elsif selected_option == "Back" 
         puts "OK. Heading back to the Main Menu now.".colorize(:light_magenta)
       else
@@ -230,6 +203,24 @@ class PeriodicTable::CLI
     end
     sleep 1
   end
+  
+  def ask_user_to_examine_element(page_of_elements)
+    yes_or_no = nil
+    
+    until ["N", "No"].include?(yes_or_no)
+      puts "\nWould you like to examine one of these elements? (Y/N):\n\n"
+      yes_or_no = gets.strip.capitalize
+      
+      if ["Y", "Yes"].include?(yes_or_no)
+        examine_element_from_list(page_of_elements)
+        yes_or_no = "No"
+      elsif ["N", "No"].include?(yes_or_no)
+        next 
+      else 
+        puts "\nI don't understand your choice. Please try again."
+      end
+    end
+  end 
 
   def examine_element_from_main_menu
     element_to_examine = nil
@@ -261,7 +252,12 @@ class PeriodicTable::CLI
     
       if chosen_element_number.to_i.between?(element_range.first, element_range.last)
         element = PeriodicTable::Element.find_element_by_atomic_number(chosen_element_number)
+        
         list_properties_of(element)
+        #examine_another_element(element_range)
+        #
+        #chosen_element_number = "Back" 
+        # The line above will let the program go back to the previous option.
       elsif chosen_element_number == "Back"
         next # Exit this method and go back to the previous choice.
       else
@@ -269,6 +265,27 @@ class PeriodicTable::CLI
       end
     end
   end
+  
+  #def examine_another_element(page_of_elements) 
+  # This is commented out until I can figure out where and when to call it.
+  
+  #  examine_again = nil
+  #  until ["N", "No"].include?(examine_again)
+  #    puts "\nWould you like to examine another element? (Y/N):\n\n"
+  #    examine_again = gets.strip.capitalize 
+  #    
+  #    if ["Y", "Yes"].include?(examine_again)
+  #      examine_element_from_list(page_of_elements)
+  #      examine_again = "No" 
+  #      # This starts a chain of returns that eventually ends at #list_elements.
+  #      # This works due to the way that this method and #examine_element_from_list call #each other.
+  #    elsif ["N", "No"].include?(examine_again)
+  #      # Go back
+  #    else 
+  #      puts "\nCould you say that again? I didn't quite understand you."
+  #    end
+  #  end
+  #end
 
   def list_properties_of(element)
     element_attribute_collection = make_element_attribute_collection_from(element)
