@@ -178,6 +178,8 @@ class PeriodicTable::CLI
           end
         end
         
+        page_of_elements = get_page_of_elements(page_number, page_total, elements_per_page, element_total)
+        
         display_page_of_elements(page_number, page_total, elements_per_page,  element_total)
         
         yes_or_no = nil
@@ -186,7 +188,7 @@ class PeriodicTable::CLI
           yes_or_no = gets.strip.capitalize
           
           if ["Y", "Yes"].include?(yes_or_no)
-            examine_element_from_list((1..10).to_a) # This stub is temporary
+            examine_element_from_list(page_of_elements)
           elsif ["N", "No"].include?(yes_or_no)
             next 
           else 
@@ -219,6 +221,32 @@ class PeriodicTable::CLI
     end
   end
   
+  def get_page_of_elements(page_number, page_total, elements_per_page, element_total)
+    first_element_index, last_element_index = 0, 0
+    
+    if elements_per_page > element_total # Edge case 1
+      raise StandardError, "The specified number of chemical elements per page is more than the number of known chemical elements."
+    elsif page_number > page_total # Edge case 2
+      raise StandardError, "The specified page number is more than the total number of pages."
+    end
+    
+    if page_number == page_total
+      last_element_ = element_total
+      number_of_elements_on_last_page = element_total % elements_per_page
+      
+      if number_of_elements_on_last_page == 0 
+        first_element_index = element_total - elements_per_page + 1 # 118 - 59 + 1 = 60
+      else 
+        first_element_index = element_total - number_of_elements_on_last_page + 1 # 118 - 8 + 1 = 111
+      end
+    else 
+      last_element_index = elements_per_page * page_number
+      first_element_index = last_element_index - elements_per_page + 1
+    end
+    
+    (first_element_index..last_element_index).to_a
+  end 
+  
   def display_page_of_elements(page_number, page_total, elements_per_page, element_total)
     # If you want to display page 1 with 40 elements, then display Elements 1-40
     # If you want to display page 2 with 40 elements, then display Elements 41-80
@@ -237,23 +265,29 @@ class PeriodicTable::CLI
     # Or, first_element_number = last_element_number - elements_per_page + 1
     # Maybe it would be easier to somehow keep track of the previous page?
     
-    #first, last = 0, 0
+    first_element_index, last_element_index = 0, 0
     
-    if page_number == page_total
-      last_element_number = element_total
-      final_element_group = element_total % elements_per_page
-      
-      if final_element_group == 0 
-        first_element_number = element_total - elements_per_page + 1 # 118 - 59 + 1 = 60
-      else 
-        first_element_number = element_total - final_element_group + 1 # 118 - 8 + 1 = 111
-      end
-    else 
-      last_element_number = elements_per_page * page_number
-      first_element_number = last_element_number - elements_per_page + 1
+    if elements_per_page > element_total # Edge case 1
+      raise StandardError, "The specified number of chemical elements per page is more than the number of known chemical elements."
+    elsif page_number > page_total # Edge case 2
+      raise StandardError, "The specified page number is more than the total number of pages."
     end
     
-    display_all_elements_v2(PeriodicTable::Element.select_elements_by_atomic_number(first_element_number, last_element_number), first_element_number)
+    if page_number == page_total
+      last_element_ = element_total
+      number_of_elements_on_last_page = element_total % elements_per_page
+      
+      if number_of_elements_on_last_page == 0 
+        first_element_index = element_total - elements_per_page + 1 # 118 - 59 + 1 = 60
+      else 
+        first_element_index = element_total - number_of_elements_on_last_page + 1 # 118 - 8 + 1 = 111
+      end
+    else 
+      last_element_index = elements_per_page * page_number
+      first_element_index = last_element_index - elements_per_page + 1
+    end
+    
+    display_all_elements_v2(PeriodicTable::Element.select_elements_by_atomic_number(first_element_index, last_element_index), first_element_index)
     #puts "The page of elements has been displayed."
   end
   
