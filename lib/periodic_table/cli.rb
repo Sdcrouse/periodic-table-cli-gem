@@ -15,14 +15,14 @@ class PeriodicTable::CLI
   
   def start
     start_program = nil
-    until ["Y", "YES", "N", "NO"].include?(start_program)
+    until ["Y", "Yes", "N", "No"].include?(start_program)
       puts "Welcome to the Interactive Periodic Table!".colorize(:light_red)
       puts "Ready to start learning some chemistry? (Y/N)\n".colorize(:light_red)
-      start_program = gets.strip.upcase
+      start_program = gets.strip.capitalize
       
-      if start_program == "Y" || start_program == "YES"
+      if ["Y", "Yes"].include?(start_program)
         main_menu 
-      elsif start_program == "N" || start_program == "NO"
+      elsif ["N", "No"].include?(start_program)
         next
       else 
         puts "\nI don't understand what you're saying. Please try again.\n".colorize(:light_red)
@@ -32,16 +32,15 @@ class PeriodicTable::CLI
 
   def main_menu
     menu_options = ["View a List of Chemical Elements", "List the Element Names Alphabetically", "Examine an Element", "Help", "Quit"]
-    selected_option = nil
     exit_program = nil
     
     puts "\nHere's where the REAL fun begins!".colorize(:light_yellow)
 
-    until exit_program == "Y" || exit_program == "YES"
+    until ["Y", "Yes"].include?(exit_program)
       puts "\nWelcome to the Main Menu! What would you like to do?".colorize(:light_yellow)
-      selected_option = choose_from(menu_options)
+      selected_menu_option = choose_from(menu_options)
 
-      case selected_option
+      case selected_menu_option
       when 1
         list_elements
       when 2
@@ -60,22 +59,27 @@ class PeriodicTable::CLI
 
   def choose_from(option_list)
     puts "Choose from the numbered list below:\n".colorize(:light_green)
+    
     option_list.each.with_index(1) do |option, i| 
       puts "#{i}. #{option}".colorize(:light_green)
       sleep 0.25 
     end
+    
     puts "\n"
+    
     gets.strip.to_i
   end
   
   def list_elements
-     selected_option = nil
+    selected_option = nil
     element_total = PeriodicTable::Element.all.size
     
     until selected_option == "Back"
       puts "\nHow many elements would you like to see? Please enter a number, or type 'all' to see them all. To go back to the Main Menu, type 'back'.\n".colorize  (:light_magenta)
+      
       selected_option = gets.strip.capitalize
       elements_per_page = selected_option.to_i
+      
       puts "\n"
       
       if elements_per_page.between?(1, element_total - 1)
@@ -150,8 +154,10 @@ class PeriodicTable::CLI
   def introduction
     puts "\nThe Interactive Periodic Table is designed to mimic a real periodic table by providing information about each of the currently known chemical elements.".colorize(:light_red)
     sleep 5
+    
     puts "\nIn this program, you are able to view a list of all or some of the chemical elements, list the names of the chemical elements alphabetically, and examine an individual chemical element for more information.".colorize(:light_red)
     sleep 5
+    
     puts "\nAs a side note, by default the chemical elements are listed by their atomic numbers.".colorize(:light_red)
     sleep 3
   end
@@ -159,14 +165,19 @@ class PeriodicTable::CLI
   def describe_main_menu_options
     puts "\nHere are the Main Menu options:".colorize(:light_yellow)
     sleep 1
+    
     puts "Press 1 to view a list of chemical elements from the Periodic Table.".colorize(:light_yellow)
     sleep 1
+    
     puts "Press 2 to see the names of the chemical elements listed in alphabetical order.".colorize(:light_yellow)
     sleep 1
+    
     puts "Press 3 to get more information about an element (name, properties, etc).".colorize(:light_yellow)
     sleep 1
+    
     puts "Press 4 to view this description of the Main Menu options.".colorize(:light_yellow)
     sleep 1
+    
     puts "Press 5 to quit the Interactive Periodic Table.".colorize(:light_yellow)
     sleep 3
   end
@@ -174,11 +185,11 @@ class PeriodicTable::CLI
   def quit?
     yes_or_no = nil
     
-    until ["Y", "YES", "N", "NO"].include?(yes_or_no)
+    until ["Y", "Yes", "N", "No"].include?(yes_or_no)
       puts "\nAre you sure you want to quit? (Y/N):\n".colorize(:light_yellow)
-      yes_or_no = gets.strip.upcase
+      yes_or_no = gets.strip.capitalize
       
-      unless ["Y", "YES", "N", "NO"].include?(yes_or_no)
+      unless ["Y", "Yes", "N", "No"].include?(yes_or_no)
         puts "\nI don't understand your answer. Please try again.".colorize(:light_yellow)
       end
     end
@@ -196,13 +207,13 @@ class PeriodicTable::CLI
     end
     
     if page_number == page_total
-      last_element_ = element_total
+      last_element_index = element_total
       number_of_elements_on_last_page = element_total % elements_per_page
       
       if number_of_elements_on_last_page == 0 
-        first_element_index = element_total - elements_per_page + 1 # 118 - 59 + 1 = 60
+        first_element_index = element_total - elements_per_page + 1 
       else 
-        first_element_index = element_total - number_of_elements_on_last_page + 1 # 118 - 8 + 1 = 111
+        first_element_index = element_total - number_of_elements_on_last_page + 1 
       end
     else 
       last_element_index = elements_per_page * page_number
