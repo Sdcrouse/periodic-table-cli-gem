@@ -12,7 +12,7 @@ class PeriodicTable::TableScraper
     elements_array = scraped_elements[2..-2].collect do |scraped_element| 
       make_properties_hash_from(scraped_element)
     end
-    
+  
     # Return the elements_array after adding the zero_abundance_footnote to the appropriate hashes:
     insert_zero_abundance_footnote(elements_array, zero_abundance_footnote)
   end
@@ -28,12 +28,21 @@ class PeriodicTable::TableScraper
     melting_point_text = get_text_from(element_properties_node[8])
     boiling_point_text = get_text_from(element_properties_node[9])
     
+    # These two variable definitions are necessary in order to set up the special case for Livermorium:
+    symbol_text = element_properties_node[1].text
+    name_text = element_properties_node[2].text
+    
+    # This is that special case for Livermorium:
+    if symbol_text == "Lv"
+      name_text = get_text_from(element_properties_node[2])
+    end
+    
     # Make and return the element_properties_hash:
     element_properties_hash = {
       atomic_number: element_properties_node[0].text,
-      symbol: element_properties_node[1].text,
+      symbol: symbol_text,
       element_type: determine_element_type_from(background_color),
-      name: element_properties_node[2].text,
+      name: name_text,
       element_url: "https://en.wikipedia.org" + element_properties_node[2].css("a").attr("href").value,
       name_origin: element_properties_node[3].text,
       group: number_or_na(element_properties_node[4].text),
@@ -80,6 +89,7 @@ class PeriodicTable::TableScraper
   def self.get_text_from(element_property_node) 
     # This method should receive a node from the element_properties Array (from the class method #make_properties_hash_from) as its argument.
     # This helps the scraper get the needed text from inconsistently structured td nodes.
+    # It also prevents citation references like [III][IV] from showing up in the values.
     
     span_node = element_property_node.css("span")
     
