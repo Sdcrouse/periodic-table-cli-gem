@@ -108,7 +108,7 @@ class PeriodicTable::CLI
         
       elsif selected_option == "All" || elements_per_page == element_total
         display_all_elements(PeriodicTable::Element.all, 1)
-        ask_user_to_examine_element((0..element_total).to_a)
+        ask_user_to_examine_element((1..element_total).to_a)
       elsif selected_option == "Back" 
         puts "OK. Heading back to the Main Menu now.".colorize(:light_magenta)
       else
