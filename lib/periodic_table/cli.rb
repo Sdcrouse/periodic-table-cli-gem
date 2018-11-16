@@ -105,7 +105,7 @@ class PeriodicTable::CLI
           elsif page_number == "Back"
             next
           else
-            puts "Sorry. That is an invalid choice. Please try again.".colorize  (:light_magenta)
+            puts "\nSorry. That is an invalid choice. Please try again.\n".colorize  (:light_magenta)
           end
         end
       elsif selected_option == "All" || elements_per_page == element_total
@@ -213,7 +213,7 @@ class PeriodicTable::CLI
       
       if ["Y", "Yes"].include?(yes_or_no)
         examine_element_from_list(page_of_elements)
-        #yes_or_no = "No"
+        yes_or_no = "No"
       elsif ["N", "No"].include?(yes_or_no)
         next 
       else 
@@ -235,14 +235,35 @@ class PeriodicTable::CLI
         element = PeriodicTable::Element.find_element_by_atomic_number(chosen_element_number)
         
         list_properties_of(element)
-        #examine_another_element(element_range)
-        #
-        #chosen_element_number = "Back" 
-        # The line above will let the program go back to the previous option.
+        examine_another_element(element_range)
+        
+        chosen_element_number = "Back" 
+        # The line above will prevent the program from asking the user which element to examine, right after they said "No" to examining another element.
       elsif chosen_element_number == "Back"
         next # Exit this method and go back to the previous choice.
       else
         puts "\nI don't understand your choice. Please try again."
+      end
+    end
+  end
+  
+  #----------------Helper Method for #examine_element_from_list------------------
+  
+  def examine_another_element(page_of_elements) 
+    examine_again = nil
+    until ["N", "No"].include?(examine_again)
+      puts "\nWould you like to examine another element? (Y/N):\n\n"
+      examine_again = gets.strip.capitalize 
+      
+      if ["Y", "Yes"].include?(examine_again)
+        examine_element_from_list(page_of_elements)
+        examine_again = "No" 
+        #The line above starts a chain of returns that eventually ends at #list_elements.
+        #This works due to the way that #examine_another_element and #examine_element_from_list call each other.
+      elsif ["N", "No"].include?(examine_again)
+        # Go back
+      else 
+        puts "\nCould you say that again? I didn't quite understand you."
       end
     end
   end
@@ -289,30 +310,6 @@ class PeriodicTable::CLI
     puts "#{key}: #{value}".strip.colorize(attribute_hash["color"])
     sleep 0.5
   end
-end
-
-#----------------Helper Method for #examine_element_from_list------------------
-  
-  #def examine_another_element(page_of_elements) 
-  # This is commented out until I can figure out where and when to call it.
-  
-  #  examine_again = nil
-  #  until ["N", "No"].include?(examine_again)
-  #    puts "\nWould you like to examine another element? (Y/N):\n\n"
-  #    examine_again = gets.strip.capitalize 
-  #    
-  #    if ["Y", "Yes"].include?(examine_again)
-  #      examine_element_from_list(page_of_elements)
-  #      examine_again = "No" 
-  #      # This starts a chain of returns that eventually ends at #list_elements.
-  #      # This works due to the way that this method and #examine_element_from_list call #each other.
-  #    elsif ["N", "No"].include?(examine_again)
-  #      # Go back
-  #    else 
-  #      puts "\nCould you say that again? I didn't quite understand you."
-  #    end
-  #  end
-  #end
   
   #---------------------------Helper Methods for #help-----------------------------
   
@@ -346,3 +343,4 @@ end
     puts "Press 5 to quit the Interactive Periodic Table.".colorize(:light_yellow)
     sleep 3
   end
+end
