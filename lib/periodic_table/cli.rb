@@ -88,24 +88,26 @@ class PeriodicTable::CLI
       if elements_per_page.between?(1, element_total - 1)
         page_total = element_total / elements_per_page
         page_total += 1 unless element_total % elements_per_page == 0
-        page_number = 0
+        page_number = nil
         
-        until page_number.between?(1, page_total)
-          puts "Which page of elements would you like to see? Choose from 1-#{page_total}:\n".colorize(:light_magenta)
-          page_number = gets.strip.to_i
-          puts "\n"
+        until page_number == "Back"
+          puts "Which page of elements would you like to see? Choose from 1-#{page_total}, or type 'back' to go back to the previous option.\n".colorize(:light_magenta)
+          page_number = gets.strip.capitalize
           
-          unless page_number.between?(1, page_total) 
+          if page_number.to_i.between?(1, page_total)
+            page_of_elements = get_page_of_elements(page_number.to_i, page_total, elements_per_page, element_total)
+            
+            puts "\n"
+            display_all_elements(PeriodicTable::Element.select_elements_by_atomic_number(page_of_elements.first, page_of_elements.last), page_of_elements.first)
+            
+            ask_user_to_examine_element(page_of_elements)
+            puts "\n"
+          elsif page_number == "Back"
+            next
+          else
             puts "Sorry. That is an invalid choice. Please try again.".colorize  (:light_magenta)
           end
         end
-        
-        page_of_elements = get_page_of_elements(page_number, page_total, elements_per_page, element_total)
-        
-        display_all_elements(PeriodicTable::Element.select_elements_by_atomic_number(page_of_elements.first, page_of_elements.last), page_of_elements.first)
-        
-        ask_user_to_examine_element(page_of_elements)
-        
       elsif selected_option == "All" || elements_per_page == element_total
         display_all_elements(PeriodicTable::Element.all, 1)
         ask_user_to_examine_element((1..element_total).to_a)
@@ -211,7 +213,7 @@ class PeriodicTable::CLI
       
       if ["Y", "Yes"].include?(yes_or_no)
         examine_element_from_list(page_of_elements)
-        yes_or_no = "No"
+        #yes_or_no = "No"
       elsif ["N", "No"].include?(yes_or_no)
         next 
       else 
