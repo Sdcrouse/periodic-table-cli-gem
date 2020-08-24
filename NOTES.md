@@ -65,3 +65,11 @@ Ideas for a newer version after THAT -------------------------------------------
 •	Display more information about a specific molecular compound in the inventory
 •	Erase the inventory at the user’s request
 •	Be named ChemLabCLI or ChemLabAPI
+
+Development notes -------------------------------------------------------------------------
+The following notes are from when I used `require 'pry'` in the `config/environment.rb` file (not a good idea).
+I ran `bin/setup`, then `bundle exec rake install`. I still couldn't properly run `bin/periodic-table`.
+Update: I think I found the answer at https://stackoverflow.com/questions/18335229/how-to-add-pry-when-developing-a-ruby-gem
+The Pry gem is a development-only dependency, so it shouldn't be required in the environment file used by the CLI itself, or it'll output a `LoadError`. Also, if I want to use the Pry gem, I can't run it through `bin/periodic-table`; I need to use `bin/console`.
+
+Also, I don't know if it's necessary to have that statement in the README about running `bundle exec rake install`.
