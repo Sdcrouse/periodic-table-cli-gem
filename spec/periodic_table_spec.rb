@@ -4,7 +4,7 @@ RSpec.describe PeriodicTable do
   end
 
   it "scrapes the periodic table and creates new Elements" do
-    elements_array = PeriodicTable::TableScraper.new.scrape_periodic_table
+    elements_array = PeriodicTable::TableScraper.scrape_periodic_table
     
     expect(PeriodicTable::CLI.new.make_elements).to eq(elements_array)
     expect(PeriodicTable::Element.all.size).to eq(118)
