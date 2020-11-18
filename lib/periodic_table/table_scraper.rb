@@ -1,7 +1,4 @@
 class PeriodicTable::TableScraper
-  extend PeriodicTable::ValueModifier
-  # The following class methods are in the ValueModifier module: #number_or_na, #remove_brackets_or_uncertainty_from, #remove_parentheses_from, and #insert_zero_abundance_footnote
-
   def self.scrape_periodic_table
     page = Nokogiri::HTML(open("https://en.wikipedia.org/wiki/List_of_chemical_elements"))
     scraped_elements = page.css("#mw-content-text table.wikitable tbody tr")[4..-2]
@@ -96,5 +93,38 @@ class PeriodicTable::TableScraper
     else
       span_node.children[0].text.strip
     end
+  end
+
+  # The following helper methods deal with modifying values to make them more readable:
+  
+  def self.number_or_na(node_text)
+    # Change the value of the node_text to nil unless it's a number.
+    # This affects property nodes that have blank or "-" values.
+    
+    node_text.match(/\d+/) ? node_text : "N/A"
+  end
+  
+  def self.remove_brackets_or_uncertainty_from(attribute_value)
+    if attribute_value.match(/\[\d+\]/) 
+      attribute_value.gsub(/(\[|\])/, "") # Remove brackets (if any) from the attribute_value
+    else
+      attribute_value.to_f # Remove uncertainty (if any) from the attribute_value
+    end
+  end
+  
+  def self.remove_parentheses_from(attribute_value)
+    attribute_value.gsub(/(\(|\))/, "")
+  end
+  
+  def self.insert_zero_abundance_footnote(elements_array, zero_abundance_footnote)
+    # Insert the zero_abundance_footnote here for abundance values equal to zero:
+    
+    elements_array.each do |element_attributes_hash|
+      if element_attributes_hash[:abundance] == "0"
+        element_attributes_hash[:abundance] += " (#{zero_abundance_footnote})"
+      end
+    end
+    
+    elements_array
   end
 end
