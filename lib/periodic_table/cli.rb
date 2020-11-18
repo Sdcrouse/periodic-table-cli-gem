@@ -1,6 +1,6 @@
 class PeriodicTable::CLI
   #----------------------------Initial Methods--------------------------------
-  
+  # Is it possible to refactor this with instance variables and/or by taking big-O into consideration?
   def call
     make_elements
     start
