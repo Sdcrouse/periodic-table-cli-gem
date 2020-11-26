@@ -22,7 +22,7 @@ class PeriodicTable::TableScraper
     boiling_point_text = get_text_from(element_properties_node[9]) 
 
     # Get the element's abundance, adding the footnote for zero abundance if need be:
-    abundance_text = element_properties_node[12].children[0].text.strip
+    abundance_text = element_properties_node[12].children[0].text
     if abundance_text == "0"
       abundance_text += " (#{zero_abundance_footnote})"
     end
@@ -84,9 +84,9 @@ class PeriodicTable::TableScraper
     span_node = element_property_node.css("span")
     
     if span_node.size == 0
-      element_property_node.children[0].text.strip
+      element_property_node.children[0].text
     else
-      span_node.children[0].text.strip
+      span_node.children[0].text
     end
   end
 
