@@ -2,7 +2,7 @@ class PeriodicTable::TableScraper
   def self.scrape_periodic_table
     page = Nokogiri::HTML(open("https://en.wikipedia.org/wiki/List_of_chemical_elements"))
     scraped_elements = page.css("#mw-content-text table.wikitable tbody tr")[4..-2]
-    zero_abundance_footnote = page.css("#cite_note-fn14-18 span.reference-text").text
+    zero_abundance_footnote = page.css("#cite_note-fn14-20 span.reference-text").text
     
     elements_array = scraped_elements.collect do |scraped_element| 
       make_properties_hash_from(scraped_element)
