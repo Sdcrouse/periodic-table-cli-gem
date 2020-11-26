@@ -4,15 +4,13 @@ class PeriodicTable::TableScraper
     scraped_elements = page.css("#mw-content-text table.wikitable tbody tr")[4..-2]
     zero_abundance_footnote = page.css("#cite_note-fn14-20 span.reference-text").text
     
-    elements_array = scraped_elements.collect do |scraped_element| 
-      make_properties_hash_from(scraped_element)
+    # Make a hash of properties for each element, then return an array of those hashes:
+    scraped_elements.collect do |scraped_element| 
+      make_properties_hash_from(scraped_element, zero_abundance_footnote)
     end
-  
-    # Return the elements_array after adding the zero_abundance_footnote to the appropriate hashes:
-    insert_zero_abundance_footnote(elements_array, zero_abundance_footnote)
   end
 
-  def self.make_properties_hash_from(scraped_element)
+  def self.make_properties_hash_from(scraped_element, zero_abundance_footnote)
     # Get the element_properties_node
     element_properties_node = scraped_element.css("td")
     
@@ -31,6 +29,12 @@ class PeriodicTable::TableScraper
     if symbol_text == "Lv"
       name_text = get_text_from(element_properties_node[2])
     end
+
+    # Get the element's abundance, adding the footnote for zero abundance if need be:
+    abundance_text = element_properties_node[12].children[0].text.strip
+    if abundance_text == "0"
+      abundance_text += " (#{zero_abundance_footnote})"
+    end
     
     # Make and return the element_properties_hash:
     element_properties_hash = {
@@ -48,7 +52,7 @@ class PeriodicTable::TableScraper
       boiling_point: remove_parentheses_from(number_or_na(boiling_point_text)),
       heat_capacity: number_or_na(element_properties_node[10].text),
       electronegativity: number_or_na(element_properties_node[11].text),
-      abundance: element_properties_node[12].children[0].text.strip 
+      abundance: abundance_text
     }
   end
   
@@ -114,17 +118,5 @@ class PeriodicTable::TableScraper
   
   def self.remove_parentheses_from(attribute_value)
     attribute_value.gsub(/(\(|\))/, "")
-  end
-  
-  def self.insert_zero_abundance_footnote(elements_array, zero_abundance_footnote)
-    # Insert the zero_abundance_footnote here for abundance values equal to zero:
-    
-    elements_array.each do |element_attributes_hash|
-      if element_attributes_hash[:abundance] == "0"
-        element_attributes_hash[:abundance] += " (#{zero_abundance_footnote})"
-      end
-    end
-    
-    elements_array
   end
 end
