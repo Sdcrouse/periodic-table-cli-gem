@@ -82,12 +82,10 @@ class PeriodicTable::TableScraper
     # It also prevents citation references like [III][IV] from showing up in the values.
     
     span_node = element_property_node.css("span")
-    
-    if span_node.size == 0
-      element_property_node.children[0].text
-    else
-      span_node.children[0].text
-    end
+
+    correct_node = span_node.size == 0 ? element_property_node : span_node
+
+    correct_node.children[0].text
   end
 
   # The following helper methods deal with modifying values to make them more readable:
