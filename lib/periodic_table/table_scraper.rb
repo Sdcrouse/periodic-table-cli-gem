@@ -19,16 +19,7 @@ class PeriodicTable::TableScraper
     atomic_weight_text = get_text_from(element_properties_node[6])
     density_text = get_text_from(element_properties_node[7])
     melting_point_text = get_text_from(element_properties_node[8])
-    boiling_point_text = get_text_from(element_properties_node[9])
-    
-    # These two variable definitions are necessary in order to set up the special case for Livermorium:
-    symbol_text = element_properties_node[1].text
-    name_text = element_properties_node[2].text
-    
-    # This is that special case for Livermorium:
-    if symbol_text == "Lv"
-      name_text = get_text_from(element_properties_node[2])
-    end
+    boiling_point_text = get_text_from(element_properties_node[9]) 
 
     # Get the element's abundance, adding the footnote for zero abundance if need be:
     abundance_text = element_properties_node[12].children[0].text.strip
@@ -39,9 +30,9 @@ class PeriodicTable::TableScraper
     # Make and return the element_properties_hash:
     element_properties_hash = {
       atomic_number: element_properties_node[0].text,
-      symbol: symbol_text,
+      symbol: element_properties_node[1].text,
       element_type: determine_element_type_from(background_color),
-      name: name_text,
+      name: element_properties_node[2].text,
       element_url: "https://en.wikipedia.org" + element_properties_node[2].css("a").attr("href").value,
       name_origin: element_properties_node[3].text,
       group: number_or_na(element_properties_node[4].text),
